@@ -629,6 +629,194 @@
             background: #2563eb;
         }
 
+        /* Comparison Section */
+        .comparison-section {
+            padding: 120px 20px;
+            background: white;
+            position: relative;
+        }
+
+        .comparison-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .comparison-table {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .table-header {
+            display: grid;
+            grid-template-columns: 150px 1fr 1fr;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .header-cell {
+            padding: 25px 20px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-align: center;
+            border-right: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .header-cell:last-child {
+            border-right: none;
+        }
+
+        .header-cell.featured {
+            background: rgba(78, 222, 128, 0.2);
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 150px 1fr 1fr;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .row-label {
+            padding: 30px 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 2px solid #e5e7eb;
+            color: #667eea;
+        }
+
+        .table-cell {
+            padding: 30px 25px;
+            border-right: 2px solid #f0f0f0;
+            background: white;
+        }
+
+        .table-cell:last-child {
+            border-right: none;
+        }
+
+        .featured-cell {
+            background: rgba(78, 222, 128, 0.05);
+        }
+
+        .cell-title {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+            margin-top: 15px;
+        }
+
+        .cell-title:first-child {
+            margin-top: 0;
+        }
+
+        .table-cell p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .comparison-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .comparison-list li {
+            padding: 10px 0;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .comparison-list.highlight li {
+            color: #2d7a5f;
+        }
+
+        .comparison-list.negative li {
+            color: #666;
+        }
+
+        @media (max-width: 1024px) {
+            .table-header,
+            .table-row {
+                grid-template-columns: 120px 1fr 1fr;
+            }
+
+            .header-cell,
+            .row-label {
+                font-size: 1rem;
+                padding: 20px 15px;
+            }
+
+            .table-cell {
+                padding: 20px 15px;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .comparison-section {
+                padding: 80px 20px;
+            }
+
+            .table-header {
+                display: none;
+            }
+
+            .table-row {
+                display: block;
+                margin-bottom: 30px;
+                border: 2px solid #e5e7eb;
+                border-radius: 15px;
+                overflow: hidden;
+            }
+
+            .row-label {
+                display: block;
+                text-align: center;
+                padding: 15px;
+                font-size: 1.1rem;
+                border-right: none;
+                border-bottom: 2px solid #e5e7eb;
+            }
+
+            .table-cell {
+                display: block;
+                border-right: none;
+                border-bottom: 2px solid #f0f0f0;
+            }
+
+            .table-cell:last-child {
+                border-bottom: none;
+            }
+
+            .table-cell::before {
+                content: attr(data-label);
+                display: block;
+                font-weight: 700;
+                color: #667eea;
+                margin-bottom: 10px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #e5e7eb;
+            }
+
+            .featured-cell::before {
+                content: "線上打卡";
+            }
+
+            .table-cell:not(.featured-cell)::before {
+                content: "傳統打卡鐘";
+            }
+        }
+
         /* Features Section with Card Hover */
         .features-section {
             padding: 120px 20px;
@@ -1312,6 +1500,70 @@
         </div>
     </section>
 
+    <!-- Comparison Section -->
+    <section class="comparison-section reveal">
+        <h2 class="section-title">傳統打卡 vs 線上打卡比較</h2>
+        <div class="comparison-container">
+            <div class="comparison-table">
+                <div class="table-header">
+                    <div class="header-cell"></div>
+                    <div class="header-cell highlight">傳統打卡鐘</div>
+                    <div class="header-cell featured">線上打卡</div>
+                </div>
+
+                <div class="table-row">
+                    <div class="row-label">打卡方式</div>
+                    <div class="table-cell">
+                        <div class="cell-title">紙卡打卡鐘：</div>
+                        <p>將紙卡插入機器，在卡片上留下日期時間印記。</p>
+                        <div class="cell-title">感應式打卡鐘：</div>
+                        <p>利用內建晶片的感應卡感應打卡，資料同步儲存於系統。</p>
+                    </div>
+                    <div class="table-cell featured-cell">
+                        <p>透過網路或應用程式完成考勤打卡，通常使用手機、電腦等裝置，進行 IP 或 GPS 位置驗證後即可打卡。</p>
+                    </div>
+                </div>
+
+                <div class="table-row">
+                    <div class="row-label">優點</div>
+                    <div class="table-cell">
+                        <ul class="comparison-list">
+                            <li>✓ 操作簡單且費用相對較低</li>
+                            <li>✓ 員工熟悉打卡流程</li>
+                            <li>✓ 設備購買即可使用</li>
+                        </ul>
+                    </div>
+                    <div class="table-cell featured-cell">
+                        <ul class="comparison-list highlight">
+                            <li>✓ 不受地點限制，隨時隨地打卡</li>
+                            <li>✓ 資料即時同步至雲端系統</li>
+                            <li>✓ 出勤異常自動識別與提醒</li>
+                            <li>✓ 可設定指紋打卡機等打卡設備</li>
+                            <li>✓ 可整合 LINE 進行打卡</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="table-row">
+                    <div class="row-label">缺點</div>
+                    <div class="table-cell">
+                        <ul class="comparison-list negative">
+                            <li>✗ 紙卡打卡需人工整理統計</li>
+                            <li>✗ 無法處理遠距辦公、外勤等狀況</li>
+                            <li>✗ 容易忘記打卡或代打卡</li>
+                        </ul>
+                    </div>
+                    <div class="table-cell featured-cell">
+                        <ul class="comparison-list negative">
+                            <li>✗ 仰賴網路環境連接</li>
+                            <li>✗ 可能發生忘記打卡情況</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Features Detail Section -->
     <section class="features-section reveal" id="resources">
         <h2 class="section-title">完整功能特色</h2>
@@ -1588,14 +1840,14 @@
         <p style="opacity: 0.7; margin: 20px 0;">企業考勤管理最佳解決方案</p>
         
         <div class="footer-contact">
-            <h3 style="color: #667eea; margin-bottom: 20px; font-size: 1.5rem;">📞 聯絡我們</h3>
+            <h3 style="color: #667eea; margin-bottom: 20px; font-size: 1.5rem;">聯絡我們</h3>
             <div class="contact-item">
                 <div class="contact-row">
-                    <strong>📧 Email:</strong>
+                    <strong>Email:</strong>
                     <a href="mailto:exo881222@gmail.com">exo881222@gmail.com</a>
                 </div>
                 <div class="contact-row">
-                    <strong>📱 Instagram:</strong>
+                    <strong>Instagram:</strong>
                     <a href="https://www.instagram.com/tw.eric_technology/" target="_blank">@tw.eric_technology</a>
                 </div>
             </div>
