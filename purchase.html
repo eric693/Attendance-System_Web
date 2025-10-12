@@ -286,7 +286,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>購買打卡救星</h1>
+            <h1>🎉 購買打卡救星</h1>
             <p>填寫以下資訊，我們將儘快與您聯繫</p>
         </div>
 
@@ -414,31 +414,54 @@
         const loading = document.getElementById('loading');
         const successMessage = document.getElementById('successMessage');
         const errorMessage = document.getElementById('errorMessage');
-        const formContainer = document.querySelector('.form-container');
 
-        form.addEventListener('submit', function(e) {
+        // 測試：確認事件監聽器有綁定
+        console.log('表單已載入');
+        console.log('submitBtn:', submitBtn);
+        console.log('form:', form);
+
+        // 使用 click 事件而非 submit 事件
+        submitBtn.addEventListener('click', function(e) {
             e.preventDefault();
+            console.log('按鈕被點擊了！');
 
             // 驗證是否選擇方案
             const selectedPlan = document.querySelector('input[name="plan"]:checked');
+            console.log('選擇的方案:', selectedPlan);
+            
             if (!selectedPlan) {
                 errorMessage.textContent = '請選擇一個方案！';
                 errorMessage.style.display = 'block';
+                console.log('未選擇方案');
+                return;
+            }
+
+            // 驗證必填欄位
+            const companyName = document.getElementById('companyName').value;
+            const contactName = document.getElementById('contactName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+
+            if (!companyName || !contactName || !email || !phone) {
+                errorMessage.textContent = '請填寫所有必填欄位！';
+                errorMessage.style.display = 'block';
+                console.log('有必填欄位未填寫');
                 return;
             }
 
             // Get form data
-            const formData = new FormData(form);
             const data = {
-                plan: formData.get('plan'),
-                companyName: formData.get('companyName'),
-                contactName: formData.get('contactName'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                employeeCount: formData.get('employeeCount') || '未填寫',
-                message: formData.get('message') || '無',
+                plan: selectedPlan.value,
+                companyName: companyName,
+                contactName: contactName,
+                email: email,
+                phone: phone,
+                employeeCount: document.getElementById('employeeCount').value || '未填寫',
+                message: document.getElementById('message').value || '無',
                 timestamp: new Date().toLocaleString('zh-TW')
             };
+
+            console.log('表單資料:', data);
 
             // Hide error message
             errorMessage.style.display = 'none';
@@ -447,16 +470,21 @@
             form.style.display = 'none';
             loading.style.display = 'block';
 
+            console.log('準備發送郵件...');
+
             // 發送郵件
             sendEmail(data);
 
             // 2 秒後跳轉回首頁
             setTimeout(function() {
+                console.log('準備跳轉回首頁...');
                 window.location.href = 'index.html';
             }, 2000);
         });
 
         function sendEmail(data) {
+            console.log('sendEmail 函數被調用');
+            
             // 建立郵件內容
             const subject = '【打卡救星】新購買申請 - ' + data.companyName;
             const body = 
@@ -474,11 +502,10 @@
             // 創建 mailto 連結
             const mailtoLink = 'mailto:exo881222@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
             
+            console.log('Mailto 連結:', mailtoLink);
+            
             // 開啟郵件程式
             window.location.href = mailtoLink;
-            
-            // 同時在 console 顯示資料（供測試用）
-            console.log('表單資料:', data);
         }
     </script>
 </body>
