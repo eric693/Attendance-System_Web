@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>打卡救星 | LINE 打卡鐘 - 企業考勤最佳解決方案</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft JhengHei', 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background: #0a0a0a;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 40px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.15);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2d7a5f 0%, #1e5a45 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            animation: pulse 2s ease-in-out infinite;
+            position: relative;
+            overflow: visible;
+        }
+
+        .logo-icon svg {
+            width: 45px;
+            height: 45px;
+        }
+
+        .clock-hand-hour {
+            animation: rotateHour 43200s linear infinite;
+            transform-origin: 50% 50%;
+        }
+
+        .clock-hand-minute {
+            animation: rotateMinute 3600s linear infinite;
+            transform-origin: 50% 50%;
+        }
+
+        @keyframes rotateHour {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes rotateMinute {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .star-glow {
+            animation: starGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes starGlow {
+            0%, 100% { 
+                opacity: 1;
+                filter: drop-shadow(0 0 3px #FFD700);
+            }
+            50% { 
+                opacity: 0.6;
+                filter: drop-shadow(0 0 8px #FFA500);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2d7a5f;
+        }
+
+        .logo-subtitle {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: #2d7a5f;
+            transform: translateY(-2px);
+        }
+
+        .nav-menu .active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #2d7a5f, #4ade80);
+            border-radius: 2px;
+        }
+
+        .nav-menu .new-badge {
+            background: linear-gradient(135deg, #ff0000, #ff4444);
+            color: white;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 10px;
+            position: absolute;
+            top: -10px;
+            right: -30px;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, #2d7a5f 0%, #1e5a45 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(45, 122, 95, 0.3);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 122, 95, 0.4);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #333;
+        }
+
+        /* Hero Section with Particles */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 180px 20px 120px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 70px;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.2s forwards;
+            letter-spacing: 3px;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.4s forwards;
+            letter-spacing: 5px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .hero-tagline {
+            font-size: 1.8rem;
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.6s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 20px 60px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-top: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.8s forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(102, 126, 234, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .float-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: floatAround 20s ease-in-out infinite;
+        }
+
+        @keyframes floatAround {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(50px, 50px) rotate(90deg);
+            }
+            50% {
+                transform: translate(100px, 0) rotate(180deg);
+            }
+            75% {
+                transform: translate(50px, -50px) rotate(270deg);
+            }
+        }
+
+        /* Product Intro with 3D Effect */
+        .product-intro {
+            background: linear-gradient(135deg, #1e5a45 0%, #2d7a5f 100%);
+            color: white;
+            padding: 120px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intro-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(78, 222, 128, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%);
+            animation: bgMove 15s ease-in-out infinite;
+        }
+
+        @keyframes bgMove {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        .intro-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .intro-image {
+            text-align: center;
+            perspective: 1000px;
+        }
+
+        .phone-mockup {
+            max-width: 400px;
+            height: 650px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 40px;
+            margin: 0 auto;
+            box-shadow: 
+                0 50px 100px rgba(0,0,0,0.3),
+                0 0 0 1px rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+            animation: float3D 6s ease-in-out infinite;
+            transform-style: preserve-3d;
+        }
+
+        @keyframes float3D {
+            0%, 100% {
+                transform: translateY(0) rotateY(-5deg);
+            }
+            50% {
+                transform: translateY(-20px) rotateY(5deg);
+            }
+        }
+
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #4ade80);
+            border-radius: 40px;
+            z-index: -1;
+            opacity: 0;
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 0.5; }
+        }
+
+        .clock-icon {
+            animation: rotateIcon 20s linear infinite;
+        }
+
+        @keyframes rotateIcon {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .intro-content h2 {
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #4ade80, #22d3ee);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInRight 1s ease-out;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .intro-year {
+            color: #ffd700;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+        }
+
+        .intro-features {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            font-weight: 600;
+            line-height: 1.8;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 40px;
+        }
+
+        .feature-list li {
+            font-size: 1.3rem;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            animation: slideInLeft 0.6s ease-out forwards;
+        }
+
+        .feature-list li:nth-child(1) { animation-delay: 0.2s; }
+        .feature-list li:nth-child(2) { animation-delay: 0.4s; }
+        .feature-list li:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .feature-list li:before {
+            content: '✓';
+            margin-right: 15px;
+            font-size: 1.5rem;
+            color: #4ade80;
+            font-weight: bold;
+            animation: checkPop 0.6s ease-out;
+        }
+
+        @keyframes checkPop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .intro-cta {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            padding: 18px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-top: 40px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .intro-cta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.5);
+            background: #2563eb;
+        }
+
+        /* Features Section with Card Hover */
+        .features-section {
+            padding: 120px 20px;
+            background: #f8f9fa;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            color: #333;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.3);
+        }
+
+        .feature-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #667eea;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card p {
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card ul {
+            list-style: none;
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover li {
+            padding-left: 10px;
+        }
+
+        .feature-card li:before {
+            content: '•';
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* Pricing Section with Glassmorphism */
+        .pricing-section {
+            padding: 120px 20px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.15) 0%, transparent 50%);
+        }
+
+        .pricing-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #ff9500;
+            margin-bottom: 60px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .pricing-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+        }
+
+        .pricing-card:hover::before {
+            left: 100%;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: #667eea;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+        }
+
+        .pricing-card.featured {
+            border: 3px solid #667eea;
+            background: rgba(102, 126, 234, 0.1);
+            transform: scale(1.05);
+        }
+
+        .plan-name {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea, #4ade80);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+            color: #ff6b6b;
+            position: relative;
+            z-index: 1;
+        }
+
+        .original-price {
+            text-align: center;
+            color: #888;
+            text-decoration: line-through;
+            margin-bottom: 30px;
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .features-list {
+            list-style: none;
+            flex-grow: 1;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .features-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .pricing-card:hover .features-list li {
+            padding-left: 10px;
+        }
+
+        .features-list li.included:before {
+            content: '✓';
+            color: #4ade80;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .features-list li.gift {
+            color: #ff6b6b;
+        }
+
+        .features-list li.gift:before {
+            content: '贈';
+            color: #ff6b6b;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .pricing-button {
+            display: block;
+            text-align: center;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .pricing-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .pricing-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .pricing-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .service-note {
+            text-align: center;
+            margin-top: 20px;
+            color: #ff9500;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0a0a0a;
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea, #4ade80);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-links {
+            margin-top: 30px;
+        }
+
+        .footer-links a {
+            color: #667eea;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #4ade80;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .intro-container {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-tagline {
+                font-size: 1.3rem;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .intro-features {
+                font-size: 1.5rem;
+            }
+
+            .phone-mockup {
+                max-width: 300px;
+                height: 500px;
+            }
+
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .logo-title {
+                font-size: 1.2rem;
+            }
+
+            .nav-cta {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">$</div>
+                <div class="logo-text">
+                    <span class="logo-title">打卡救星</span>
+                    <span class="logo-subtitle">Daka Star</span>
+                </div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#home">首頁</a></li>
+                <li><a href="#features" class="active">最新優惠<span class="new-badge">NEW</span></a></li>
+                <li><a href="#pricing">方案價格</a></li>
+                <li><a href="#resources">更多資源</a></li>
+                <li><a href="#contact">合作洽詢</a></li>
+            </ul>
+            <a href="#pricing" class="nav-cta">最新優惠</a>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="particles"></div>
+        <div class="floating-elements">
+            <svg class="float-element" width="100" height="100" style="top: 10%; left: 10%;">
+                <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+            </svg>
+            <svg class="float-element" width="80" height="80" style="top: 20%; right: 15%;">
+                <rect x="10" y="10" width="60" height="60" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+            </svg>
+            <svg class="float-element" width="120" height="120" style="bottom: 15%; left: 20%;">
+                <polygon points="60,10 110,90 10,90" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+            </svg>
+        </div>
+        <div class="hero-content">
+            <div class="hero-subtitle">立即開始使用</div>
+            <h1>打卡救星</h1>
+            <div class="hero-tagline">完全開源、免費使用、持續更新</div>
+            <a href="#pricing" class="cta-button">前往下載</a>
+            <div style="margin-top: 50px; font-size: 1.1rem; opacity: 0; animation: fadeInUp 1s ease-out 1s forwards;">
+                <span style="margin: 0 20px;">詳細文檔</span>
+                <span style="margin: 0 20px;">問題回報</span>
+                <span style="margin: 0 20px;">功能建議</span>
+            </div>
+            <div style="margin-top: 30px; font-size: 1.1rem; opacity: 0; animation: fadeInUp 1s ease-out 1.2s forwards;">
+                歡迎 Star、Fork 與貢獻程式碼
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Intro Section -->
+    <section class="product-intro" id="features">
+        <div class="intro-bg"></div>
+        <div class="intro-container">
+            <div class="intro-image">
+                <div class="phone-mockup">
+                    <div style="text-align: center; color: white;">
+                        <svg class="clock-icon" width="140" height="140" viewBox="0 0 140 140" style="margin-bottom: 30px;">
+                            <circle cx="70" cy="70" r="60" fill="none" stroke="currentColor" stroke-width="8"/>
+                            <circle cx="70" cy="15" r="5" fill="#ffd700">
+                                <animate attributeName="r" values="5;7;5" dur="2s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="125" cy="70" r="5" fill="#ffd700">
+                                <animate attributeName="r" values="5;7;5" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="70" cy="125" r="5" fill="#ffd700">
+                                <animate attributeName="r" values="5;7;5" dur="2s" begin="1s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="15" cy="70" r="5" fill="#ffd700">
+                                <animate attributeName="r" values="5;7;5" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+                            </circle>
+                            <line x1="70" y1="70" x2="70" y2="40" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                            <line x1="70" y1="70" x2="90" y2="90" stroke="#4ade80" stroke-width="4" stroke-linecap="round">
+                                <animateTransform attributeName="transform" type="rotate" from="0 70 70" to="360 70 70" dur="4s" repeatCount="indefinite"/>
+                            </line>
+                            <circle cx="70" cy="70" r="6" fill="currentColor"/>
+                        </svg>
+                        <div style="font-size: 2rem; margin-bottom: 15px; font-weight: 700;">歡迎使用打卡救星</div>
+                        <div style="font-size: 1rem; opacity: 0.9; margin-bottom: 40px;">Welcome to Attendance System</div>
+                        <div style="background: rgba(59,130,246,0.9); padding: 18px 40px; border-radius: 50px; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                            使用LINE登入
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="intro-content">
+                <div class="intro-year">2025 最新：好評不斷、優惠加碼延長中</div>
+                <h2>一次買斷、終生解決考勤煩惱</h2>
+                <div class="intro-features">
+                    最新、最強、最省錢
+                </div>
+                <ul class="feature-list">
+                    <li>最新｜整合 LINE，取代打卡鐘、門禁</li>
+                    <li>最強｜打卡、請假、簽核、薪資全功能</li>
+                    <li>最省錢｜不限人數、不限地點、終生免耗材</li>
+                </ul>
+                <a href="#pricing" class="intro-cta">立即開始</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Detail Section -->
+    <section class="features-section reveal" id="resources">
+        <h2 class="section-title">完整功能特色</h2>
+        <div class="features-grid">
+            <div class="feature-card reveal">
+                <h3>LINE Login 認證</h3>
+                <p>透過 LINE 帳號快速登入，確保使用者身份安全</p>
+                <ul>
+                    <li>快速安全登入</li>
+                    <li>OAuth 2.0 標準</li>
+                    <li>多平台支援</li>
+                </ul>
+            </div>
+
+            <div class="feature-card reveal">
+                <h3>GPS 定位打卡</h3>
+                <p>利用瀏覽器地理位置 API，精準記錄上下班位置</p>
+                <ul>
+                    <li>即時定位追蹤</li>
+                    <li>防止代打卡</li>
+                    <li>多點打卡支援</li>
+                </ul>
+            </div>
+
+            <div class="feature-card reveal">
+                <h3>補打卡功能</h3>
+                <p>可手動選擇日期時間，補登過去的打卡紀錄</p>
+                <ul>
+                    <li>彈性補登功能</li>
+                    <li>管理員審核</li>
+                    <li>LINE 即時通知</li>
+                </ul>
+            </div>
+
+            <div class="feature-card reveal">
+                <h3>異常紀錄檢視</h3>
+                <p>自動檢查並標示異常打卡，方便快速修正</p>
+                <ul>
+                    <li>自動異常偵測</li>
+                    <li>視覺化標示</li>
+                    <li>一鍵修正</li>
+                </ul>
+            </div>
+
+            <div class="feature-card reveal">
+                <h3>多國語系支援</h3>
+                <p>根據瀏覽器自動切換介面語系</p>
+                <ul>
+                    <li>自動偵測語系</li>
+                    <li>繁中、日文、英文</li>
+                    <li>輕鬆擴充</li>
+                </ul>
+            </div>
+
+            <div class="feature-card reveal">
+                <h3>管理員功能</h3>
+                <p>簡單的管理介面，輕鬆管理員工考勤</p>
+                <ul>
+                    <li>新增打卡地點</li>
+                    <li>審核補卡申請</li>
+                    <li>請假加班管理</li>
+                </ul>
+            </div>
+
+            <div class="feature-card reveal">
+                <h3>出勤報表匯出</h3>
+                <p>個人與全員出勤報表一鍵匯出</p>
+                <ul>
+                    <li>Excel 格式</li>
+                    <li>自訂報表範圍</li>
+                    <li>即時數據</li>
+                </ul>
+            </div>
+
+            <div class="feature-card reveal">
+                <h3>LINE 即時通知</h3>
+                <p>重要訊息即時推播到 LINE</p>
+                <ul>
+                    <li>打卡提醒</li>
+                    <li>審核結果</li>
+                    <li>異常警示</li>
+                </ul>
+            </div>
+
+            <div class="feature-card reveal">
+                <h3>請假加班申請</h3>
+                <p>線上申請，主管審核流程數位化</p>
+                <ul>
+                    <li>線上表單</li>
+                    <li>多級審核</li>
+                    <li>自動計算時數</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section reveal" id="pricing">
+        <div class="pricing-bg"></div>
+        <h2 class="section-title">方案介紹</h2>
+        <div class="pricing-subtitle">活動期間：買斷制，一次性費用（7 天退款保證）</div>
+        
+        <div class="pricing-grid">
+            <!-- Plan A -->
+            <div class="pricing-card reveal">
+                <div class="plan-name">【A】打卡方案</div>
+                <div class="price">$2,800</div>
+                <div class="original-price">不限使用人數</div>
+                <ul class="features-list">
+                    <li class="included">打卡</li>
+                    <li class="included">排班</li>
+                    <li class="included">請假</li>
+                </ul>
+                <a href="#" class="pricing-button">了解詳情</a>
+            </div>
+
+            <!-- Plan B -->
+            <div class="pricing-card reveal">
+                <div class="plan-name">【B】打卡＋簽核</div>
+                <div class="price">$19,800</div>
+                <div class="original-price">（原價 $22,600）</div>
+                <ul class="features-list">
+                    <li class="gift">打卡</li>
+                    <li class="gift">排班</li>
+                    <li class="gift">請假</li>
+                    <li class="included">請假、加班簽核</li>
+                </ul>
+                <a href="#" class="pricing-button">了解詳情</a>
+            </div>
+
+            <!-- Plan C -->
+            <div class="pricing-card featured reveal">
+                <div class="plan-name">【C】計薪方案</div>
+                <div class="price">$36,800</div>
+                <div class="original-price">（原價 $59,400）</div>
+                <ul class="features-list">
+                    <li class="gift">打卡</li>
+                    <li class="gift">排班</li>
+                    <li class="gift">請假</li>
+                    <li class="gift">請假、加班簽核</li>
+                    <li class="included">自動計薪 限購</li>
+                </ul>
+                <a href="#" class="pricing-button">立即加購</a>
+                <div class="service-note">專人薪資資料設定</div>
+            </div>
+
+            <!-- Plan D -->
+            <div class="pricing-card reveal">
+                <div class="plan-name">【D】數位培訓</div>
+                <div class="price">$88,000</div>
+                <div class="original-price">（原價 $147,400）</div>
+                <ul class="features-list">
+                    <li class="gift">打卡</li>
+                    <li class="gift">排班</li>
+                    <li class="gift">請假</li>
+                    <li class="included">數位培訓</li>
+                </ul>
+                <a href="#" class="pricing-button">了解詳情</a>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; color: #aaa; position: relative; z-index: 1;">
+            <p>（以上價格為首購優惠價，購買後 7 天內加購只需補差價。未來加購功能將以原價計算。）</p>
+            <p style="margin-top: 10px;">（B、C、D 方案限 50 人以下使用，51 人以上請洽客服。）</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="footer-title">打卡救星 Attendance System</div>
+        <p style="opacity: 0.7; margin: 20px 0;">MIT License｜開源專案｜由社群驅動開發</p>
+        <div class="footer-links">
+            <a href="https://github.com/eric693/New_Attendance-System">GitHub</a>
+            <a href="#">文檔</a>
+            <a href="#">聯絡我們</a>
+        </div>
+    </footer>
+
+    <script>
+        // Create particles
+        const particlesContainer = document.querySelector('.particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            particle.style.animationDelay = Math.random() * 5 + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            if (navMenu.style.display === 'flex') {
+                navMenu.style.display = 'none';
+            } else {
+                navMenu.style.display = 'flex';
+                navMenu.style.position = 'absolute';
+                navMenu.style.top = '70px';
+                navMenu.style.right = '20px';
+                navMenu.style.background = 'white';
+                navMenu.style.padding = '20px';
+                navMenu.style.borderRadius = '10px';
+                navMenu.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)';
+                navMenu.style.flexDirection = 'column';
+                navMenu.style.gap = '20px';
+            }
+        });
+
+        // Scroll reveal animation
+        const reveals = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check
+
+        // Active nav link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Parallax effect for phone mockup
+        window.addEventListener('scroll', () => {
+            const phoneMockup = document.querySelector('.phone-mockup');
+            if (phoneMockup) {
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * 0.3;
+                phoneMockup.style.transform = `translateY(${rate}px) rotateY(${rate * 0.01}deg)`;
+            }
+        });
+    </script>
+</body>
+</html>
