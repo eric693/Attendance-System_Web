@@ -430,6 +430,7 @@
             console.log('選擇的方案:', selectedPlan);
             
             if (!selectedPlan) {
+                alert('⚠️ 請先選擇一個方案！');
                 errorMessage.textContent = '請選擇一個方案！';
                 errorMessage.style.display = 'block';
                 console.log('未選擇方案');
@@ -437,12 +438,13 @@
             }
 
             // 驗證必填欄位
-            const companyName = document.getElementById('companyName').value;
-            const contactName = document.getElementById('contactName').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
+            const companyName = document.getElementById('companyName').value.trim();
+            const contactName = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
 
             if (!companyName || !contactName || !email || !phone) {
+                alert('⚠️ 請填寫所有必填欄位！');
                 errorMessage.textContent = '請填寫所有必填欄位！';
                 errorMessage.style.display = 'block';
                 console.log('有必填欄位未填寫');
@@ -466,20 +468,14 @@
             // Hide error message
             errorMessage.style.display = 'none';
 
-            // Show loading
+            // Show success message
             form.style.display = 'none';
-            loading.style.display = 'block';
+            successMessage.style.display = 'block';
 
             console.log('準備發送郵件...');
 
-            // 發送郵件
+            // 發送郵件 (會開啟 Gmail 新視窗)
             sendEmail(data);
-
-            // 2 秒後跳轉回首頁
-            setTimeout(function() {
-                console.log('準備跳轉回首頁...');
-                window.location.href = 'index.html';
-            }, 2000);
         });
 
         function sendEmail(data) {
@@ -502,10 +498,10 @@
             // 創建 mailto 連結
             const mailtoLink = 'mailto:exo881222@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
             
-            console.log('Mailto 連結:', mailtoLink);
+            console.log('Mailto 連結已生成');
             
-            // 開啟郵件程式
-            window.location.href = mailtoLink;
+            // 在新視窗開啟郵件
+            window.open(mailtoLink, '_blank');
         }
     </script>
 </body>
