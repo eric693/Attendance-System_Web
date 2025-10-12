@@ -416,7 +416,7 @@
         const errorMessage = document.getElementById('errorMessage');
         const formContainer = document.querySelector('.form-container');
 
-        form.addEventListener('submit', async function(e) {
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
 
             // Get form data
@@ -427,53 +427,47 @@
                 contactName: formData.get('contactName'),
                 email: formData.get('email'),
                 phone: formData.get('phone'),
-                employeeCount: formData.get('employeeCount'),
-                message: formData.get('message'),
+                employeeCount: formData.get('employeeCount') || '未填寫',
+                message: formData.get('message') || '無',
                 timestamp: new Date().toLocaleString('zh-TW')
             };
 
             // Show loading
             form.style.display = 'none';
             loading.style.display = 'block';
-            errorMessage.style.display = 'none';
 
             // 發送郵件
             sendEmail(data);
 
-            // 等待 1.5 秒後跳轉回首頁
-            setTimeout(() => {
+            // 2 秒後跳轉回首頁
+            setTimeout(function() {
                 window.location.href = 'index.html';
-            }, 1500);
+            }, 2000);
         });
 
         function sendEmail(data) {
-            // 使用 mailto 發送郵件
-            const subject = `【打卡救星】新購買申請 - ${data.companyName}`;
-            const body = `
-購買方案申請資訊
-================
-
-選擇方案: ${data.plan}
-公司名稱: ${data.companyName}
-聯絡人: ${data.contactName}
-Email: ${data.email}
-電話: ${data.phone}
-使用人數: ${data.employeeCount || '未填寫'}
-其他需求: ${data.message || '無'}
-
-申請時間: ${data.timestamp}
-            `.trim();
+            // 建立郵件內容
+            const subject = '【打卡救星】新購買申請 - ' + data.companyName;
+            const body = 
+'購買方案申請資訊\n' +
+'================\n\n' +
+'選擇方案: ' + data.plan + '\n' +
+'公司名稱: ' + data.companyName + '\n' +
+'聯絡人: ' + data.contactName + '\n' +
+'Email: ' + data.email + '\n' +
+'電話: ' + data.phone + '\n' +
+'使用人數: ' + data.employeeCount + '\n' +
+'其他需求: ' + data.message + '\n\n' +
+'申請時間: ' + data.timestamp;
 
             // 創建 mailto 連結
-            const mailtoLink = `mailto:exo881222@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            const mailtoLink = 'mailto:exo881222@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
             
-            // 在背景觸發 mailto
-            const a = document.createElement('a');
-            a.href = mailtoLink;
-            a.style.display = 'none';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+            // 開啟郵件程式
+            window.location.href = mailtoLink;
+            
+            // 同時在 console 顯示資料（供測試用）
+            console.log('表單資料:', data);
         }
     </script>
 </body>
