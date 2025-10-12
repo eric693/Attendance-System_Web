@@ -286,7 +286,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>購買打卡救星</h1>
+            <h1>🎉 購買打卡救星</h1>
             <p>填寫以下資訊，我們將儘快與您聯繫</p>
         </div>
 
@@ -419,6 +419,14 @@
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
+            // 驗證是否選擇方案
+            const selectedPlan = document.querySelector('input[name="plan"]:checked');
+            if (!selectedPlan) {
+                errorMessage.textContent = '請選擇一個方案！';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
             // Get form data
             const formData = new FormData(form);
             const data = {
@@ -431,6 +439,9 @@
                 message: formData.get('message') || '無',
                 timestamp: new Date().toLocaleString('zh-TW')
             };
+
+            // Hide error message
+            errorMessage.style.display = 'none';
 
             // Show loading
             form.style.display = 'none';
