@@ -951,40 +951,44 @@
 
         .footer-contact {
             max-width: 600px;
-            margin: 30px auto;
+            margin: 40px auto;
+            background: rgba(102, 126, 234, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
         }
 
         .contact-item {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            text-align: center;
-            margin-bottom: 20px;
+            gap: 20px;
         }
 
-        .contact-item div {
-            color: #667eea;
+        .contact-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             font-size: 1.1rem;
         }
 
-        .contact-item strong {
-            margin-right: 10px;
+        .contact-row strong {
+            color: #667eea;
         }
 
-        .contact-item a {
+        .contact-row a {
             color: #4ade80;
             text-decoration: none;
-            margin-left: 10px;
             transition: all 0.3s;
         }
 
-        .contact-item a:hover {
+        .contact-row a:hover {
             color: #22d3ee;
             transform: translateY(-2px);
         }
 
         .footer-links {
-            margin-top: 30px;
+            margin-top: 40px;
         }
 
         .footer-links a {
@@ -993,6 +997,7 @@
             margin: 0 20px;
             font-size: 1.1rem;
             transition: all 0.3s;
+            display: inline-block;
         }
 
         .footer-links a:hover {
@@ -1487,7 +1492,7 @@
                 <div class="faq-item">
                     <div class="faq-question">有使用人數限制嗎？</div>
                     <div class="faq-answer">
-                        <p>不限人數。我們推出的最新限量方案：手機打卡、LINE 打卡不限使用人數，並且是買斷制的付費方式，非常優惠先搶先贏。（ＢＣ方案適用 50 人以下，如 50 人以上，歡迎與我們聯繫）</p>
+                        <p>不限人數。我們推出的最新限量方案：手機打卡、LINE 打卡不限使用人數，並且是買斷制的付費方式，非常優惠先搶先贏。（BC方案適用 50 人以下，如 50 人以上，歡迎與我們聯繫）</p>
                     </div>
                 </div>
 
@@ -1583,13 +1588,14 @@
         <p style="opacity: 0.7; margin: 20px 0;">企業考勤管理最佳解決方案</p>
         
         <div class="footer-contact">
+            <h3 style="color: #667eea; margin-bottom: 20px; font-size: 1.5rem;">📞 聯絡我們</h3>
             <div class="contact-item">
-                <div>
-                    <strong>📧 Email:</strong> 
+                <div class="contact-row">
+                    <strong>📧 Email:</strong>
                     <a href="mailto:exo881222@gmail.com">exo881222@gmail.com</a>
                 </div>
-                <div>
-                    <strong>📱 Instagram:</strong> 
+                <div class="contact-row">
+                    <strong>📱 Instagram:</strong>
                     <a href="https://www.instagram.com/tw.eric_technology/" target="_blank">@tw.eric_technology</a>
                 </div>
             </div>
