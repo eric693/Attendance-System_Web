@@ -286,13 +286,13 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎉 購買打卡救星</h1>
+            <h1>購買打卡救星</h1>
             <p>填寫以下資訊，我們將儘快與您聯繫</p>
         </div>
 
         <div class="form-container">
             <div class="info-box">
-                ℹ️ 購買後 1-2 個工作天內，我們的專員將與您聯繫，協助設定與開通系統。
+                購買後 1-2 個工作天內，我們的專員將與您聯繫，協助設定與開通系統。
             </div>
 
             <div class="error-message" id="errorMessage"></div>
@@ -375,16 +375,16 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2">
                     <path d="M20 6L9 17l-5-5"/>
                 </svg>
-                <h2>✅ 申請已送出！</h2>
+                <h2>申請已送出！</h2>
                 <p>感謝您的購買申請！</p>
                 <p>我們已收到您的資料，將於 1-2 個工作天內與您聯繫。</p>
-                <p style="margin-top: 20px;">
-                    <a href="index.html" class="back-link">← 返回首頁</a>
+                <p style="margin-top: 30px;">
+                    <a href="index.html" class="back-link">返回首頁</a>
                 </p>
             </div>
 
             <div style="text-align: center;">
-                <a href="index.html" class="back-link">← 返回首頁</a>
+                <a href="index.html" class="back-link">返回首頁</a>
             </div>
         </div>
     </div>
@@ -430,7 +430,7 @@
             console.log('選擇的方案:', selectedPlan);
             
             if (!selectedPlan) {
-                alert('⚠️ 請先選擇一個方案！');
+                alert('請先選擇一個方案！');
                 errorMessage.textContent = '請選擇一個方案！';
                 errorMessage.style.display = 'block';
                 console.log('未選擇方案');
@@ -444,7 +444,7 @@
             const phone = document.getElementById('phone').value.trim();
 
             if (!companyName || !contactName || !email || !phone) {
-                alert('⚠️ 請填寫所有必填欄位！');
+                alert('請填寫所有必填欄位！');
                 errorMessage.textContent = '請填寫所有必填欄位！';
                 errorMessage.style.display = 'block';
                 console.log('有必填欄位未填寫');
