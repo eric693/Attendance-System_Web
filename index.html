@@ -765,11 +765,11 @@
         }
 
         .pricing-grid {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            gap: 40px;
             position: relative;
             z-index: 1;
         }
@@ -947,6 +947,40 @@
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        .footer-contact {
+            max-width: 600px;
+            margin: 30px auto;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-item div {
+            color: #667eea;
+            font-size: 1.1rem;
+        }
+
+        .contact-item strong {
+            margin-right: 10px;
+        }
+
+        .contact-item a {
+            color: #4ade80;
+            text-decoration: none;
+            margin-left: 10px;
+            transition: all 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: #22d3ee;
+            transform: translateY(-2px);
         }
 
         .footer-links {
@@ -1142,157 +1176,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* Purchase Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-            animation: fadeIn 0.3s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
-            background: white;
-            margin: 5% auto;
-            padding: 0;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: slideDown 0.3s;
-            overflow: hidden;
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .modal-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .modal-header h2 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-
-        .modal-body {
-            padding: 30px;
-        }
-
-        .close {
-            color: white;
-            float: right;
-            font-size: 2rem;
-            font-weight: bold;
-            cursor: pointer;
-            line-height: 1;
-            transition: transform 0.3s;
-        }
-
-        .close:hover {
-            transform: scale(1.2);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e5e7eb;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: all 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-        }
-
-        .submit-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .success-message {
-            display: none;
-            text-align: center;
-            padding: 40px;
-        }
-
-        .success-message svg {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 20px;
-        }
-
-        .success-message h3 {
-            color: #4ade80;
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
     </style>
 </head>
 <body>
@@ -1302,37 +1185,21 @@
             <a href="#" class="logo">
                 <div class="logo-icon">
                     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <!-- 外圈 -->
                         <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="2"/>
                         <circle cx="50" cy="50" r="36" fill="none" stroke="white" stroke-width="1"/>
-                        
-                        <!-- 時鐘刻度 -->
                         <line x1="50" y1="15" x2="50" y2="20" stroke="white" stroke-width="2" stroke-linecap="round"/>
                         <line x1="50" y1="80" x2="50" y2="85" stroke="white" stroke-width="2" stroke-linecap="round"/>
                         <line x1="15" y1="50" x2="20" y2="50" stroke="white" stroke-width="2" stroke-linecap="round"/>
                         <line x1="80" y1="50" x2="85" y2="50" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                        
-                        <!-- 時針 -->
                         <line class="clock-hand-hour" x1="50" y1="50" x2="50" y2="30" stroke="white" stroke-width="3" stroke-linecap="round"/>
-                        
-                        <!-- 分針 -->
                         <line class="clock-hand-minute" x1="50" y1="50" x2="65" y2="35" stroke="#4ade80" stroke-width="3" stroke-linecap="round"/>
-                        
-                        <!-- 中心點 -->
                         <circle cx="50" cy="50" r="3" fill="white"/>
-                        
-                        <!-- 星星裝飾 -->
                         <g class="star-glow" transform="translate(80, 20)">
-                            <path d="M 0,-5 L 1.5,-1.5 L 5,-1.5 L 2.4,0.7 L 3.8,4.2 L 0,1.9 L -3.8,4.2 L -2.4,0.7 L -5,-1.5 L -1.5,-1.5 Z" 
-                                  fill="#FFD700"/>
+                            <path d="M 0,-5 L 1.5,-1.5 L 5,-1.5 L 2.4,0.7 L 3.8,4.2 L 0,1.9 L -3.8,4.2 L -2.4,0.7 L -5,-1.5 L -1.5,-1.5 Z" fill="#FFD700"/>
                         </g>
-                        
                         <g class="star-glow" transform="translate(20, 80)" style="animation-delay: 0.5s;">
-                            <path d="M 0,-5 L 1.5,-1.5 L 5,-1.5 L 2.4,0.7 L 3.8,4.2 L 0,1.9 L -3.8,4.2 L -2.4,0.7 L -5,-1.5 L -1.5,-1.5 Z" 
-                                  fill="#FFD700"/>
+                            <path d="M 0,-5 L 1.5,-1.5 L 5,-1.5 L 2.4,0.7 L 3.8,4.2 L 0,1.9 L -3.8,4.2 L -2.4,0.7 L -5,-1.5 L -1.5,-1.5 Z" fill="#FFD700"/>
                         </g>
-                        
-                        <!-- 小圓點 -->
                         <circle cx="85" cy="25" r="2" fill="#FFD700" class="star-glow" style="animation-delay: 1s;"/>
                         <circle cx="60" cy="90" r="2" fill="#FFD700" class="star-glow" style="animation-delay: 1.5s;"/>
                     </svg>
@@ -1385,7 +1252,6 @@
                 <div class="phone-mockup">
                     <div style="text-align: center; color: white;">
                         <svg width="140" height="140" viewBox="0 0 140 140" style="margin-bottom: 30px;">
-                            <!-- 外圈藍色圓環 -->
                             <defs>
                                 <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" style="stop-color:#4169E1;stop-opacity:1" />
@@ -1393,48 +1259,28 @@
                                     <stop offset="100%" style="stop-color:#0047AB;stop-opacity:1" />
                                 </linearGradient>
                             </defs>
-                            
-                            <!-- 外圓環 (會旋轉) -->
                             <g class="main-clock-circle">
                                 <circle cx="70" cy="70" r="63" fill="url(#blueGradient)" />
                                 <circle cx="70" cy="70" r="51" fill="white" />
                             </g>
-                            
-                            <!-- 時鐘刻度 -->
                             <line x1="70" y1="24.5" x2="70" y2="31.5" stroke="#6B7280" stroke-width="2.1" stroke-linecap="round"/>
                             <line x1="70" y1="108.5" x2="70" y2="115.5" stroke="#6B7280" stroke-width="2.1" stroke-linecap="round"/>
                             <line x1="24.5" y1="70" x2="31.5" y2="70" stroke="#6B7280" stroke-width="2.1" stroke-linecap="round"/>
                             <line x1="108.5" y1="70" x2="115.5" y2="70" stroke="#6B7280" stroke-width="2.1" stroke-linecap="round"/>
-                            
-                            <!-- 時針 (藍色) -->
                             <g class="main-clock-hour">
                                 <line x1="70" y1="70" x2="70" y2="45.5" stroke="#4169E1" stroke-width="3.5" stroke-linecap="round"/>
                             </g>
-                            
-                            <!-- 分針 (綠色) -->
                             <g class="main-clock-minute">
                                 <line x1="70" y1="70" x2="94.5" y2="49" stroke="#5ECC8C" stroke-width="3.5" stroke-linecap="round"/>
                             </g>
-                            
-                            <!-- 中心點 -->
                             <circle cx="70" cy="70" r="2.8" fill="#2C3E50"/>
-                            
-                            <!-- 右上星星 (金黃色) -->
                             <g class="main-star" transform="translate(112, 21)">
-                                <path d="M 0,-7 L 2.06,-2.16 L 7.22,-2.16 L 3.33,1.03 L 5.39,5.87 L 0,2.67 L -5.39,5.87 L -3.33,1.03 L -7.22,-2.16 L -2.06,-2.16 Z" 
-                                      fill="#FFD700" stroke="#FFA500" stroke-width="0.5"/>
+                                <path d="M 0,-7 L 2.06,-2.16 L 7.22,-2.16 L 3.33,1.03 L 5.39,5.87 L 0,2.67 L -5.39,5.87 L -3.33,1.03 L -7.22,-2.16 L -2.06,-2.16 Z" fill="#FFD700" stroke="#FFA500" stroke-width="0.5"/>
                             </g>
-                            
-                            <!-- 左下星星 (金黃色) -->
                             <g class="main-star" transform="translate(28, 119)">
-                                <path d="M 0,-7 L 2.06,-2.16 L 7.22,-2.16 L 3.33,1.03 L 5.39,5.87 L 0,2.67 L -5.39,5.87 L -3.33,1.03 L -7.22,-2.16 L -2.06,-2.16 Z" 
-                                      fill="#FFD700" stroke="#FFA500" stroke-width="0.5"/>
+                                <path d="M 0,-7 L 2.06,-2.16 L 7.22,-2.16 L 3.33,1.03 L 5.39,5.87 L 0,2.67 L -5.39,5.87 L -3.33,1.03 L -7.22,-2.16 L -2.06,-2.16 Z" fill="#FFD700" stroke="#FFA500" stroke-width="0.5"/>
                             </g>
-                            
-                            <!-- 右側小圓點 (金黃色) -->
                             <circle class="main-dot" cx="122.5" cy="28" r="2.8" fill="#FFD700"/>
-                            
-                            <!-- 底部小圓點 (金黃色) -->
                             <circle class="main-dot" cx="84" cy="126" r="2.8" fill="#FFD700"/>
                         </svg>
                         <div style="font-size: 2rem; margin-bottom: 15px; font-weight: 700;">歡迎使用打卡救星</div>
@@ -1641,7 +1487,7 @@
                 <div class="faq-item">
                     <div class="faq-question">有使用人數限制嗎？</div>
                     <div class="faq-answer">
-                        <p>不限人數。我們推出的最新限量方案：手機打卡、LINE 打卡不限使用人數，並且是買斷制的付費方式，非常優惠先搶先贏。（ＢＣＤ方案適用 50 人以下，如 50 人以上，歡迎與我們聯繫）</p>
+                        <p>不限人數。我們推出的最新限量方案：手機打卡、LINE 打卡不限使用人數，並且是買斷制的付費方式，非常優惠先搶先贏。（ＢＣ方案適用 50 人以下，如 50 人以上，歡迎與我們聯繫）</p>
                     </div>
                 </div>
 
@@ -1735,11 +1581,29 @@
     <footer class="footer" id="contact">
         <div class="footer-title">打卡救星 Check-In Hero</div>
         <p style="opacity: 0.7; margin: 20px 0;">企業考勤管理最佳解決方案</p>
-        <div class="footer-links">
-            <a href="https://github.com/eric693/New_Attendance-System">GitHub</a>
-            <a href="#faq">常見問題</a>
-            <a href="mailto:contact@example.com">聯絡我們</a>
+        
+        <div class="footer-contact">
+            <div class="contact-item">
+                <div>
+                    <strong>📧 Email:</strong> 
+                    <a href="mailto:exo881222@gmail.com">exo881222@gmail.com</a>
+                </div>
+                <div>
+                    <strong>📱 Instagram:</strong> 
+                    <a href="https://www.instagram.com/tw.eric_technology/" target="_blank">@tw.eric_technology</a>
+                </div>
+            </div>
         </div>
+
+        <div class="footer-links">
+            <a href="https://github.com/eric693/New_Attendance-System" target="_blank">GitHub</a>
+            <a href="#faq">常見問題</a>
+            <a href="mailto:exo881222@gmail.com">聯絡我們</a>
+        </div>
+        
+        <p style="margin-top: 30px; opacity: 0.5; font-size: 0.9rem;">
+            © 2025 打卡救星 Check-In Hero. All rights reserved.
+        </p>
     </footer>
 
     <script>
@@ -1811,7 +1675,7 @@
         };
 
         window.addEventListener('scroll', revealOnScroll);
-        revealOnScroll(); // Initial check
+        revealOnScroll();
 
         // Active nav link on scroll
         window.addEventListener('scroll', () => {
