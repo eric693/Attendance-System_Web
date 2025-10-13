@@ -1376,38 +1376,43 @@
             transform: translateY(0);
         }
 
+        /* ============ 聊天機器人 CSS 開始 ============ */
+    
         /* 聊天機器人按鈕 */
         .chatbot-button {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #2d7a5f 0%, #1e5a45 100%);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 24px rgba(45, 122, 95, 0.3);
             z-index: 10000;
-            transition: all 0.3s;
-            animation: chatbotPulse 2s ease-in-out infinite;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .chatbot-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 30px rgba(102, 126, 234, 0.6);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(45, 122, 95, 0.4);
         }
 
         .chatbot-button svg {
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             fill: white;
         }
 
         .chatbot-button .close-icon {
             display: none;
+        }
+
+        .chatbot-button.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
         .chatbot-button.active .chat-icon {
@@ -1418,26 +1423,21 @@
             display: block;
         }
 
-        @keyframes chatbotPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
         /* 聊天視窗 */
         .chatbot-window {
             position: fixed;
-            bottom: 100px;
+            bottom: 110px;
             right: 30px;
-            width: 380px;
-            height: 550px;
+            width: 420px;
+            height: 600px;
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
             display: none;
             flex-direction: column;
             z-index: 9999;
             overflow: hidden;
-            animation: slideUp 0.3s ease-out;
+            animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .chatbot-window.active {
@@ -1447,52 +1447,60 @@
         @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px) scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
 
         /* 聊天頭部 */
         .chatbot-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2d7a5f 0%, #1e5a45 100%);
             color: white;
-            padding: 20px;
+            padding: 24px;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .chatbot-avatar {
-            width: 45px;
-            height: 45px;
-            background: white;
-            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
 
         .chatbot-info h3 {
             margin: 0;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
         }
 
         .chatbot-info p {
-            margin: 5px 0 0;
-            font-size: 0.85rem;
-            opacity: 0.9;
+            margin: 4px 0 0;
+            font-size: 0.875rem;
+            opacity: 0.85;
+            font-weight: 400;
         }
 
         /* 聊天內容區 */
         .chatbot-messages {
             flex: 1;
-            padding: 20px;
+            padding: 24px;
             overflow-y: auto;
-            background: #f8f9fa;
+            background: #fafbfc;
         }
 
         .chatbot-messages::-webkit-scrollbar {
@@ -1500,25 +1508,29 @@
         }
 
         .chatbot-messages::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: transparent;
         }
 
         .chatbot-messages::-webkit-scrollbar-thumb {
-            background: #667eea;
+            background: #d1d5db;
             border-radius: 3px;
         }
 
-        .message {
-            margin-bottom: 15px;
-            display: flex;
-            gap: 10px;
-            animation: fadeIn 0.3s ease-out;
+        .chatbot-messages::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
         }
 
-        @keyframes fadeIn {
+        .message {
+            margin-bottom: 16px;
+            display: flex;
+            gap: 12px;
+            animation: messageSlide 0.3s ease-out;
+        }
+
+        @keyframes messageSlide {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(12px);
             }
             to {
                 opacity: 1;
@@ -1535,40 +1547,44 @@
         }
 
         .message-avatar {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            font-size: 0.75rem;
+            font-weight: 600;
         }
 
         .message.bot .message-avatar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2d7a5f 0%, #1e5a45 100%);
             color: white;
         }
 
         .message.user .message-avatar {
-            background: #2d7a5f;
+            background: #667eea;
             color: white;
         }
 
         .message-content {
-            max-width: 70%;
-            padding: 12px 16px;
-            border-radius: 18px;
-            line-height: 1.5;
+            max-width: 75%;
+            padding: 14px 18px;
+            border-radius: 16px;
+            line-height: 1.6;
+            font-size: 0.95rem;
         }
 
         .message.bot .message-content {
             background: white;
-            color: #333;
+            color: #1f2937;
+            border: 1px solid #e5e7eb;
             border-bottom-left-radius: 4px;
         }
 
         .message.user .message-content {
-            background: #2d7a5f;
+            background: #667eea;
             color: white;
             border-bottom-right-radius: 4px;
         }
@@ -1577,66 +1593,80 @@
         .quick-options {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 10px;
-            padding: 0 10px;
+            gap: 10px;
+            margin-top: 12px;
+            padding: 0;
         }
 
         .quick-option {
             background: white;
-            border: 2px solid #667eea;
-            color: #667eea;
-            padding: 8px 16px;
-            border-radius: 20px;
+            border: 1.5px solid #2d7a5f;
+            color: #2d7a5f;
+            padding: 10px 18px;
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .quick-option:hover {
-            background: #667eea;
+            background: #2d7a5f;
             color: white;
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(45, 122, 95, 0.25);
         }
 
         /* 輸入區域 */
         .chatbot-input {
-            padding: 15px 20px;
+            padding: 20px 24px;
             background: white;
             border-top: 1px solid #e5e7eb;
             display: flex;
-            gap: 10px;
+            gap: 12px;
         }
 
         .chatbot-input input {
             flex: 1;
-            padding: 12px 16px;
+            padding: 14px 18px;
             border: 2px solid #e5e7eb;
-            border-radius: 25px;
+            border-radius: 12px;
             font-size: 0.95rem;
             outline: none;
             transition: all 0.3s;
+            font-family: inherit;
         }
 
         .chatbot-input input:focus {
-            border-color: #667eea;
+            border-color: #2d7a5f;
+            box-shadow: 0 0 0 3px rgba(45, 122, 95, 0.1);
+        }
+
+        .chatbot-input input::placeholder {
+            color: #9ca3af;
         }
 
         .send-button {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #2d7a5f 0%, #1e5a45 100%);
             border: none;
-            border-radius: 50%;
+            border-radius: 12px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s;
+            flex-shrink: 0;
         }
 
         .send-button:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
+            box-shadow: 0 4px 16px rgba(45, 122, 95, 0.3);
+        }
+
+        .send-button:active {
+            transform: scale(0.95);
         }
 
         .send-button svg {
@@ -1648,17 +1678,19 @@
         /* 打字動畫 */
         .typing-indicator {
             display: flex;
-            gap: 4px;
-            padding: 12px 16px;
+            gap: 6px;
+            padding: 14px 18px;
             background: white;
-            border-radius: 18px;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            border-bottom-left-radius: 4px;
             width: fit-content;
         }
 
         .typing-dot {
             width: 8px;
             height: 8px;
-            background: #667eea;
+            background: #2d7a5f;
             border-radius: 50%;
             animation: typing 1.4s infinite;
         }
@@ -1674,7 +1706,7 @@
         @keyframes typing {
             0%, 60%, 100% {
                 transform: translateY(0);
-                opacity: 0.7;
+                opacity: 0.5;
             }
             30% {
                 transform: translateY(-10px);
@@ -1685,17 +1717,39 @@
         /* 響應式設計 */
         @media (max-width: 768px) {
             .chatbot-window {
-                width: calc(100vw - 20px);
-                height: calc(100vh - 120px);
-                right: 10px;
-                bottom: 90px;
+                width: calc(100vw - 24px);
+                height: calc(100vh - 140px);
+                right: 12px;
+                bottom: 100px;
+                border-radius: 20px;
             }
 
             .chatbot-button {
-                bottom: 20px;
-                right: 20px;
+                bottom: 24px;
+                right: 24px;
+                width: 56px;
+                height: 56px;
+            }
+
+            .chatbot-button svg {
+                width: 24px;
+                height: 24px;
+            }
+
+            .chatbot-header {
+                padding: 20px;
+            }
+
+            .chatbot-messages {
+                padding: 20px;
+            }
+
+            .chatbot-input {
+                padding: 16px 20px;
             }
         }
+
+        /* ============ 聊天機器人 CSS 結束 ============ */
     </style>
 </head>
 <body>
@@ -2204,19 +2258,19 @@
         <!-- 聊天視窗 -->
         <div class="chatbot-window" id="chatbotWindow">
             <div class="chatbot-header">
-                <div class="chatbot-avatar">🤖</div>
+                <div class="chatbot-avatar">CS</div>
                 <div class="chatbot-info">
-                    <h3>打卡救星小幫手</h3>
-                    <p>有什麼可以幫您的嗎？</p>
+                    <h3>客服助理</h3>
+                    <p>專業解答您的疑問</p>
                 </div>
             </div>
 
             <div class="chatbot-messages" id="chatbotMessages">
                 <div class="message bot">
-                    <div class="message-avatar">🤖</div>
+                    <div class="message-avatar">CS</div>
                     <div class="message-content">
-                        您好！我是打卡救星小幫手 👋<br>
-                        很高興為您服務！請問有什麼可以幫您的嗎？
+                        您好，我是打卡救星客服助理。<br>
+                        有什麼可以協助您的嗎？
                     </div>
                 </div>
                 <div class="quick-options">
@@ -2228,7 +2282,7 @@
             </div>
 
             <div class="chatbot-input">
-                <input type="text" id="userInput" placeholder="輸入您的問題...">
+                <input type="text" id="userInput" placeholder="請輸入您的問題...">
                 <button class="send-button" id="sendButton">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
@@ -2382,25 +2436,25 @@
 
         // 知識庫
         const knowledgeBase = {
-            '產品特色': '打卡救星的主要特色包括：\n\n✓ LINE Login 快速登入\n✓ GPS/IP 定位打卡\n✓ 自動異常檢測\n✓ 即時出勤報表\n✓ 請假加班審核\n✓ 不限使用人數\n✓ 買斷制永久使用',
+            '產品特色': '打卡救星的主要特色包括：\n\n· LINE Login 快速登入\n· GPS/IP 定位打卡\n· 自動異常檢測\n· 即時出勤報表\n· 請假加班審核\n· 不限使用人數\n· 買斷制永久使用',
             
-            '方案價格': '我們目前提供三種方案：\n\n【A】打卡方案 - $2,400\n包含：打卡、請假\n\n【B】打卡+簽核 - $8,800\n包含：打卡、請假、簽核\n\n【C】計薪方案 - $16,300\n包含：全部功能+自動計薪\n\n全部都是買斷制，不限使用人數！',
+            '方案價格': '我們目前提供三種方案：\n\n方案A｜打卡方案 - $2,400\n包含：打卡、請假\n\n方案B｜打卡+簽核 - $8,800\n包含：打卡、請假、簽核\n\n方案C｜計薪方案 - $16,300\n包含：全部功能+自動計薪\n\n全部都是買斷制，不限使用人數',
             
-            '如何購買': '購買流程很簡單：\n\n1️⃣ 選擇適合的方案\n2️⃣ 完成線上付款\n3️⃣ 1-2個工作天內專人聯繫\n4️⃣ 協助設定公司規則\n5️⃣ 開通帳號後即可使用\n\n我們提供7天退款保證，讓您安心購買！',
+            '如何購買': '購買流程：\n\n步驟1｜選擇適合的方案\n步驟2｜完成線上付款\n步驟3｜1-2個工作天內專人聯繫\n步驟4｜協助設定公司規則\n步驟5｜開通帳號後即可使用\n\n我們提供7天退款保證，讓您安心購買',
             
-            '使用人數': '完全不限使用人數！🎉\n\n無論您的公司是5人還是500人，都可以使用。這是我們的限量優惠方案，先搶先贏！\n\n註：BC方案適用50人以下，51人以上請洽客服。',
+            '使用人數': '完全不限使用人數。\n\n無論您的公司是5人還是500人，都可以使用。這是我們的限量優惠方案。\n\n註：BC方案適用50人以下，51人以上請洽客服',
             
-            '打卡方式': '我們提供兩種打卡方式：\n\n📍 GPS定位打卡：員工需抵達指定地點才能打卡\n🌐 IP打卡：需連接指定網路才能打卡\n\n這些設定都能有效防止代打卡和提前打卡的情況！',
+            '打卡方式': '我們提供兩種打卡方式：\n\nGPS定位打卡｜員工需抵達指定地點才能打卡\nIP打卡｜需連接指定網路才能打卡\n\n這些設定都能有效防止代打卡和提前打卡的情況',
             
-            '防止代打卡': '我們有多重機制防止代打卡：\n\n1. 綁定員工個人LINE帳號\n2. GPS定位驗證\n3. IP位址檢查\n4. 系統自動異常偵測\n\n讓您的考勤管理更安全可靠！',
+            '防止代打卡': '我們有多重機制防止代打卡：\n\n· 綁定員工個人LINE帳號\n· GPS定位驗證\n· IP位址檢查\n· 系統自動異常偵測\n\n讓您的考勤管理更安全可靠',
             
-            '請假審核': '支援完整的請假審核流程：\n\n✓ 線上提交請假申請\n✓ 可設定多級審核\n✓ 主管即時收到通知\n✓ 審核結果LINE通知\n✓ 自動計算假期時數\n\n讓請假管理數位化、自動化！',
+            '請假審核': '支援完整的請假審核流程：\n\n· 線上提交請假申請\n· 可設定多級審核\n· 主管即時收到通知\n· 審核結果LINE通知\n· 自動計算假期時數\n\n讓請假管理數位化、自動化',
             
-            '出勤報表': '系統提供完整的出勤報表功能：\n\n📊 即時出勤數據\n📈 自動計算工時\n⏰ 遲到早退統計\n📑 Excel格式匯出\n🔍 異常自動標示\n\n人資工作效率大幅提升！',
+            '出勤報表': '系統提供完整的出勤報表功能：\n\n· 即時出勤數據\n· 自動計算工時\n· 遲到早退統計\n· Excel格式匯出\n· 異常自動標示\n\n人資工作效率大幅提升',
             
-            '聯絡方式': '很高興為您服務！您可以透過以下方式聯絡我們：\n\n📧 Email: exo881222@gmail.com\n📱 Instagram: @tw.eric_technology\n\n我們會盡快回覆您的問題！',
+            '聯絡方式': '很高興為您服務！您可以透過以下方式聯絡我們：\n\nEmail｜exo881222@gmail.com\nInstagram｜@tw.eric_technology\n\n我們會盡快回覆您的問題',
             
-            '預設': '感謝您的提問！關於這個問題，建議您：\n\n1. 查看我們的常見問題區\n2. 直接聯絡客服獲得詳細解答\n\n📧 Email: exo881222@gmail.com\n📱 Instagram: @tw.eric_technology'
+            '預設': '感謝您的提問。關於這個問題，建議您：\n\n· 查看我們的常見問題區\n· 直接聯絡客服獲得詳細解答\n\nEmail｜exo881222@gmail.com\nInstagram｜@tw.eric_technology'
         };
 
         // 開關聊天視窗
@@ -2429,7 +2483,7 @@
         if (sendButton) {
             sendButton.addEventListener('click', sendMessage);
         }
-        
+
         if (userInput) {
             userInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
@@ -2454,7 +2508,7 @@
             const messageDiv = document.createElement('div');
             messageDiv.className = 'message user';
             messageDiv.innerHTML = `
-                <div class="message-avatar">👤</div>
+                <div class="message-avatar">我</div>
                 <div class="message-content">${text}</div>
             `;
             chatbotMessages.appendChild(messageDiv);
@@ -2466,7 +2520,7 @@
             const typingDiv = document.createElement('div');
             typingDiv.className = 'message bot';
             typingDiv.innerHTML = `
-                <div class="message-avatar">🤖</div>
+                <div class="message-avatar">CS</div>
                 <div class="typing-indicator">
                     <div class="typing-dot"></div>
                     <div class="typing-dot"></div>
@@ -2513,7 +2567,7 @@
                 const messageDiv = document.createElement('div');
                 messageDiv.className = 'message bot';
                 messageDiv.innerHTML = `
-                    <div class="message-avatar">🤖</div>
+                    <div class="message-avatar">CS</div>
                     <div class="message-content">${response.replace(/\n/g, '<br>')}</div>
                 `;
                 chatbotMessages.appendChild(messageDiv);
