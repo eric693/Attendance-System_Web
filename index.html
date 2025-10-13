@@ -2516,68 +2516,82 @@
         }
 
         // 添加機器人回應
-        function addBotResponse(userMessage) {
-            const typingDiv = document.createElement('div');
-            typingDiv.className = 'message bot';
-            typingDiv.innerHTML = `
-                <div class="message-avatar">CS</div>
-                <div class="typing-indicator">
-                    <div class="typing-dot"></div>
-                    <div class="typing-dot"></div>
-                    <div class="typing-dot"></div>
-                </div>
-            `;
-            chatbotMessages.appendChild(typingDiv);
-            scrollToBottom();
+        let conversationHistory = [];
+        async function addBotResponse(userMessage) {
+        // 顯示打字動畫
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'message bot';
+        typingDiv.innerHTML = `
+            <div class="message-avatar">CS</div>
+            <div class="typing-indicator">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        `;
+        chatbotMessages.appendChild(typingDiv);
+        scrollToBottom();
 
-            setTimeout(() => {
-                typingDiv.remove();
-                
-                let response = knowledgeBase['預設'];
-                
-                for (const [key, value] of Object.entries(knowledgeBase)) {
-                    if (userMessage.includes(key) || key.includes(userMessage)) {
-                        response = value;
-                        break;
-                    }
+        try {
+            // 呼叫後端 API
+            const response = await fetch('http://localhost:3000/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: userMessage,
+                    history: conversationHistory
+                })
+            });
+
+            const data = await response.json();
+            
+            // 移除打字動畫
+            typingDiv.remove();
+
+            if (data.success) {
+                // 更新對話歷史
+                conversationHistory.push(
+                    { role: 'user', content: userMessage },
+                    { role: 'assistant', content: data.reply }
+                );
+
+                // 限制歷史記錄長度（最多保留最近10輪對話）
+                if (conversationHistory.length > 20) {
+                    conversationHistory = conversationHistory.slice(-20);
                 }
 
-                if (response === knowledgeBase['預設']) {
-                    if (userMessage.includes('價格') || userMessage.includes('費用') || userMessage.includes('多少錢')) {
-                        response = knowledgeBase['方案價格'];
-                    } else if (userMessage.includes('買') || userMessage.includes('購')) {
-                        response = knowledgeBase['如何購買'];
-                    } else if (userMessage.includes('人數') || userMessage.includes('多少人')) {
-                        response = knowledgeBase['使用人數'];
-                    } else if (userMessage.includes('打卡') && (userMessage.includes('怎麼') || userMessage.includes('如何'))) {
-                        response = knowledgeBase['打卡方式'];
-                    } else if (userMessage.includes('代打') || userMessage.includes('防止')) {
-                        response = knowledgeBase['防止代打卡'];
-                    } else if (userMessage.includes('請假') || userMessage.includes('審核')) {
-                        response = knowledgeBase['請假審核'];
-                    } else if (userMessage.includes('報表') || userMessage.includes('出勤')) {
-                        response = knowledgeBase['出勤報表'];
-                    } else if (userMessage.includes('聯絡') || userMessage.includes('客服') || userMessage.includes('聯繫')) {
-                        response = knowledgeBase['聯絡方式'];
-                    } else if (userMessage.includes('特色') || userMessage.includes('功能')) {
-                        response = knowledgeBase['產品特色'];
-                    }
-                }
-
+                // 顯示 AI 回應
                 const messageDiv = document.createElement('div');
                 messageDiv.className = 'message bot';
                 messageDiv.innerHTML = `
                     <div class="message-avatar">CS</div>
-                    <div class="message-content">${response.replace(/\n/g, '<br>')}</div>
+                    <div class="message-content">${data.reply.replace(/\n/g, '<br>')}</div>
                 `;
                 chatbotMessages.appendChild(messageDiv);
                 scrollToBottom();
 
-                if (response !== knowledgeBase['預設']) {
-                    addQuickOptions();
-                }
-            }, 1000);
+                // 添加快速選項
+                addQuickOptions();
+            } else {
+                throw new Error(data.error);
+            }
+
+        } catch (error) {
+            console.error('Error:', error);
+            typingDiv.remove();
+            
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'message bot';
+            errorDiv.innerHTML = `
+                <div class="message-avatar">CS</div>
+                <div class="message-content">抱歉，系統暫時無法回應。請稍後再試或直接聯絡我們：<br>Email: exo881222@gmail.com</div>
+            `;
+            chatbotMessages.appendChild(errorDiv);
+            scrollToBottom();
         }
+    }
 
         function addQuickOptions() {
             const existingOptions = chatbotMessages.querySelector('.quick-options');

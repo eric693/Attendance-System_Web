@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://eric693.github.io/Attendance-System_Web/sitemap.xml
+
