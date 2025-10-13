@@ -1375,6 +1375,327 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* 聊天機器人按鈕 */
+        .chatbot-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            z-index: 10000;
+            transition: all 0.3s;
+            animation: chatbotPulse 2s ease-in-out infinite;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(102, 126, 234, 0.6);
+        }
+
+        .chatbot-button svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+        }
+
+        .chatbot-button .close-icon {
+            display: none;
+        }
+
+        .chatbot-button.active .chat-icon {
+            display: none;
+        }
+
+        .chatbot-button.active .close-icon {
+            display: block;
+        }
+
+        @keyframes chatbotPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* 聊天視窗 */
+        .chatbot-window {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 380px;
+            height: 550px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            z-index: 9999;
+            overflow: hidden;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .chatbot-window.active {
+            display: flex;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 聊天頭部 */
+        .chatbot-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .chatbot-avatar {
+            width: 45px;
+            height: 45px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .chatbot-info h3 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .chatbot-info p {
+            margin: 5px 0 0;
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        /* 聊天內容區 */
+        .chatbot-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .chatbot-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chatbot-messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .chatbot-messages::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 3px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.bot {
+            flex-direction: row;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .message.bot .message-avatar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .message.user .message-avatar {
+            background: #2d7a5f;
+            color: white;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            line-height: 1.5;
+        }
+
+        .message.bot .message-content {
+            background: white;
+            color: #333;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.user .message-content {
+            background: #2d7a5f;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        /* 快速選項 */
+        .quick-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+            padding: 0 10px;
+        }
+
+        .quick-option {
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .quick-option:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 輸入區域 */
+        .chatbot-input {
+            padding: 15px 20px;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .chatbot-input input:focus {
+            border-color: #667eea;
+        }
+
+        .send-button {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .send-button:hover {
+            transform: scale(1.1);
+        }
+
+        .send-button svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        /* 打字動畫 */
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 12px 16px;
+            background: white;
+            border-radius: 18px;
+            width: fit-content;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #667eea;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .chatbot-window {
+                width: calc(100vw - 20px);
+                height: calc(100vh - 120px);
+                right: 10px;
+                bottom: 90px;
+            }
+
+            .chatbot-button {
+                bottom: 20px;
+                right: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1868,6 +2189,53 @@
         <p style="margin-top: 30px; opacity: 0.5; font-size: 0.9rem;">
             © 2025 打卡救星 Check-In Hero. All rights reserved.
         </p>
+
+        <!-- 聊天機器人按鈕 -->
+        <div class="chatbot-button" id="chatbotButton">
+            <svg class="chat-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+                <path d="M7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/>
+            </svg>
+            <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+            </svg>
+        </div>
+
+        <!-- 聊天視窗 -->
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <div class="chatbot-avatar">🤖</div>
+                <div class="chatbot-info">
+                    <h3>打卡救星小幫手</h3>
+                    <p>有什麼可以幫您的嗎？</p>
+                </div>
+            </div>
+
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        您好！我是打卡救星小幫手 👋<br>
+                        很高興為您服務！請問有什麼可以幫您的嗎？
+                    </div>
+                </div>
+                <div class="quick-options">
+                    <div class="quick-option" data-question="產品特色">產品特色</div>
+                    <div class="quick-option" data-question="方案價格">方案價格</div>
+                    <div class="quick-option" data-question="如何購買">如何購買</div>
+                    <div class="quick-option" data-question="使用人數">使用人數限制</div>
+                </div>
+            </div>
+
+            <div class="chatbot-input">
+                <input type="text" id="userInput" placeholder="輸入您的問題...">
+                <button class="send-button" id="sendButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
     </footer>
 
     <script>
@@ -2005,6 +2373,178 @@
                 item.classList.toggle('active');
             });
         });
+
+        const chatbotButton = document.getElementById('chatbotButton');
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        const chatbotMessages = document.getElementById('chatbotMessages');
+        const userInput = document.getElementById('userInput');
+        const sendButton = document.getElementById('sendButton');
+
+        // 知識庫
+        const knowledgeBase = {
+            '產品特色': '打卡救星的主要特色包括：\n\n✓ LINE Login 快速登入\n✓ GPS/IP 定位打卡\n✓ 自動異常檢測\n✓ 即時出勤報表\n✓ 請假加班審核\n✓ 不限使用人數\n✓ 買斷制永久使用',
+            
+            '方案價格': '我們目前提供三種方案：\n\n【A】打卡方案 - $2,400\n包含：打卡、請假\n\n【B】打卡+簽核 - $8,800\n包含：打卡、請假、簽核\n\n【C】計薪方案 - $16,300\n包含：全部功能+自動計薪\n\n全部都是買斷制，不限使用人數！',
+            
+            '如何購買': '購買流程很簡單：\n\n1️⃣ 選擇適合的方案\n2️⃣ 完成線上付款\n3️⃣ 1-2個工作天內專人聯繫\n4️⃣ 協助設定公司規則\n5️⃣ 開通帳號後即可使用\n\n我們提供7天退款保證，讓您安心購買！',
+            
+            '使用人數': '完全不限使用人數！🎉\n\n無論您的公司是5人還是500人，都可以使用。這是我們的限量優惠方案，先搶先贏！\n\n註：BC方案適用50人以下，51人以上請洽客服。',
+            
+            '打卡方式': '我們提供兩種打卡方式：\n\n📍 GPS定位打卡：員工需抵達指定地點才能打卡\n🌐 IP打卡：需連接指定網路才能打卡\n\n這些設定都能有效防止代打卡和提前打卡的情況！',
+            
+            '防止代打卡': '我們有多重機制防止代打卡：\n\n1. 綁定員工個人LINE帳號\n2. GPS定位驗證\n3. IP位址檢查\n4. 系統自動異常偵測\n\n讓您的考勤管理更安全可靠！',
+            
+            '請假審核': '支援完整的請假審核流程：\n\n✓ 線上提交請假申請\n✓ 可設定多級審核\n✓ 主管即時收到通知\n✓ 審核結果LINE通知\n✓ 自動計算假期時數\n\n讓請假管理數位化、自動化！',
+            
+            '出勤報表': '系統提供完整的出勤報表功能：\n\n📊 即時出勤數據\n📈 自動計算工時\n⏰ 遲到早退統計\n📑 Excel格式匯出\n🔍 異常自動標示\n\n人資工作效率大幅提升！',
+            
+            '聯絡方式': '很高興為您服務！您可以透過以下方式聯絡我們：\n\n📧 Email: exo881222@gmail.com\n📱 Instagram: @tw.eric_technology\n\n我們會盡快回覆您的問題！',
+            
+            '預設': '感謝您的提問！關於這個問題，建議您：\n\n1. 查看我們的常見問題區\n2. 直接聯絡客服獲得詳細解答\n\n📧 Email: exo881222@gmail.com\n📱 Instagram: @tw.eric_technology'
+        };
+
+        // 開關聊天視窗
+        if (chatbotButton) {
+            chatbotButton.addEventListener('click', () => {
+                chatbotButton.classList.toggle('active');
+                chatbotWindow.classList.toggle('active');
+                if (chatbotWindow.classList.contains('active')) {
+                    userInput.focus();
+                }
+            });
+        }
+
+        // 發送訊息
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message) {
+                addUserMessage(message);
+                userInput.value = '';
+                setTimeout(() => {
+                    addBotResponse(message);
+                }, 600);
+            }
+        }
+
+        if (sendButton) {
+            sendButton.addEventListener('click', sendMessage);
+        }
+        
+        if (userInput) {
+            userInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        }
+
+        // 快速選項點擊
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('quick-option')) {
+                const question = e.target.getAttribute('data-question');
+                addUserMessage(question);
+                setTimeout(() => {
+                    addBotResponse(question);
+                }, 600);
+            }
+        });
+
+        // 添加使用者訊息
+        function addUserMessage(text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message user';
+            messageDiv.innerHTML = `
+                <div class="message-avatar">👤</div>
+                <div class="message-content">${text}</div>
+            `;
+            chatbotMessages.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        // 添加機器人回應
+        function addBotResponse(userMessage) {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot';
+            typingDiv.innerHTML = `
+                <div class="message-avatar">🤖</div>
+                <div class="typing-indicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            `;
+            chatbotMessages.appendChild(typingDiv);
+            scrollToBottom();
+
+            setTimeout(() => {
+                typingDiv.remove();
+                
+                let response = knowledgeBase['預設'];
+                
+                for (const [key, value] of Object.entries(knowledgeBase)) {
+                    if (userMessage.includes(key) || key.includes(userMessage)) {
+                        response = value;
+                        break;
+                    }
+                }
+
+                if (response === knowledgeBase['預設']) {
+                    if (userMessage.includes('價格') || userMessage.includes('費用') || userMessage.includes('多少錢')) {
+                        response = knowledgeBase['方案價格'];
+                    } else if (userMessage.includes('買') || userMessage.includes('購')) {
+                        response = knowledgeBase['如何購買'];
+                    } else if (userMessage.includes('人數') || userMessage.includes('多少人')) {
+                        response = knowledgeBase['使用人數'];
+                    } else if (userMessage.includes('打卡') && (userMessage.includes('怎麼') || userMessage.includes('如何'))) {
+                        response = knowledgeBase['打卡方式'];
+                    } else if (userMessage.includes('代打') || userMessage.includes('防止')) {
+                        response = knowledgeBase['防止代打卡'];
+                    } else if (userMessage.includes('請假') || userMessage.includes('審核')) {
+                        response = knowledgeBase['請假審核'];
+                    } else if (userMessage.includes('報表') || userMessage.includes('出勤')) {
+                        response = knowledgeBase['出勤報表'];
+                    } else if (userMessage.includes('聯絡') || userMessage.includes('客服') || userMessage.includes('聯繫')) {
+                        response = knowledgeBase['聯絡方式'];
+                    } else if (userMessage.includes('特色') || userMessage.includes('功能')) {
+                        response = knowledgeBase['產品特色'];
+                    }
+                }
+
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message bot';
+                messageDiv.innerHTML = `
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">${response.replace(/\n/g, '<br>')}</div>
+                `;
+                chatbotMessages.appendChild(messageDiv);
+                scrollToBottom();
+
+                if (response !== knowledgeBase['預設']) {
+                    addQuickOptions();
+                }
+            }, 1000);
+        }
+
+        function addQuickOptions() {
+            const existingOptions = chatbotMessages.querySelector('.quick-options');
+            if (existingOptions) {
+                existingOptions.remove();
+            }
+
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'quick-options';
+            optionsDiv.innerHTML = `
+                <div class="quick-option" data-question="產品特色">產品特色</div>
+                <div class="quick-option" data-question="方案價格">方案價格</div>
+                <div class="quick-option" data-question="聯絡方式">聯絡我們</div>
+            `;
+            chatbotMessages.appendChild(optionsDiv);
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
     </script>
 </body>
 </html>
