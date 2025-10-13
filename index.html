@@ -1558,11 +1558,12 @@
             flex-shrink: 0;
             font-size: 0.75rem;
             font-weight: 600;
+            background: linear-gradient(135deg, #2d7a5f 0%, #1e5a45 100%);
         }
 
-        .message.bot .message-avatar {
-            background: linear-gradient(135deg, #2d7a5f 0%, #1e5a45 100%);
-            color: white;
+        .message.bot .message-avatar svg {
+            width: 24px;
+            height: 24px;
         }
 
         .message.user .message-avatar {
@@ -2288,7 +2289,19 @@
 
             <div class="chatbot-messages" id="chatbotMessages">
                 <div class="message bot">
-                    <div class="message-avatar">CS</div>
+                    <div class="message-avatar">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="3"/>
+                            <circle cx="50" cy="50" r="36" fill="none" stroke="white" stroke-width="2"/>
+                            <line x1="50" y1="15" x2="50" y2="20" stroke="white" stroke-width="2"/>
+                            <line x1="50" y1="80" x2="50" y2="85" stroke="white" stroke-width="2"/>
+                            <line x1="15" y1="50" x2="20" y2="50" stroke="white" stroke-width="2"/>
+                            <line x1="80" y1="50" x2="85" y2="50" stroke="white" stroke-width="2"/>
+                            <line x1="50" y1="50" x2="50" y2="30" stroke="white" stroke-width="3"/>
+                            <line x1="50" y1="50" x2="65" y2="35" stroke="#4ade80" stroke-width="3"/>
+                            <circle cx="50" cy="50" r="3" fill="white"/>
+                        </svg>
+                    </div>
                     <div class="message-content">
                         您好，我是打卡救星客服助理。<br>
                         有什麼可以協助您的嗎？
@@ -2543,7 +2556,19 @@
         const typingDiv = document.createElement('div');
         typingDiv.className = 'message bot';
         typingDiv.innerHTML = `
-            <div class="message-avatar">CS</div>
+            <div class="message-avatar">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="3"/>
+                    <circle cx="50" cy="50" r="36" fill="none" stroke="white" stroke-width="2"/>
+                    <line x1="50" y1="15" x2="50" y2="20" stroke="white" stroke-width="2"/>
+                    <line x1="50" y1="80" x2="50" y2="85" stroke="white" stroke-width="2"/>
+                    <line x1="15" y1="50" x2="20" y2="50" stroke="white" stroke-width="2"/>
+                    <line x1="80" y1="50" x2="85" y2="50" stroke="white" stroke-width="2"/>
+                    <line x1="50" y1="50" x2="50" y2="30" stroke="white" stroke-width="3"/>
+                    <line x1="50" y1="50" x2="65" y2="35" stroke="#4ade80" stroke-width="3"/>
+                    <circle cx="50" cy="50" r="3" fill="white"/>
+                </svg>
+            </div>
             <div class="typing-indicator">
                 <div class="typing-dot"></div>
                 <div class="typing-dot"></div>
@@ -2587,7 +2612,19 @@
                 const messageDiv = document.createElement('div');
                 messageDiv.className = 'message bot';
                 messageDiv.innerHTML = `
-                    <div class="message-avatar">CS</div>
+                    <div class="message-avatar">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="3"/>
+                            <circle cx="50" cy="50" r="36" fill="none" stroke="white" stroke-width="2"/>
+                            <line x1="50" y1="15" x2="50" y2="20" stroke="white" stroke-width="2"/>
+                            <line x1="50" y1="80" x2="50" y2="85" stroke="white" stroke-width="2"/>
+                            <line x1="15" y1="50" x2="20" y2="50" stroke="white" stroke-width="2"/>
+                            <line x1="80" y1="50" x2="85" y2="50" stroke="white" stroke-width="2"/>
+                            <line x1="50" y1="50" x2="50" y2="30" stroke="white" stroke-width="3"/>
+                            <line x1="50" y1="50" x2="65" y2="35" stroke="#4ade80" stroke-width="3"/>
+                            <circle cx="50" cy="50" r="3" fill="white"/>
+                        </svg>
+                    </div>
                     <div class="message-content">${data.reply.replace(/\n/g, '<br>')}</div>
                 `;
                 chatbotMessages.appendChild(messageDiv);
@@ -2606,7 +2643,19 @@
             const errorDiv = document.createElement('div');
             errorDiv.className = 'message bot';
             errorDiv.innerHTML = `
-                <div class="message-avatar">CS</div>
+                <div class="message-avatar">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="3"/>
+                        <circle cx="50" cy="50" r="36" fill="none" stroke="white" stroke-width="2"/>
+                        <line x1="50" y1="15" x2="50" y2="20" stroke="white" stroke-width="2"/>
+                        <line x1="50" y1="80" x2="50" y2="85" stroke="white" stroke-width="2"/>
+                        <line x1="15" y1="50" x2="20" y2="50" stroke="white" stroke-width="2"/>
+                        <line x1="80" y1="50" x2="85" y2="50" stroke="white" stroke-width="2"/>
+                        <line x1="50" y1="50" x2="50" y2="30" stroke="white" stroke-width="3"/>
+                        <line x1="50" y1="50" x2="65" y2="35" stroke="#4ade80" stroke-width="3"/>
+                        <circle cx="50" cy="50" r="3" fill="white"/>
+                    </svg>
+                </div>
                 <div class="message-content">抱歉，系統暫時無法回應。請稍後再試或直接聯絡我們：<br>Email: exo881222@gmail.com</div>
             `;
             chatbotMessages.appendChild(errorDiv);
