@@ -2258,10 +2258,29 @@
         <!-- 聊天視窗 -->
         <div class="chatbot-window" id="chatbotWindow">
             <div class="chatbot-header">
-                <div class="chatbot-avatar">CS</div>
+                <div class="chatbot-avatar">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width: 32px; height: 32px;">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="3"/>
+                        <circle cx="50" cy="50" r="36" fill="none" stroke="white" stroke-width="2"/>
+                        <!-- 時鐘刻度 -->
+                        <line x1="50" y1="15" x2="50" y2="20" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="50" y1="80" x2="50" y2="85" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="15" y1="50" x2="20" y2="50" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="80" y1="50" x2="85" y2="50" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <!-- 時針 -->
+                        <line x1="50" y1="50" x2="50" y2="30" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                        <!-- 分針 -->
+                        <line x1="50" y1="50" x2="65" y2="35" stroke="#4ade80" stroke-width="3" stroke-linecap="round"/>
+                        <!-- 中心點 -->
+                        <circle cx="50" cy="50" r="3" fill="white"/>
+                        <!-- 星星裝飾 -->
+                        <path d="M 80,-5 L 81.5,-1.5 L 85,-1.5 L 82.4,0.7 L 83.8,4.2 L 80,1.9 L 76.2,4.2 L 77.6,0.7 L 75,-1.5 L 78.5,-1.5 Z" 
+                              fill="#FFD700" transform="translate(0, 20)"/>
+                    </svg>
+                </div>
                 <div class="chatbot-info">
-                    <h3>客服助理</h3>
-                    <p>專業解答您的疑問</p>
+                    <h3>打卡救星</h3>
+                    <p>Check-In Hero 智能客服</p>
                 </div>
             </div>
 
