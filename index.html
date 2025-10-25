@@ -715,9 +715,10 @@
 
         .cell-title {
             font-weight: 700;
-            color: #333;
+            color: #000000;
             margin-bottom: 8px;
             margin-top: 15px;
+            font-size: 1.1rem;
         }
 
         .cell-title:first-child {
@@ -725,9 +726,10 @@
         }
 
         .table-cell p {
-            color: #666;
+            color: #000000;
             line-height: 1.6;
             font-size: 1rem;
+            font-weight: 500;
         }
 
         .comparison-list {
@@ -739,15 +741,18 @@
             padding: 10px 0;
             font-size: 1.05rem;
             line-height: 1.6;
-            color: #333;
+            color: #000000;
+            font-weight: 500;
         }
 
         .comparison-list.highlight li {
-            color: #2d7a5f;
+            color: #000000;
+            font-weight: 600;
         }
 
         .comparison-list.negative li {
-            color: #666;
+            color: #000000;
+            font-weight: 500;
         }
 
         @media (max-width: 1024px) {
@@ -896,7 +901,8 @@
         .feature-card h3 {
             font-size: 1.5rem;
             margin-bottom: 15px;
-            color: #667eea;
+            color: #000000;
+            font-weight: 700;
             position: relative;
             z-index: 1;
         }
@@ -904,6 +910,8 @@
         .feature-card p {
             position: relative;
             z-index: 1;
+            color: #000000;
+            font-weight: 500;
         }
 
         .feature-card ul {
@@ -1260,7 +1268,7 @@
             padding: 25px 30px;
             font-size: 1.2rem;
             font-weight: 600;
-            color: #333;
+            color: #000000;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
@@ -1296,9 +1304,10 @@
         }
 
         .faq-answer p {
-            color: #666;
+            color: #000000;
             line-height: 1.8;
             font-size: 1.05rem;
+            font-weight: 500;
         }
 
         /* Responsive */
@@ -2041,6 +2050,29 @@
                     <li>自動計算時數</li>
                 </ul>
             </div>
+
+            <div class="feature-card reveal">
+                <h3>彈性排班管理</h3>
+                <p>智慧排班系統，輕鬆管理多班別員工</p>
+                <ul>
+                    <li>多班別設定</li>
+                    <li>自動排班通知</li>
+                    <li>班表衝突檢測</li>
+                    <li>月度班表檢視</li>
+                </ul>
+            </div>
+
+            <div class="feature-card reveal">
+                <h3>自動計薪系統</h3>
+                <p>根據出勤自動計算薪資，省時又精準</p>
+                <ul>
+                    <li>工時自動計算</li>
+                    <li>加班費計算</li>
+                    <li>請假扣薪處理</li>
+                    <li>勞健保自動計算</li>
+                    <li>薪資報表匯出</li>
+                </ul>
+            </div>
         </div>
     </section>
 
@@ -2057,8 +2089,30 @@
                 <div class="price">$2,400</div>
                 <div class="original-price">不限使用人數</div>
                 <ul class="features-list">
-                    <li class="included">打卡</li>
-                    <li class="included">請假</li>
+                    <li class="included">打卡功能
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • GPS/IP 定位打卡<br>
+                            • 上下班時間記錄<br>
+                            • 異常自動標示<br>
+                            • 即時出勤報表
+                        </div>
+                    </li>
+                    <li class="included">排班管理
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • 彈性排班設定<br>
+                            • 多班別管理<br>
+                            • 班表自動通知<br>
+                            • 月度排班檢視
+                        </div>
+                    </li>
+                    <li class="included">請假管理
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • 線上請假申請<br>
+                            • 假別時數統計<br>
+                            • 請假記錄查詢<br>
+                            • 假期餘額顯示
+                        </div>
+                    </li>
                 </ul>
                 <a href="purchase.html" class="pricing-button">立即購買</a>
             </div>
@@ -2069,9 +2123,38 @@
                 <div class="price">$8,800</div>
                 <div class="original-price">（原價 $19,600）</div>
                 <ul class="features-list">
-                    <li class="gift">打卡</li>
-                    <li class="gift">請假</li>
-                    <li class="included">請假、加班簽核</li>
+                    <li class="gift">打卡功能
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • GPS/IP 定位打卡<br>
+                            • 上下班時間記錄<br>
+                            • 異常自動標示<br>
+                            • 即時出勤報表
+                        </div>
+                    </li>
+                    <li class="gift">排班管理
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • 彈性排班設定<br>
+                            • 多班別管理<br>
+                            • 班表自動通知<br>
+                            • 月度排班檢視
+                        </div>
+                    </li>
+                    <li class="gift">請假管理
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • 線上請假申請<br>
+                            • 假別時數統計<br>
+                            • 請假記錄查詢<br>
+                            • 假期餘額顯示
+                        </div>
+                    </li>
+                    <li class="included">請假、加班簽核
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • 多層級簽核流程<br>
+                            • 主管審核通知<br>
+                            • 簽核狀態追蹤<br>
+                            • 自動簽核提醒
+                        </div>
+                    </li>
                 </ul>
                 <a href="purchase.html" class="pricing-button">立即購買</a>
             </div>
@@ -2082,10 +2165,47 @@
                 <div class="price">$16,300</div>
                 <div class="original-price">（原價 $39,000）</div>
                 <ul class="features-list">
-                    <li class="gift">打卡</li>
-                    <li class="gift">請假</li>
-                    <li class="gift">請假、加班簽核</li>
-                    <li class="included">自動計薪 限購</li>
+                    <li class="gift">打卡功能
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • GPS/IP 定位打卡<br>
+                            • 上下班時間記錄<br>
+                            • 異常自動標示<br>
+                            • 即時出勤報表
+                        </div>
+                    </li>
+                    <li class="gift">排班管理
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • 彈性排班設定<br>
+                            • 多班別管理<br>
+                            • 班表自動通知<br>
+                            • 月度排班檢視
+                        </div>
+                    </li>
+                    <li class="gift">請假管理
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • 線上請假申請<br>
+                            • 假別時數統計<br>
+                            • 請假記錄查詢<br>
+                            • 假期餘額顯示
+                        </div>
+                    </li>
+                    <li class="gift">請假、加班簽核
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • 多層級簽核流程<br>
+                            • 主管審核通知<br>
+                            • 簽核狀態追蹤<br>
+                            • 自動簽核提醒
+                        </div>
+                    </li>
+                    <li class="included">自動計薪 限購
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • 自動計算工時薪資<br>
+                            • 加班費自動計算<br>
+                            • 請假扣薪處理<br>
+                            • 月薪資報表匯出<br>
+                            • 勞健保自動計算
+                        </div>
+                    </li>
                 </ul>
                 <a href="purchase.html" class="pricing-button">立即購買</a>
                 <div class="service-note">專人薪資資料設定</div>
