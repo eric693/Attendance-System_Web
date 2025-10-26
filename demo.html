@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="dark">
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="/New_Attendance-System/0rigin.svg" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>打卡救星｜實際使用畫面 Demo</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                fontFamily: {
+                    sans: ['Inter', 'system-ui', 'sans-serif']
+                },
+                extend: {
+                    colors: {
+                        brand: {
+                            500: '#2d7a5f',
+                            600: '#1e5a45'
+                        }
+                    },
+                    boxShadow: {
+                        card: '0 16px 40px rgba(0,0,0,0.16)'
+                    },
+                    borderRadius: {
+                        xl: '1rem'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap" rel="stylesheet"/>
+
+    <style>
+        body { -webkit-font-smoothing: antialiased; }
+        /* 這裡不再用 @apply，因為純靜態頁面不會跑 Tailwind 編譯 */
+    </style>
+
+    <script>
+        // Demo 版的主題切換（不寫 localStorage，純展示）
+        function toggleTheme() {
+            const html = document.documentElement;
+            html.classList.toggle('dark');
+            document.getElementById('themeIcon').textContent =
+                html.classList.contains('dark') ? '☀️' : '🌙';
+        }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen py-8 px-4 flex justify-center">
+
+    <div class="w-full max-w-5xl space-y-8">
+
+        <!-- Top Bar / Branding -->
+        <nav class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 pb-4 border-b border-gray-200 dark:border-gray-700">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-emerald-500/20">
+                    <img src="/New_Attendance-System/0rigin.svg" alt="logo" class="w-8 h-8 object-contain">
+                </div>
+                <div>
+                    <div class="text-base font-semibold text-gray-900 dark:text-white leading-tight">
+                        打卡救星 Check-In Hero
+                    </div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400 leading-tight">
+                        LINE 打卡 / GPS / 請假 / 加班 / 薪資
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center flex-wrap gap-3">
+                <a href="index.html"
+                   class="px-3 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-100 text-xs font-medium leading-none hover:opacity-80">
+                    回主系統頁
+                </a>
+                <button onclick="toggleTheme()"
+                        class="px-3 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-100 text-xs font-medium leading-none">
+                    <span id="themeIcon">☀️</span> 主題切換
+                </button>
+            </div>
+        </nav>
+
+        <!-- Header / User summary -->
+        <header class="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+            <div class="flex items-start gap-4">
+                <img class="w-14 h-14 rounded-full ring-2 ring-brand-500 ring-offset-2 ring-offset-gray-50 dark:ring-offset-gray-900 object-cover"
+                     src="https://placehold.co/80x80/2d7a5f/ffffff?text=JW"
+                     alt="avatar">
+                <div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <h1 class="text-xl font-semibold text-gray-900 dark:text-white">
+                            王小明
+                        </h1>
+
+                        <!-- badge -->
+                        <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300">
+                            已上班
+                        </span>
+
+                        <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300">
+                            早班 09:00-18:00
+                        </span>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">
+                        行政專員｜台北總部<br class="hidden sm:block">
+                        今日應出勤：8 小時｜目前累計：2.3 小時
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 self-start md:self-auto">
+                <button class="px-3 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-100 text-xs font-medium leading-none">
+                    模擬使用者
+                </button>
+                <button class="px-3 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-100 text-xs font-medium leading-none">
+                    登出
+                </button>
+            </div>
+        </header>
+
+        <!-- Top grid: 打卡 / 今日狀態 / 本日地點 -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <!-- 打卡專區 -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-card border border-gray-200/70 dark:border-gray-700/60 p-5 flex flex-col">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h2 class="text-base font-semibold text-gray-900 dark:text-white">打卡專區</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">使用 GPS / IP 驗證</p>
+                    </div>
+
+                    <!-- badge -->
+                    <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 flex items-center gap-1">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        在公司範圍內
+                    </span>
+                </div>
+
+                <div class="mt-4 space-y-4">
+                    <div class="grid grid-cols-2 gap-3">
+                        <button class="py-3 rounded-lg font-semibold text-white bg-gradient-to-br from-brand-500 to-brand-600 shadow-lg shadow-emerald-500/20 text-sm">
+                            上班已打卡<br>
+                            <span class="text-[11px] font-normal opacity-90">09:07</span>
+                        </button>
+                        <button class="py-3 rounded-lg font-semibold text-gray-800 bg-gray-100 dark:bg-gray-700 dark:text-white border border-gray-300 dark:border-gray-600 text-sm">
+                            下班打卡
+                        </button>
+                    </div>
+
+                    <div class="bg-gray-50 dark:bg-gray-700/60 rounded-lg p-3 text-xs leading-relaxed text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-600">
+                        <div class="flex justify-between">
+                            <span>最後定位時間</span>
+                            <span class="font-medium text-gray-900 dark:text-white">09:06:55</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>位置狀態</span>
+                            <span class="font-medium text-emerald-500">✔ 台北辦公室</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>裝置</span>
+                            <span class="font-medium">iPhone • LINE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 今日出勤紀錄 -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-card border border-gray-200/70 dark:border-gray-700/60 p-5 flex flex-col">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h2 class="text-base font-semibold text-gray-900 dark:text-white">今日出勤紀錄</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">系統自動偵測異常</p>
+                    </div>
+
+                    <!-- badge -->
+                    <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300">
+                        1 筆異常
+                    </span>
+                </div>
+
+                <ul class="mt-4 space-y-3 text-sm">
+                    <li class="flex items-start justify-between bg-gray-50 dark:bg-gray-700/60 rounded-lg p-3 border border-gray-200 dark:border-gray-600">
+                        <div>
+                            <div class="font-semibold text-gray-900 dark:text-white">上班打卡</div>
+                            <div class="text-xs text-gray-500 dark:text-gray-400">GPS 符合 | IP 符合</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-semibold text-gray-900 dark:text-white">09:07</div>
+                            <div class="text-[11px] text-yellow-600 dark:text-yellow-400 font-medium">遲到 7 分</div>
+                        </div>
+                    </li>
+                    <li class="flex items-start justify-between bg-gray-50 dark:bg-gray-700/60 rounded-lg p-3 border border-gray-200 dark:border-gray-600 opacity-60">
+                        <div>
+                            <div class="font-semibold text-gray-900 dark:text-white">下班打卡</div>
+                            <div class="text-xs text-gray-500 dark:text-gray-400">尚未打卡</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-semibold text-gray-400 dark:text-gray-500">--:--</div>
+                        </div>
+                    </li>
+                </ul>
+
+                <button class="mt-4 w-full text-xs font-semibold text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:opacity-80">
+                    我要補打卡申請 →
+                </button>
+            </div>
+
+            <!-- 目前位置 -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-card border border-gray-200/70 dark:border-gray-700/60 p-5 flex flex-col">
+                <div class="flex items-start justify-between mb-4">
+                    <div>
+                        <h2 class="text-base font-semibold text-gray-900 dark:text-white">目前定位</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">系統已記錄考勤地點</p>
+                    </div>
+
+                    <!-- badge -->
+                    <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300">
+                        GPS 模式
+                    </span>
+                </div>
+
+                <div class="rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 h-32 flex items-center justify-center text-xs text-gray-500 dark:text-gray-300 text-center leading-relaxed">
+                    [地圖預覽]<br>台北市信義區松壽路 12 號 附近
+                </div>
+
+                <div class="mt-3 text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed bg-gray-50 dark:bg-gray-800/60 rounded-lg p-3 border border-gray-200 dark:border-gray-700">
+                    經度：121.5654<br>
+                    緯度：25.0339<br>
+                    半徑允許範圍：50 公尺內
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom grid: 排班 / 本月統計 / 加班/請假/薪資 -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- 本週排班 -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-card border border-gray-200/70 dark:border-gray-700/60 p-5 flex flex-col">
+                <div class="flex items-start justify-between mb-4">
+                    <div>
+                        <h2 class="text-base font-semibold text-gray-900 dark:text-white">本週排班</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">主管最後更新：昨天 18:20</p>
+                    </div>
+
+                    <!-- badge -->
+                    <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300">
+                        穩定
+                    </span>
+                </div>
+
+                <ul class="text-sm space-y-2">
+                    <li class="flex justify-between items-start bg-gray-50 dark:bg-gray-700/60 rounded-lg px-3 py-2 border border-gray-200 dark:border-gray-600">
+                        <span class="text-gray-700 dark:text-gray-200 font-medium">週一 10/27</span>
+                        <span class="text-right">
+                            <div class="font-semibold text-gray-900 dark:text-white">09:00 - 18:00</div>
+                            <div class="text-[11px] text-gray-500 dark:text-gray-400">台北辦公室 A 座</div>
+                        </span>
+                    </li>
+                    <li class="flex justify-between items-start bg-gray-50 dark:bg-gray-700/60 rounded-lg px-3 py-2 border border-gray-200 dark:border-gray-600">
+                        <span class="text-gray-700 dark:text-gray-200 font-medium">週二 10/28</span>
+                        <span class="text-right">
+                            <div class="font-semibold text-gray-900 dark:text-white">09:00 - 18:00</div>
+                            <div class="text-[11px] text-gray-500 dark:text-gray-400">台北辦公室 A 座</div>
+                        </span>
+                    </li>
+                    <li class="flex justify-between items-start bg-gray-50 dark:bg-gray-700/60 rounded-lg px-3 py-2 border border-gray-200 dark:border-gray-600">
+                        <span class="text-gray-700 dark:text-gray-200 font-medium">週三 10/29</span>
+                        <span class="text-right">
+                            <div class="font-semibold text-gray-900 dark:text-white">居家辦公</div>
+                            <div class="text-[11px] text-emerald-500 font-medium">遠端允許</div>
+                        </span>
+                    </li>
+                    <li class="flex justify-between items-start bg-gray-50 dark:bg-gray-700/60 rounded-lg px-3 py-2 border border-gray-200 dark:border-gray-600">
+                        <span class="text-gray-700 dark:text-gray-200 font-medium">週四 10/30</span>
+                        <span class="text-right">
+                            <div class="font-semibold text-gray-900 dark:text-white">09:00 - 18:00</div>
+                            <div class="text-[11px] text-gray-500 dark:text-gray-400">台北辦公室 B 座</div>
+                        </span>
+                    </li>
+                    <li class="flex justify-between items-start bg-gray-50 dark:bg-gray-700/60 rounded-lg px-3 py-2 border border-gray-200 dark:border-gray-600">
+                        <span class="text-gray-700 dark:text-gray-200 font-medium">週五 10/31</span>
+                        <span class="text-right">
+                            <div class="font-semibold text-gray-900 dark:text-white">09:00 - 17:00</div>
+                            <div class="text-[11px] text-blue-500 font-medium">提早下班</div>
+                        </span>
+                    </li>
+                </ul>
+
+                <button class="mt-4 w-full text-xs font-semibold text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:opacity-80">
+                    查看完整班表 →
+                </button>
+            </div>
+
+            <!-- 本月出勤統計 -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-card border border-gray-200/70 dark:border-gray-700/60 p-5 flex flex-col">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h2 class="text-base font-semibold text-gray-900 dark:text-white">本月出勤統計</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">依已打卡紀錄計算</p>
+                    </div>
+
+                    <!-- badge -->
+                    <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300">
+                        2025/10
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+                    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-3">
+                        <div class="text-xs text-gray-500 dark:text-gray-400">準時天數</div>
+                        <div class="text-lg font-semibold text-gray-900 dark:text-white">14 天</div>
+                        <div class="text-[11px] text-gray-400 dark:text-gray-500">/ 18 個工作日</div>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-3">
+                        <div class="text-xs text-gray-500 dark:text-gray-400">遲到次數</div>
+                        <div class="text-lg font-semibold text-yellow-500">3 次</div>
+                        <div class="text-[11px] text-gray-400 dark:text-gray-500">合計 22 分鐘</div>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-3">
+                        <div class="text-xs text-gray-500 dark:text-gray-400">加班時數</div>
+                        <div class="text-lg font-semibold text-indigo-500">6.5 小時</div>
+                        <div class="text-[11px] text-gray-400 dark:text-gray-500">待審核 2.0h</div>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-3">
+                        <div class="text-xs text-gray-500 dark:text-gray-400">請假天數</div>
+                        <div class="text-lg font-semibold text-rose-500">1.0 天</div>
+                        <div class="text-[11px] text-gray-400 dark:text-gray-500">特休 1.0</div>
+                    </div>
+                </div>
+
+                <button class="mt-4 w-full text-xs font-semibold text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:opacity-80">
+                    匯出出勤報表 (Excel) →
+                </button>
+            </div>
+
+            <!-- 加班 / 請假 / 薪資摘要 -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-card border border-gray-200/70 dark:border-gray-700/60 p-5 flex flex-col space-y-4">
+
+                <!-- 加班 -->
+                <div>
+                    <div class="flex items-start justify-between">
+                        <h2 class="text-base font-semibold text-gray-900 dark:text-white">加班申請狀態</h2>
+                        <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300">
+                            待主管審核
+                        </span>
+                    </div>
+                    <div class="mt-2 text-sm bg-gray-50 dark:bg-gray-700/60 rounded-lg p-3 border border-gray-200 dark:border-gray-600">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600 dark:text-gray-300">10/25 (六)</span>
+                            <span class="font-semibold text-gray-900 dark:text-white">19:00 - 22:00</span>
+                        </div>
+                        <div class="text-[11px] text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">
+                            3 小時 • 排程盤點月結 • 狀態：審核中
+                        </div>
+                    </div>
+                    <button class="mt-2 w-full text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:opacity-80">
+                        查看所有加班申請 →
+                    </button>
+                </div>
+
+                <!-- 請假 -->
+                <div>
+                    <div class="flex items-start justify-between">
+                        <h2 class="text-base font-semibold text-gray-900 dark:text-white">請假申請狀態</h2>
+                        <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300">
+                            已核准
+                        </span>
+                    </div>
+                    <div class="mt-2 text-sm bg-gray-50 dark:bg-gray-700/60 rounded-lg p-3 border border-gray-200 dark:border-gray-600">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600 dark:text-gray-300">10/31 (五)</span>
+                            <span class="font-semibold text-gray-900 dark:text-white">特休 1 天</span>
+                        </div>
+                        <div class="text-[11px] text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">
+                            事由：家中事務需要處理
+                        </div>
+                    </div>
+                    <button class="mt-2 w-full text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 underline underline-offset-2 hover:opacity-80">
+                        我要再申請請假 →
+                    </button>
+                </div>
+
+                <!-- 薪資 -->
+                <div>
+                    <div class="flex items-start justify-between">
+                        <h2 class="text-base font-semibold text-gray-900 dark:text-white">本月薪資(試算)</h2>
+                        <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300">
+                            未發佈
+                        </span>
+                    </div>
+                    <div class="mt-2 rounded-lg bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white p-4 shadow-inner border border-gray-600/50 dark:from-gray-700 dark:via-gray-800 dark:to-gray-900 dark:border-gray-700">
+                        <div class="text-xs text-gray-300 flex justify-between">
+                            <span>預估實領</span>
+                            <span class="font-semibold text-lg text-white">NT$ 52,380</span>
+                        </div>
+                        <div class="text-[11px] text-gray-400 mt-2 leading-relaxed">
+                            已含加班費 / 已扣請假時數 / 勞健保自動計算
+                        </div>
+                    </div>
+                    <button class="mt-2 w-full text-[11px] font-semibold text-indigo-300 underline underline-offset-2 hover:opacity-80">
+                        查看薪資明細 →
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-[11px] text-gray-400 dark:text-gray-600 pt-8 pb-4">
+            <div class="opacity-80">
+                打卡救星 Check-In Hero｜GPS 打卡、排班、簽核、計薪一站完成<br>
+                Demo 畫面僅供展示，實際資料依公司設定為準
+            </div>
+            <div class="mt-2">
+                © 2025 打卡救星．All rights reserved.
+            </div>
+        </footer>
+
+    </div>
+</body>
+</html>
