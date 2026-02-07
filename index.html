@@ -6,8 +6,8 @@
     <meta name="google-site-verification" content="-j8Vaba2doAazoU2wr_FI33hklLdYL0cIdoLHWhcm08" />
     
     <!-- SEO 優化 -->
-    <meta name="description" content="出勤管家 - LINE 打卡鐘，企業考勤管理最佳解決方案。支援 GPS 定位打卡、請假加班申請、自動計薪，買斷制永久使用。">
-    <meta name="keywords" content="打卡系統,LINE打卡,考勤系統,出勤管理,雲端打卡,企業人資">
+    <meta name="description" content="出勤管家 - LINE 打卡鐘，企業考勤管理最佳解決方案。支援 GPS 定位打卡、請假加班申請、自動計薪、工作日誌管理、AI OCR 發票辨識，買斷制永久使用。">
+    <meta name="keywords" content="打卡系統,LINE打卡,考勤系統,出勤管理,雲端打卡,企業人資,工作日誌,AI OCR,發票辨識">
     <meta name="author" content="出勤管家">
     <title>出勤管家 | LINE 打卡鐘 - 企業考勤最佳解決方案</title>
     <style>
@@ -317,6 +317,7 @@
             animation: fadeInUp 1s ease-out 0.8s forwards;
             position: relative;
             overflow: hidden;
+            margin-right: 20px;
         }
 
         .cta-button::before {
@@ -635,11 +636,56 @@
             background: #2563eb;
         }
 
+        /* 新功能展示區 */
+        .new-features-spotlight {
+            padding: 120px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .new-features-spotlight .feature-card-new {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            transition: all 0.4s;
+        }
+
+        .new-features-spotlight .feature-card-new:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+        }
+
         /* Comparison Section */
         .comparison-section {
             padding: 120px 20px;
             background: white;
             position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            color: #000000;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
         }
 
         .comparison-container {
@@ -755,6 +801,7 @@
             font-weight: 500;
         }
 
+        /* Responsive */
         @media (max-width: 1024px) {
             .table-header,
             .table-row {
@@ -771,9 +818,55 @@
                 padding: 20px 15px;
                 font-size: 0.95rem;
             }
+
+            .intro-container {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
         }
 
         @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-tagline {
+                font-size: 1.3rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .intro-features {
+                font-size: 1.5rem;
+            }
+
+            .phone-mockup {
+                max-width: 300px;
+                height: 500px;
+            }
+
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .logo-title {
+                font-size: 1.2rem;
+            }
+
+            .nav-cta {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
             .comparison-section {
                 padding: 80px 20px;
             }
@@ -828,35 +921,650 @@
             }
         }
 
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="2"/>
+                        <circle cx="50" cy="50" r="36" fill="none" stroke="white" stroke-width="1"/>
+                        <line x1="50" y1="15" x2="50" y2="20" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="50" y1="80" x2="50" y2="85" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="15" y1="50" x2="20" y2="50" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="80" y1="50" x2="85" y2="50" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <line class="clock-hand-hour" x1="50" y1="50" x2="50" y2="30" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                        <line class="clock-hand-minute" x1="50" y1="50" x2="65" y2="35" stroke="#4ade80" stroke-width="3" stroke-linecap="round"/>
+                        <circle cx="50" cy="50" r="3" fill="white"/>
+                        <g class="star-glow" transform="translate(80, 20)">
+                            <path d="M 0,-5 L 1.5,-1.5 L 5,-1.5 L 2.4,0.7 L 3.8,4.2 L 0,1.9 L -3.8,4.2 L -2.4,0.7 L -5,-1.5 L -1.5,-1.5 Z" fill="#FFD700"/>
+                        </g>
+                        <g class="star-glow" transform="translate(20, 80)" style="animation-delay: 0.5s;">
+                            <path d="M 0,-5 L 1.5,-1.5 L 5,-1.5 L 2.4,0.7 L 3.8,4.2 L 0,1.9 L -3.8,4.2 L -2.4,0.7 L -5,-1.5 L -1.5,-1.5 Z" fill="#FFD700"/>
+                        </g>
+                        <circle cx="85" cy="25" r="2" fill="#FFD700" class="star-glow" style="animation-delay: 1s;"/>
+                        <circle cx="60" cy="90" r="2" fill="#FFD700" class="star-glow" style="animation-delay: 1.5s;"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-title">出勤管家</span>
+                    <span class="logo-subtitle">Check-In Hero</span>
+                </div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#home">首頁</a></li>
+                <li><a href="#new-features" class="active">最新功能<span class="new-badge">NEW</span></a></li>
+                <li><a href="#pricing">方案價格</a></li>
+                <li><a href="#resources">更多資源</a></li>
+                <li><a href="#faq">常見問題</a></li>
+                <li><a href="#contact">合作洽詢</a></li>
+                <li><a href="demo.html" target="_blank">查看實際畫面 Demo</a></li>
+            </ul>
+            <a href="#pricing" class="nav-cta">最新優惠</a>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="particles"></div>
+        <div class="floating-elements">
+            <svg class="float-element" width="100" height="100" style="top: 10%; left: 10%;">
+                <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+            </svg>
+            <svg class="float-element" width="80" height="80" style="top: 20%; right: 15%;">
+                <rect x="10" y="10" width="60" height="60" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+            </svg>
+            <svg class="float-element" width="120" height="120" style="bottom: 15%; left: 20%;">
+                <polygon points="60,10 110,90 10,90" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+            </svg>
+        </div>
+        <div class="hero-content">
+            <div class="hero-subtitle">立即開始使用</div>
+            <h1>出勤管家</h1>
+            <div class="hero-tagline">智慧考勤管理 - 讓企業人資管理更輕鬆</div>
+            <a href="#pricing" class="cta-button">前往下載</a>
+            <a href="demo.html"
+               class="cta-button"
+               style="background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.7); box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
+               查看實際畫面 Demo
+            </a>
+        </div>
+    </section>
+
+    <!-- Product Intro Section -->
+    <section class="product-intro" id="features">
+        <div class="intro-bg"></div>
+        <div class="intro-container">
+            <div class="intro-image">
+                <div class="phone-mockup">
+                    <div style="text-align: center; color: white;">
+                        <svg width="140" height="140" viewBox="0 0 140 140" style="margin-bottom: 30px;">
+                            <defs>
+                                <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#4169E1;stop-opacity:1" />
+                                    <stop offset="50%" style="stop-color:#1E90FF;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#0047AB;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <g class="main-clock-circle">
+                                <circle cx="70" cy="70" r="63" fill="url(#blueGradient)" />
+                                <circle cx="70" cy="70" r="51" fill="white" />
+                            </g>
+                            <line x1="70" y1="24.5" x2="70" y2="31.5" stroke="#6B7280" stroke-width="2.1" stroke-linecap="round"/>
+                            <line x1="70" y1="108.5" x2="70" y2="115.5" stroke="#6B7280" stroke-width="2.1" stroke-linecap="round"/>
+                            <line x1="24.5" y1="70" x2="31.5" y2="70" stroke="#6B7280" stroke-width="2.1" stroke-linecap="round"/>
+                            <line x1="108.5" y1="70" x2="115.5" y2="70" stroke="#6B7280" stroke-width="2.1" stroke-linecap="round"/>
+                            <g class="main-clock-hour">
+                                <line x1="70" y1="70" x2="70" y2="45.5" stroke="#4169E1" stroke-width="3.5" stroke-linecap="round"/>
+                            </g>
+                            <g class="main-clock-minute">
+                                <line x1="70" y1="70" x2="94.5" y2="49" stroke="#5ECC8C" stroke-width="3.5" stroke-linecap="round"/>
+                            </g>
+                            <circle cx="70" cy="70" r="2.8" fill="#2C3E50"/>
+                            <g class="main-star" transform="translate(112, 21)">
+                                <path d="M 0,-7 L 2.06,-2.16 L 7.22,-2.16 L 3.33,1.03 L 5.39,5.87 L 0,2.67 L -5.39,5.87 L -3.33,1.03 L -7.22,-2.16 L -2.06,-2.16 Z" fill="#FFD700" stroke="#FFA500" stroke-width="0.5"/>
+                            </g>
+                            <g class="main-star" transform="translate(28, 119)">
+                                <path d="M 0,-7 L 2.06,-2.16 L 7.22,-2.16 L 3.33,1.03 L 5.39,5.87 L 0,2.67 L -5.39,5.87 L -3.33,1.03 L -7.22,-2.16 L -2.06,-2.16 Z" fill="#FFD700" stroke="#FFA500" stroke-width="0.5"/>
+                            </g>
+                            <circle class="main-dot" cx="122.5" cy="28" r="2.8" fill="#FFD700"/>
+                            <circle class="main-dot" cx="84" cy="126" r="2.8" fill="#FFD700"/>
+                        </svg>
+                        <div style="font-size: 2rem; margin-bottom: 15px; font-weight: 700;">歡迎使用出勤管家</div>
+                        <div style="font-size: 1rem; opacity: 0.9; margin-bottom: 40px;">Welcome to Check-In Hero</div>
+                        <div style="background: rgba(59,130,246,0.9); padding: 18px 40px; border-radius: 50px; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                            使用LINE登入
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="intro-content">
+                <div class="intro-year">2025 最新：好評如潮、限時優惠持續中</div>
+                <h2>一次投資、永久受益的考勤解決方案</h2>
+                <div class="intro-features">
+                    創新、效率、超划算
+                </div>
+                <ul class="feature-list">
+                    <li>創新｜結合 LINE 平台，革新傳統打卡模式</li>
+                    <li>效率｜考勤、請假、審批、計薪一站完成</li>
+                    <li>超划算｜人數不限、地點不限、永久使用零耗材</li>
+                </ul>
+                <a href="#pricing" class="intro-cta">立即開始</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Features Spotlight Section -->
+    <section class="new-features-spotlight reveal" id="new-features">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 20% 50%, rgba(78, 222, 128, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%);"></div>
+        
+        <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;">
+            <div style="text-align: center; margin-bottom: 80px;">
+                <div style="display: inline-block; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); padding: 12px 30px; border-radius: 50px; margin-bottom: 20px; color: white; font-weight: 600;">
+                    2025 全新功能上線
+                </div>
+                <h2 style="font-size: 3rem; color: white; margin-bottom: 20px; font-weight: 700;">讓管理更智慧、更高效</h2>
+                <p style="font-size: 1.3rem; color: rgba(255,255,255,0.9); max-width: 800px; margin: 0 auto;">
+                    不只是打卡系統，更是企業數位轉型的得力助手
+                </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-top: 60px;">
+                <!-- 工作日誌卡片 -->
+                <div class="feature-card-new">
+                    <h3 style="font-size: 1.8rem; color: #667eea; margin-bottom: 15px; font-weight: 700;">工作日誌管理</h3>
+                    <p style="color: #666; font-size: 1.05rem; line-height: 1.8; margin-bottom: 25px;">
+                        數位化工作記錄，讓團隊協作更透明、績效評估更客觀
+                    </p>
+                    
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="padding: 10px 0; color: #333; border-bottom: 1px solid #f0f0f0;">
+                            • 線上填寫工作日誌（日期、工時、內容）
+                        </li>
+                        <li style="padding: 10px 0; color: #333; border-bottom: 1px solid #f0f0f0;">
+                            • 主管審核機制（通過/退回含意見）
+                        </li>
+                        <li style="padding: 10px 0; color: #333; border-bottom: 1px solid #f0f0f0;">
+                            • 歷史記錄查詢與統計分析
+                        </li>
+                        <li style="padding: 10px 0; color: #333; border-bottom: 1px solid #f0f0f0;">
+                            • Excel 報表匯出（個人/全員工）
+                        </li>
+                        <li style="padding: 10px 0; color: #333;">
+                            • 多語言支援（繁中、英文、日文）
+                        </li>
+                    </ul>
+                    
+                    <div style="margin-top: 25px; padding: 15px; background: #f8f9ff; border-radius: 12px; border-left: 4px solid #667eea;">
+                        <p style="color: #666; font-size: 0.95rem; margin: 0; line-height: 1.6;">
+                            <strong>使用情境：</strong>專案進度追蹤、績效評估依據、工時統計分析
+                        </p>
+                    </div>
+                </div>
+
+                <!-- AI OCR 發票辨識卡片 -->
+                <div class="feature-card-new">
+                    <h3 style="font-size: 1.8rem; color: #22d3ee; margin-bottom: 15px; font-weight: 700;">AI OCR 發票辨識</h3>
+                    <p style="color: #666; font-size: 1.05rem; line-height: 1.8; margin-bottom: 25px;">
+                        智慧辨識發票資訊，讓費用報銷流程快速又準確
+                    </p>
+                    
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="padding: 10px 0; color: #333; border-bottom: 1px solid #f0f0f0;">
+                            • 拍照上傳智慧辨識（準確率 98%+）
+                        </li>
+                        <li style="padding: 10px 0; color: #333; border-bottom: 1px solid #f0f0f0;">
+                            • 自動擷取發票號碼、金額、日期
+                        </li>
+                        <li style="padding: 10px 0; color: #333; border-bottom: 1px solid #f0f0f0;">
+                            • 發票驗證（連線財政部資料庫）
+                        </li>
+                        <li style="padding: 10px 0; color: #333; border-bottom: 1px solid #f0f0f0;">
+                            • 費用申請工作流程整合
+                        </li>
+                        <li style="padding: 10px 0; color: #333;">
+                            • 雲端儲存與月度統計報表
+                        </li>
+                    </ul>
+                    
+                    <div style="margin-top: 25px; padding: 15px; background: #f0fdff; border-radius: 12px; border-left: 4px solid #22d3ee;">
+                        <p style="color: #666; font-size: 0.95rem; margin: 0; line-height: 1.6;">
+                            <strong>使用情境：</strong>費用報銷申請、會計帳務自動化、發票管理數位化
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 功能對比表 -->
+            <div class="reveal" style="margin-top: 80px; background: white; border-radius: 24px; padding: 50px; box-shadow: 0 20px 60px rgba(0,0,0,0.2);">
+                <h3 style="text-align: center; font-size: 2rem; color: #000000; margin-bottom: 40px; font-weight: 700;">數位化管理優勢對比</h3>
+                
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: separate; border-spacing: 0;">
+                        <thead>
+                            <tr style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                                <th style="padding: 20px; color: white; text-align: left; font-size: 1.1rem; border-top-left-radius: 12px;">功能項目</th>
+                                <th style="padding: 20px; color: white; text-align: center; font-size: 1.1rem;">傳統方式</th>
+                                <th style="padding: 20px; color: white; text-align: center; font-size: 1.1rem; border-top-right-radius: 12px;">出勤管家</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #f0f0f0;">
+                                <td style="padding: 20px; color: #000000; font-weight: 600;">工作內容記錄</td>
+                                <td style="padding: 20px; text-align: center; color: #000000; font-weight: 500;">紙本記錄</td>
+                                <td style="padding: 20px; text-align: center; color: #4ade80; font-weight: 600;">線上數位化</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #f0f0f0; background: rgba(102,126,234,0.05);">
+                                <td style="padding: 20px; color: #000000; font-weight: 600;">主管審核機制</td>
+                                <td style="padding: 20px; text-align: center; color: #000000; font-weight: 500;">缺乏流程</td>
+                                <td style="padding: 20px; text-align: center; color: #4ade80; font-weight: 600;">完整審核流程</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #f0f0f0;">
+                                <td style="padding: 20px; color: #000000; font-weight: 600;">發票資料輸入</td>
+                                <td style="padding: 20px; text-align: center; color: #000000; font-weight: 500;">手動輸入</td>
+                                <td style="padding: 20px; text-align: center; color: #4ade80; font-weight: 600;">AI 自動辨識</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #f0f0f0; background: rgba(102,126,234,0.05);">
+                                <td style="padding: 20px; color: #000000; font-weight: 600;">發票真偽驗證</td>
+                                <td style="padding: 20px; text-align: center; color: #000000; font-weight: 500;">人工查驗</td>
+                                <td style="padding: 20px; text-align: center; color: #4ade80; font-weight: 600;">自動連線驗證</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #f0f0f0;">
+                                <td style="padding: 20px; color: #000000; font-weight: 600;">報表匯出</td>
+                                <td style="padding: 20px; text-align: center; color: #000000; font-weight: 500;">手動整理</td>
+                                <td style="padding: 20px; text-align: center; color: #4ade80; font-weight: 600;">一鍵匯出 Excel</td>
+                            </tr>
+                            <tr style="background: rgba(102,126,234,0.05);">
+                                <td style="padding: 20px; color: #000000; font-weight: 600; border-bottom-left-radius: 12px;">行動化支援</td>
+                                <td style="padding: 20px; text-align: center; color: #000000; font-weight: 500;">受限辦公室</td>
+                                <td style="padding: 20px; text-align: center; color: #4ade80; font-weight: 600; border-bottom-right-radius: 12px;">隨時隨地使用</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- CTA 按鈕 -->
+            <div style="text-align: center; margin-top: 60px;">
+                <a href="#pricing" style="display: inline-block; background: white; color: #667eea; padding: 20px 60px; border-radius: 50px; text-decoration: none; font-size: 1.3rem; font-weight: 600; box-shadow: 0 10px 40px rgba(0,0,0,0.3); transition: all 0.3s;">
+                    立即體驗全新功能
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison-section reveal">
+        <h2 class="section-title" style="color: #000000 !important;">傳統打卡 vs 線上打卡比較</h2>
+        <div class="comparison-container">
+            <div class="comparison-table">
+                <div class="table-header">
+                    <div class="header-cell"></div>
+                    <div class="header-cell highlight">傳統打卡鐘</div>
+                    <div class="header-cell featured">線上打卡</div>
+                </div>
+
+                <div class="table-row">
+                    <div class="row-label">打卡方式</div>
+                    <div class="table-cell">
+                        <div class="cell-title">紙卡打卡鐘：</div>
+                        <p>將紙卡插入機器，在卡片上留下日期時間印記。</p>
+                        <div class="cell-title">感應式打卡鐘：</div>
+                        <p>利用內建晶片的感應卡感應打卡，資料同步儲存於系統。</p>
+                    </div>
+                    <div class="table-cell featured-cell">
+                        <p>透過網路或應用程式完成考勤打卡，通常使用手機、電腦等裝置，進行 IP 或 GPS 位置驗證後即可打卡。</p>
+                    </div>
+                </div>
+
+                <div class="table-row">
+                    <div class="row-label">優點</div>
+                    <div class="table-cell">
+                        <ul class="comparison-list">
+                            <li>✓ 操作簡單且費用相對較低</li>
+                            <li>✓ 員工熟悉打卡流程</li>
+                            <li>✓ 設備購買即可使用</li>
+                        </ul>
+                    </div>
+                    <div class="table-cell featured-cell">
+                        <ul class="comparison-list highlight">
+                            <li>✓ 不受地點限制，隨時隨地打卡</li>
+                            <li>✓ 資料即時同步至雲端系統</li>
+                            <li>✓ 出勤異常自動識別與提醒</li>
+                            <li>✓ 可設定指紋打卡機等打卡設備</li>
+                            <li>✓ 可整合 LINE 進行打卡</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="table-row">
+                    <div class="row-label">缺點</div>
+                    <div class="table-cell">
+                        <ul class="comparison-list negative">
+                            <li>✗ 紙卡打卡需人工整理統計</li>
+                            <li>✗ 無法處理遠距辦公、外勤等狀況</li>
+                            <li>✗ 容易忘記打卡或代打卡</li>
+                        </ul>
+                    </div>
+                    <div class="table-cell featured-cell">
+                        <ul class="comparison-list negative">
+                            <li>✗ 仰賴網路環境連接</li>
+                            <li>✗ 可能發生忘記打卡情況</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- 第1部分結束，請繼續使用第2部分檔案 -->
+<!-- Features Detail Section -->
+    <section class="features-section reveal" id="resources">
+        <h2 class="section-title" style="color: #000000 !important;">完整功能特色</h2>
+        <div class="features-grid">
+            <div class="feature-card reveal">
+                <h3>LINE Login 認證</h3>
+                <p>透過 LINE 帳號快速登入，確保使用者身份安全</p>
+                <ul>
+                    <li>快速安全登入</li>
+                    <li>OAuth 2.0 標準</li>
+                    <li>多平台支援</li>
+                </ul>
+            </div>
+
+            <div class="feature-card reveal">
+                <h3>GPS 定位打卡</h3>
+                <p>利用瀏覽器地理位置 API，精準記錄上下班位置</p>
+                <ul>
+                    <li>即時定位追蹤</li>
+                    <li>防止代打卡</li>
+                    <li>多點打卡支援</li>
+                </ul>
+            </div>
+
+            <div class="feature-card reveal">
+                <h3>補打卡功能</h3>
+                <p>可手動選擇日期時間，補登過去的打卡紀錄</p>
+                <ul>
+                    <li>彈性補登功能</li>
+                    <li>管理員審核</li>
+                    <li>LINE 即時通知</li>
+                </ul>
+            </div>
+
+            <div class="feature-card reveal">
+                <h3>異常紀錄檢視</h3>
+                <p>自動檢查並標示異常打卡，方便快速修正</p>
+                <ul>
+                    <li>自動異常偵測</li>
+                    <li>視覺化標示</li>
+                    <li>一鍵修正</li>
+                </ul>
+            </div>
+
+            <div class="feature-card reveal">
+                <h3>多國語系支援</h3>
+                <p>根據瀏覽器自動切換介面語系</p>
+                <ul>
+                    <li>自動偵測語系</li>
+                    <li>繁中、日文、英文</li>
+                    <li>輕鬆擴充</li>
+                </ul>
+            </div>
+
+            <div class="feature-card reveal">
+                <h3>管理員功能</h3>
+                <p>簡單的管理介面，輕鬆管理員工考勤</p>
+                <ul>
+                    <li>新增打卡地點</li>
+                    <li>審核補卡申請</li>
+                    <li>請假加班管理</li>
+                </ul>
+            </div>
+
+            <div class="feature-card reveal">
+                <h3>出勤報表匯出</h3>
+                <p>個人與全員出勤報表一鍵匯出</p>
+                <ul>
+                    <li>Excel 格式</li>
+                    <li>自訂報表範圍</li>
+                    <li>即時數據</li>
+                </ul>
+            </div>
+
+            <div class="feature-card reveal">
+                <h3>LINE 即時通知</h3>
+                <p>重要訊息即時推播到 LINE</p>
+                <ul>
+                    <li>打卡提醒</li>
+                    <li>審核結果</li>
+                    <li>異常警示</li>
+                </ul>
+            </div>
+
+            <div class="feature-card reveal">
+                <h3>請假加班申請</h3>
+                <p>線上申請，主管審核流程數位化</p>
+                <ul>
+                    <li>線上表單</li>
+                    <li>多級審核</li>
+                    <li>自動計算時數</li>
+                </ul>
+            </div>
+
+            <div class="feature-card reveal">
+                <h3>彈性排班管理</h3>
+                <p>智慧排班系統，輕鬆管理多班別員工</p>
+                <ul>
+                    <li>多班別設定</li>
+                    <li>自動排班通知</li>
+                    <li>班表衝突檢測</li>
+                    <li>月度班表檢視</li>
+                </ul>
+            </div>
+
+            <div class="feature-card reveal">
+                <h3>自動計薪系統</h3>
+                <p>根據出勤自動計算薪資，省時又精準</p>
+                <ul>
+                    <li>工時自動計算</li>
+                    <li>加班費計算</li>
+                    <li>請假扣薪處理</li>
+                    <li>勞健保自動計算</li>
+                    <li>薪資報表匯出</li>
+                </ul>
+            </div>
+
+            <div class="feature-card reveal">
+                <h3>工作日誌管理</h3>
+                <p>數位化工作記錄，提升團隊協作效率</p>
+                <ul>
+                    <li>線上工作日誌填寫</li>
+                    <li>主管審核機制</li>
+                    <li>歷史記錄查詢</li>
+                    <li>Excel 報表匯出</li>
+                    <li>多語言支援</li>
+                </ul>
+            </div>
+
+            <div class="feature-card reveal">
+                <h3>AI OCR 發票辨識</h3>
+                <p>智慧辨識發票資訊，簡化報銷流程</p>
+                <ul>
+                    <li>98%+ 辨識準確率</li>
+                    <li>自動擷取發票資料</li>
+                    <li>發票真偽驗證</li>
+                    <li>費用申請整合</li>
+                    <li>雲端儲存管理</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section reveal" id="pricing">
+        <div class="pricing-bg"></div>
+        <h2 class="section-title" style="color: #ffffff;">方案介紹</h2>
+        <div class="pricing-subtitle">活動期間：買斷制，一次性費用（7 天退款保證）</div>
+        
+        <div class="pricing-grid">
+            <!-- Plan A -->
+            <div class="pricing-card reveal">
+                <div class="plan-name">【A】打卡方案</div>
+                <div class="price">$3,200</div>
+                <div class="original-price">不限使用人數</div>
+                <ul class="features-list">
+                    <li class="included">打卡功能
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • GPS/IP 定位打卡<br>
+                            • 上下班時間記錄<br>
+                            • 異常自動標示<br>
+                            • 即時出勤報表
+                        </div>
+                    </li>
+                    <li class="included">排班管理
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • 彈性排班設定<br>
+                            • 多班別管理<br>
+                            • 班表自動通知<br>
+                            • 月度排班檢視
+                        </div>
+                    </li>
+                    <li class="included">請假管理
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • 線上請假申請<br>
+                            • 假別時數統計<br>
+                            • 請假記錄查詢<br>
+                            • 假期餘額顯示
+                        </div>
+                    </li>
+                </ul>
+                <a href="purchase.html" class="pricing-button">立即購買</a>
+            </div>
+
+            <!-- Plan B -->
+            <div class="pricing-card reveal">
+                <div class="plan-name">【B】打卡＋簽核</div>
+                <div class="price">$8,800</div>
+                <div class="original-price">（原價 $19,600）</div>
+                <ul class="features-list">
+                    <li class="gift">打卡功能
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • GPS/IP 定位打卡<br>
+                            • 上下班時間記錄<br>
+                            • 異常自動標示<br>
+                            • 即時出勤報表
+                        </div>
+                    </li>
+                    <li class="gift">排班管理
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • 彈性排班設定<br>
+                            • 多班別管理<br>
+                            • 班表自動通知<br>
+                            • 月度排班檢視
+                        </div>
+                    </li>
+                    <li class="gift">請假管理
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • 線上請假申請<br>
+                            • 假別時數統計<br>
+                            • 請假記錄查詢<br>
+                            • 假期餘額顯示
+                        </div>
+                    </li>
+                    <li class="included">請假、加班簽核
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • 多層級簽核流程<br>
+                            • 主管審核通知<br>
+                            • 簽核狀態追蹤<br>
+                            • 自動簽核提醒
+                        </div>
+                    </li>
+                </ul>
+                <a href="purchase.html" class="pricing-button">立即購買</a>
+            </div>
+
+            <!-- Plan C -->
+            <div class="pricing-card featured reveal">
+                <div class="plan-name">【C】計薪方案</div>
+                <div class="price">$16,300</div>
+                <div class="original-price">（原價 $39,000）</div>
+                <ul class="features-list">
+                    <li class="gift">打卡功能
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • GPS/IP 定位打卡<br>
+                            • 上下班時間記錄<br>
+                            • 異常自動標示<br>
+                            • 即時出勤報表
+                        </div>
+                    </li>
+                    <li class="gift">排班管理
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • 彈性排班設定<br>
+                            • 多班別管理<br>
+                            • 班表自動通知<br>
+                            • 月度排班檢視
+                        </div>
+                    </li>
+                    <li class="gift">請假管理
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • 線上請假申請<br>
+                            • 假別時數統計<br>
+                            • 請假記錄查詢<br>
+                            • 假期餘額顯示
+                        </div>
+                    </li>
+                    <li class="gift">請假、加班簽核
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • 多層級簽核流程<br>
+                            • 主管審核通知<br>
+                            • 簽核狀態追蹤<br>
+                            • 自動簽核提醒
+                        </div>
+                    </li>
+                    <li class="included">自動計薪 限購
+                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
+                            • 自動計算工時薪資<br>
+                            • 加班費自動計算<br>
+                            • 請假扣薪處理<br>
+                            • 月薪資報表匯出<br>
+                            • 勞健保自動計算
+                        </div>
+                    </li>
+                </ul>
+                <a href="purchase.html" class="pricing-button">立即購買</a>
+                <div class="service-note">專人薪資資料設定</div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; color: #aaa; position: relative; z-index: 1;">
+            <p>（以上價格為首購優惠價，購買後 7 天內加購只需補差價。未來加購功能將以原價計算。）</p>
+            <p style="margin-top: 10px;">（B、C 方案限 50 人以下使用，51 人以上請洽客服。）</p>
+        </div>
+    </section>
+
+    <!-- 還需要補充 CSS 樣式 -->
+    <style>
         /* Features Section with Card Hover */
         .features-section {
             padding: 120px 20px;
             background: #f8f9fa;
             position: relative;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            margin-bottom: 60px;
-            color: #000000;
-            font-weight: 700;
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            border-radius: 2px;
         }
 
         .features-grid {
@@ -1134,1097 +1842,25 @@
             z-index: 1;
         }
 
-        /* Footer */
-        .footer {
-            background: #0a0a0a;
-            color: white;
-            padding: 60px 20px;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-title {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #667eea, #4ade80);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .footer-contact {
-            max-width: 600px;
-            margin: 40px auto;
-            background: rgba(102, 126, 234, 0.1);
-            padding: 30px;
-            border-radius: 20px;
-            border: 2px solid rgba(102, 126, 234, 0.2);
-        }
-
-        .contact-item {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .contact-row {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-size: 1.1rem;
-        }
-
-        .contact-row strong {
-            color: #667eea;
-        }
-
-        .contact-row a {
-            color: #4ade80;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .contact-row a:hover {
-            color: #22d3ee;
-            transform: translateY(-2px);
-        }
-
-        .footer-links {
-            margin-top: 40px;
-        }
-
-        .footer-links a {
-            color: #667eea;
-            text-decoration: none;
-            margin: 0 20px;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            display: inline-block;
-        }
-
-        .footer-links a:hover {
-            color: #4ade80;
-            transform: translateY(-2px);
-        }
-
-        /* FAQ Section */
-        .faq-section {
-            padding: 120px 20px;
-            background: #f8f9fa;
-            position: relative;
-        }
-
-        .faq-tabs {
-            max-width: 1000px;
-            margin: 0 auto 60px;
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .faq-tab {
-            padding: 15px 40px;
-            background: white;
-            border: 2px solid #e5e7eb;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #666;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .faq-tab:hover {
-            border-color: #667eea;
-            color: #667eea;
-        }
-
-        .faq-tab.active {
-            background: linear-gradient(135deg, #4ade80 0%, #2d7a5f 100%);
-            border-color: #4ade80;
-            color: white;
-        }
-
-        .faq-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            background: white;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-
-        .faq-item:hover {
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-        }
-
-        .faq-question {
-            padding: 25px 30px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #000000;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s;
-        }
-
-        .faq-question:hover {
-            color: #667eea;
-        }
-
-        .faq-question::after {
-            content: '+';
-            font-size: 2rem;
-            color: #667eea;
-            transition: transform 0.3s;
-        }
-
-        .faq-item.active .faq-question::after {
-            transform: rotate(45deg);
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
-            padding: 0 30px;
-        }
-
-        .faq-item.active .faq-answer {
-            max-height: 500px;
-            padding: 0 30px 25px;
-        }
-
-        .faq-answer p {
-            color: #000000;
-            line-height: 1.8;
-            font-size: 1.05rem;
-            font-weight: 500;
-        }
-
         /* Responsive */
         @media (max-width: 1024px) {
             .pricing-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-
-            .intro-container {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-menu {
-                display: none;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-tagline {
-                font-size: 1.3rem;
-            }
-
             .pricing-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .intro-features {
-                font-size: 1.5rem;
-            }
-
-            .phone-mockup {
-                max-width: 300px;
-                height: 500px;
-            }
-
-            .navbar {
-                padding: 15px 20px;
-            }
-
-            .logo-title {
-                font-size: 1.2rem;
-            }
-
-            .nav-cta {
-                padding: 10px 20px;
-                font-size: 0.9rem;
             }
 
             .pricing-card.featured {
                 transform: scale(1);
             }
         }
-
-        /* Scroll Reveal */
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease-out;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ============ 聊天機器人 CSS 開始 ============ */
-    
-        /* 聊天機器人按鈕 */
-        .chatbot-button {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(135deg, #2d7a5f 0%, #1e5a45 100%);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 8px 24px rgba(45, 122, 95, 0.3);
-            z-index: 10000;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .chatbot-button:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(45, 122, 95, 0.4);
-        }
-
-        .chatbot-button svg {
-            width: 28px;
-            height: 28px;
-            fill: white;
-        }
-
-        .chatbot-button .close-icon {
-            display: none;
-        }
-
-        .chatbot-button.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .chatbot-button.active .chat-icon {
-            display: none;
-        }
-
-        .chatbot-button.active .close-icon {
-            display: block;
-        }
-
-        /* 聊天視窗 */
-        .chatbot-window {
-            position: fixed;
-            bottom: 110px;
-            right: 30px;
-            width: 420px;
-            height: 600px;
-            background: white;
-            border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            display: none;
-            flex-direction: column;
-            z-index: 9999;
-            overflow: hidden;
-            animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .chatbot-window.active {
-            display: flex;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        /* 聊天頭部 */
-        .chatbot-header {
-            background: linear-gradient(135deg, #2d7a5f 0%, #1e5a45 100%);
-            color: white;
-            padding: 24px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .chatbot-avatar {
-            width: 48px;
-            height: 48px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .chatbot-avatar svg {
-            width: 36px;
-            height: 36px;
-        }
-
-        .chatbot-info h3 {
-            margin: 0;
-            font-size: 1.15rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-        }
-
-        .chatbot-info p {
-            margin: 4px 0 0;
-            font-size: 0.875rem;
-            opacity: 0.85;
-            font-weight: 400;
-        }
-
-        /* 聊天內容區 */
-        .chatbot-messages {
-            flex: 1;
-            padding: 24px;
-            overflow-y: auto;
-            background: #fafbfc;
-        }
-
-        .chatbot-messages::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .chatbot-messages::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .chatbot-messages::-webkit-scrollbar-thumb {
-            background: #d1d5db;
-            border-radius: 3px;
-        }
-
-        .chatbot-messages::-webkit-scrollbar-thumb:hover {
-            background: #9ca3af;
-        }
-
-        .message {
-            margin-bottom: 16px;
-            display: flex;
-            gap: 12px;
-            animation: messageSlide 0.3s ease-out;
-        }
-
-        @keyframes messageSlide {
-            from {
-                opacity: 0;
-                transform: translateY(12px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .message.bot {
-            flex-direction: row;
-        }
-
-        .message.user {
-            flex-direction: row-reverse;
-        }
-
-        .message-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-size: 0.75rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, #2d7a5f 0%, #1e5a45 100%);
-        }
-
-        .message.bot .message-avatar svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        .message.user .message-avatar {
-            background: #667eea;
-            color: white;
-        }
-
-        .message-content {
-            max-width: 75%;
-            padding: 14px 18px;
-            border-radius: 16px;
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-
-        .message.bot .message-content {
-            background: white;
-            color: #1f2937;
-            border: 1px solid #e5e7eb;
-            border-bottom-left-radius: 4px;
-        }
-
-        .message.user .message-content {
-            background: #667eea;
-            color: white;
-            border-bottom-right-radius: 4px;
-        }
-
-        /* 快速選項 */
-        .quick-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 12px;
-            padding: 0;
-        }
-
-        .quick-option {
-            background: white;
-            border: 1.5px solid #2d7a5f;
-            color: #2d7a5f;
-            padding: 10px 18px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .quick-option:hover {
-            background: #2d7a5f;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(45, 122, 95, 0.25);
-        }
-
-        /* 輸入區域 */
-        .chatbot-input {
-            padding: 20px 24px;
-            background: white;
-            border-top: 1px solid #e5e7eb;
-            display: flex;
-            gap: 12px;
-        }
-
-        .chatbot-input input {
-            flex: 1;
-            padding: 14px 18px;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            outline: none;
-            transition: all 0.3s;
-            font-family: inherit;
-        }
-
-        .chatbot-input input:focus {
-            border-color: #2d7a5f;
-            box-shadow: 0 0 0 3px rgba(45, 122, 95, 0.1);
-        }
-
-        .chatbot-input input::placeholder {
-            color: #9ca3af;
-        }
-
-        .send-button {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, #2d7a5f 0%, #1e5a45 100%);
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            flex-shrink: 0;
-        }
-
-        .send-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 16px rgba(45, 122, 95, 0.3);
-        }
-
-        .send-button:active {
-            transform: scale(0.95);
-        }
-
-        .send-button svg {
-            width: 20px;
-            height: 20px;
-            fill: white;
-        }
-
-        /* 打字動畫 */
-        .typing-indicator {
-            display: flex;
-            gap: 6px;
-            padding: 14px 18px;
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 16px;
-            border-bottom-left-radius: 4px;
-            width: fit-content;
-        }
-
-        .typing-dot {
-            width: 8px;
-            height: 8px;
-            background: #2d7a5f;
-            border-radius: 50%;
-            animation: typing 1.4s infinite;
-        }
-
-        .typing-dot:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .typing-dot:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes typing {
-            0%, 60%, 100% {
-                transform: translateY(0);
-                opacity: 0.5;
-            }
-            30% {
-                transform: translateY(-10px);
-                opacity: 1;
-            }
-        }
-
-        /* 響應式設計 */
-        @media (max-width: 768px) {
-            .chatbot-window {
-                width: calc(100vw - 24px);
-                height: calc(100vh - 140px);
-                right: 12px;
-                bottom: 100px;
-                border-radius: 20px;
-            }
-
-            .chatbot-button {
-                bottom: 24px;
-                right: 24px;
-                width: 56px;
-                height: 56px;
-            }
-
-            .chatbot-button svg {
-                width: 24px;
-                height: 24px;
-            }
-
-            .chatbot-header {
-                padding: 20px;
-            }
-
-            .chatbot-messages {
-                padding: 20px;
-            }
-
-            .chatbot-input {
-                padding: 16px 20px;
-            }
-        }
-
-        /* ============ 聊天機器人 CSS 結束 ============ */
     </style>
-</head>
-<body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">
-                <div class="logo-icon">
-                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="2"/>
-                        <circle cx="50" cy="50" r="36" fill="none" stroke="white" stroke-width="1"/>
-                        <line x1="50" y1="15" x2="50" y2="20" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                        <line x1="50" y1="80" x2="50" y2="85" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                        <line x1="15" y1="50" x2="20" y2="50" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                        <line x1="80" y1="50" x2="85" y2="50" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                        <line class="clock-hand-hour" x1="50" y1="50" x2="50" y2="30" stroke="white" stroke-width="3" stroke-linecap="round"/>
-                        <line class="clock-hand-minute" x1="50" y1="50" x2="65" y2="35" stroke="#4ade80" stroke-width="3" stroke-linecap="round"/>
-                        <circle cx="50" cy="50" r="3" fill="white"/>
-                        <g class="star-glow" transform="translate(80, 20)">
-                            <path d="M 0,-5 L 1.5,-1.5 L 5,-1.5 L 2.4,0.7 L 3.8,4.2 L 0,1.9 L -3.8,4.2 L -2.4,0.7 L -5,-1.5 L -1.5,-1.5 Z" fill="#FFD700"/>
-                        </g>
-                        <g class="star-glow" transform="translate(20, 80)" style="animation-delay: 0.5s;">
-                            <path d="M 0,-5 L 1.5,-1.5 L 5,-1.5 L 2.4,0.7 L 3.8,4.2 L 0,1.9 L -3.8,4.2 L -2.4,0.7 L -5,-1.5 L -1.5,-1.5 Z" fill="#FFD700"/>
-                        </g>
-                        <circle cx="85" cy="25" r="2" fill="#FFD700" class="star-glow" style="animation-delay: 1s;"/>
-                        <circle cx="60" cy="90" r="2" fill="#FFD700" class="star-glow" style="animation-delay: 1.5s;"/>
-                    </svg>
-                </div>
-                <div class="logo-text">
-                    <span class="logo-title">出勤管家</span>
-                    <span class="logo-subtitle">Check-In Hero</span>
-                </div>
-            </a>
-            <ul class="nav-menu">
-                <li><a href="#home">首頁</a></li>
-                <li><a href="#features" class="active">最新優惠<span class="new-badge">NEW</span></a></li>
-                <li><a href="#pricing">方案價格</a></li>
-                <li><a href="#resources">更多資源</a></li>
-                <li><a href="#faq">常見問題</a></li>
-                <li><a href="#contact">合作洽詢</a></li>
-                <li><a href="demo.html" target="_blank">查看實際畫面 Demo</a></li>
-            </ul>
-            <a href="#pricing" class="nav-cta">最新優惠</a>
-            <button class="mobile-menu-btn">☰</button>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="particles"></div>
-        <div class="floating-elements">
-            <svg class="float-element" width="100" height="100" style="top: 10%; left: 10%;">
-                <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-            </svg>
-            <svg class="float-element" width="80" height="80" style="top: 20%; right: 15%;">
-                <rect x="10" y="10" width="60" height="60" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-            </svg>
-            <svg class="float-element" width="120" height="120" style="bottom: 15%; left: 20%;">
-                <polygon points="60,10 110,90 10,90" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-            </svg>
-        </div>
-        <div class="hero-content">
-            <div class="hero-subtitle">立即開始使用</div>
-            <h1>出勤管家</h1>
-            <div class="hero-tagline">智慧考勤管理 - 讓企業人資管理更輕鬆</div>
-            <a href="#pricing" class="cta-button">前往下載</a>
-
-            <a href="demo.html"
-               class="cta-button"
-               style="background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.7); box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
-               查看實際畫面 Demo
-            </a>
-        </div>
-    </section>
-
-    <!-- Product Intro Section -->
-    <section class="product-intro" id="features">
-        <div class="intro-bg"></div>
-        <div class="intro-container">
-            <div class="intro-image">
-                <div class="phone-mockup">
-                    <div style="text-align: center; color: white;">
-                        <svg width="140" height="140" viewBox="0 0 140 140" style="margin-bottom: 30px;">
-                            <defs>
-                                <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#4169E1;stop-opacity:1" />
-                                    <stop offset="50%" style="stop-color:#1E90FF;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#0047AB;stop-opacity:1" />
-                                </linearGradient>
-                            </defs>
-                            <g class="main-clock-circle">
-                                <circle cx="70" cy="70" r="63" fill="url(#blueGradient)" />
-                                <circle cx="70" cy="70" r="51" fill="white" />
-                            </g>
-                            <line x1="70" y1="24.5" x2="70" y2="31.5" stroke="#6B7280" stroke-width="2.1" stroke-linecap="round"/>
-                            <line x1="70" y1="108.5" x2="70" y2="115.5" stroke="#6B7280" stroke-width="2.1" stroke-linecap="round"/>
-                            <line x1="24.5" y1="70" x2="31.5" y2="70" stroke="#6B7280" stroke-width="2.1" stroke-linecap="round"/>
-                            <line x1="108.5" y1="70" x2="115.5" y2="70" stroke="#6B7280" stroke-width="2.1" stroke-linecap="round"/>
-                            <g class="main-clock-hour">
-                                <line x1="70" y1="70" x2="70" y2="45.5" stroke="#4169E1" stroke-width="3.5" stroke-linecap="round"/>
-                            </g>
-                            <g class="main-clock-minute">
-                                <line x1="70" y1="70" x2="94.5" y2="49" stroke="#5ECC8C" stroke-width="3.5" stroke-linecap="round"/>
-                            </g>
-                            <circle cx="70" cy="70" r="2.8" fill="#2C3E50"/>
-                            <g class="main-star" transform="translate(112, 21)">
-                                <path d="M 0,-7 L 2.06,-2.16 L 7.22,-2.16 L 3.33,1.03 L 5.39,5.87 L 0,2.67 L -5.39,5.87 L -3.33,1.03 L -7.22,-2.16 L -2.06,-2.16 Z" fill="#FFD700" stroke="#FFA500" stroke-width="0.5"/>
-                            </g>
-                            <g class="main-star" transform="translate(28, 119)">
-                                <path d="M 0,-7 L 2.06,-2.16 L 7.22,-2.16 L 3.33,1.03 L 5.39,5.87 L 0,2.67 L -5.39,5.87 L -3.33,1.03 L -7.22,-2.16 L -2.06,-2.16 Z" fill="#FFD700" stroke="#FFA500" stroke-width="0.5"/>
-                            </g>
-                            <circle class="main-dot" cx="122.5" cy="28" r="2.8" fill="#FFD700"/>
-                            <circle class="main-dot" cx="84" cy="126" r="2.8" fill="#FFD700"/>
-                        </svg>
-                        <div style="font-size: 2rem; margin-bottom: 15px; font-weight: 700;">歡迎使用出勤管家</div>
-                        <div style="font-size: 1rem; opacity: 0.9; margin-bottom: 40px;">Welcome to Check-In Hero</div>
-                        <div style="background: rgba(59,130,246,0.9); padding: 18px 40px; border-radius: 50px; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                            使用LINE登入
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="intro-content">
-                <div class="intro-year">2025 最新：好評如潮、限時優惠持續中</div>
-                <h2>一次投資、永久受益的考勤解決方案</h2>
-                <div class="intro-features">
-                    創新、效率、超划算
-                </div>
-                <ul class="feature-list">
-                    <li>創新｜結合 LINE 平台，革新傳統打卡模式</li>
-                    <li>效率｜考勤、請假、審批、計薪一站完成</li>
-                    <li>超划算｜人數不限、地點不限、永久使用零耗材</li>
-                </ul>
-                <a href="#pricing" class="intro-cta">立即開始</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Comparison Section -->
-    <section class="comparison-section reveal">
-        <h2 class="section-title" style="color: #000000 !important;">傳統打卡 vs 線上打卡比較</h2>
-        <div class="comparison-container">
-            <div class="comparison-table">
-                <div class="table-header">
-                    <div class="header-cell"></div>
-                    <div class="header-cell highlight">傳統打卡鐘</div>
-                    <div class="header-cell featured">線上打卡</div>
-                </div>
-
-                <div class="table-row">
-                    <div class="row-label">打卡方式</div>
-                    <div class="table-cell">
-                        <div class="cell-title">紙卡打卡鐘：</div>
-                        <p>將紙卡插入機器，在卡片上留下日期時間印記。</p>
-                        <div class="cell-title">感應式打卡鐘：</div>
-                        <p>利用內建晶片的感應卡感應打卡，資料同步儲存於系統。</p>
-                    </div>
-                    <div class="table-cell featured-cell">
-                        <p>透過網路或應用程式完成考勤打卡，通常使用手機、電腦等裝置，進行 IP 或 GPS 位置驗證後即可打卡。</p>
-                    </div>
-                </div>
-
-                <div class="table-row">
-                    <div class="row-label">優點</div>
-                    <div class="table-cell">
-                        <ul class="comparison-list">
-                            <li>✓ 操作簡單且費用相對較低</li>
-                            <li>✓ 員工熟悉打卡流程</li>
-                            <li>✓ 設備購買即可使用</li>
-                        </ul>
-                    </div>
-                    <div class="table-cell featured-cell">
-                        <ul class="comparison-list highlight">
-                            <li>✓ 不受地點限制，隨時隨地打卡</li>
-                            <li>✓ 資料即時同步至雲端系統</li>
-                            <li>✓ 出勤異常自動識別與提醒</li>
-                            <li>✓ 可設定指紋打卡機等打卡設備</li>
-                            <li>✓ 可整合 LINE 進行打卡</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="table-row">
-                    <div class="row-label">缺點</div>
-                    <div class="table-cell">
-                        <ul class="comparison-list negative">
-                            <li>✗ 紙卡打卡需人工整理統計</li>
-                            <li>✗ 無法處理遠距辦公、外勤等狀況</li>
-                            <li>✗ 容易忘記打卡或代打卡</li>
-                        </ul>
-                    </div>
-                    <div class="table-cell featured-cell">
-                        <ul class="comparison-list negative">
-                            <li>✗ 仰賴網路環境連接</li>
-                            <li>✗ 可能發生忘記打卡情況</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Detail Section -->
-    <section class="features-section reveal" id="resources">
-        <h2 class="section-title" style="color: #000000 !important;">完整功能特色</h2>
-        <div class="features-grid">
-            <div class="feature-card reveal">
-                <h3>LINE Login 認證</h3>
-                <p>透過 LINE 帳號快速登入，確保使用者身份安全</p>
-                <ul>
-                    <li>快速安全登入</li>
-                    <li>OAuth 2.0 標準</li>
-                    <li>多平台支援</li>
-                </ul>
-            </div>
-
-            <div class="feature-card reveal">
-                <h3>GPS 定位打卡</h3>
-                <p>利用瀏覽器地理位置 API，精準記錄上下班位置</p>
-                <ul>
-                    <li>即時定位追蹤</li>
-                    <li>防止代打卡</li>
-                    <li>多點打卡支援</li>
-                </ul>
-            </div>
-
-            <div class="feature-card reveal">
-                <h3>補打卡功能</h3>
-                <p>可手動選擇日期時間，補登過去的打卡紀錄</p>
-                <ul>
-                    <li>彈性補登功能</li>
-                    <li>管理員審核</li>
-                    <li>LINE 即時通知</li>
-                </ul>
-            </div>
-
-            <div class="feature-card reveal">
-                <h3>異常紀錄檢視</h3>
-                <p>自動檢查並標示異常打卡，方便快速修正</p>
-                <ul>
-                    <li>自動異常偵測</li>
-                    <li>視覺化標示</li>
-                    <li>一鍵修正</li>
-                </ul>
-            </div>
-
-            <div class="feature-card reveal">
-                <h3>多國語系支援</h3>
-                <p>根據瀏覽器自動切換介面語系</p>
-                <ul>
-                    <li>自動偵測語系</li>
-                    <li>繁中、日文、英文</li>
-                    <li>輕鬆擴充</li>
-                </ul>
-            </div>
-
-            <div class="feature-card reveal">
-                <h3>管理員功能</h3>
-                <p>簡單的管理介面，輕鬆管理員工考勤</p>
-                <ul>
-                    <li>新增打卡地點</li>
-                    <li>審核補卡申請</li>
-                    <li>請假加班管理</li>
-                </ul>
-            </div>
-
-            <div class="feature-card reveal">
-                <h3>出勤報表匯出</h3>
-                <p>個人與全員出勤報表一鍵匯出</p>
-                <ul>
-                    <li>Excel 格式</li>
-                    <li>自訂報表範圍</li>
-                    <li>即時數據</li>
-                </ul>
-            </div>
-
-            <div class="feature-card reveal">
-                <h3>LINE 即時通知</h3>
-                <p>重要訊息即時推播到 LINE</p>
-                <ul>
-                    <li>打卡提醒</li>
-                    <li>審核結果</li>
-                    <li>異常警示</li>
-                </ul>
-            </div>
-
-            <div class="feature-card reveal">
-                <h3>請假加班申請</h3>
-                <p>線上申請，主管審核流程數位化</p>
-                <ul>
-                    <li>線上表單</li>
-                    <li>多級審核</li>
-                    <li>自動計算時數</li>
-                </ul>
-            </div>
-
-            <div class="feature-card reveal">
-                <h3>彈性排班管理</h3>
-                <p>智慧排班系統，輕鬆管理多班別員工</p>
-                <ul>
-                    <li>多班別設定</li>
-                    <li>自動排班通知</li>
-                    <li>班表衝突檢測</li>
-                    <li>月度班表檢視</li>
-                </ul>
-            </div>
-
-            <div class="feature-card reveal">
-                <h3>自動計薪系統</h3>
-                <p>根據出勤自動計算薪資，省時又精準</p>
-                <ul>
-                    <li>工時自動計算</li>
-                    <li>加班費計算</li>
-                    <li>請假扣薪處理</li>
-                    <li>勞健保自動計算</li>
-                    <li>薪資報表匯出</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section class="pricing-section reveal" id="pricing">
-        <div class="pricing-bg"></div>
-        <h2 class="section-title" style="color: #ffffff;">方案介紹</h2>
-        <div class="pricing-subtitle">活動期間：買斷制，一次性費用（7 天退款保證）</div>
-        
-        <div class="pricing-grid">
-            <!-- Plan A -->
-            <div class="pricing-card reveal">
-                <div class="plan-name">【A】打卡方案</div>
-                <div class="price">$3,200</div>
-                <div class="original-price">不限使用人數</div>
-                <ul class="features-list">
-                    <li class="included">打卡功能
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • GPS/IP 定位打卡<br>
-                            • 上下班時間記錄<br>
-                            • 異常自動標示<br>
-                            • 即時出勤報表
-                        </div>
-                    </li>
-                    <li class="included">排班管理
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • 彈性排班設定<br>
-                            • 多班別管理<br>
-                            • 班表自動通知<br>
-                            • 月度排班檢視
-                        </div>
-                    </li>
-                    <li class="included">請假管理
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • 線上請假申請<br>
-                            • 假別時數統計<br>
-                            • 請假記錄查詢<br>
-                            • 假期餘額顯示
-                        </div>
-                    </li>
-                </ul>
-                <a href="purchase.html" class="pricing-button">立即購買</a>
-            </div>
-
-            <!-- Plan B -->
-            <div class="pricing-card reveal">
-                <div class="plan-name">【B】打卡＋簽核</div>
-                <div class="price">$8,800</div>
-                <div class="original-price">（原價 $19,600）</div>
-                <ul class="features-list">
-                    <li class="gift">打卡功能
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • GPS/IP 定位打卡<br>
-                            • 上下班時間記錄<br>
-                            • 異常自動標示<br>
-                            • 即時出勤報表
-                        </div>
-                    </li>
-                    <li class="gift">排班管理
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • 彈性排班設定<br>
-                            • 多班別管理<br>
-                            • 班表自動通知<br>
-                            • 月度排班檢視
-                        </div>
-                    </li>
-                    <li class="gift">請假管理
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • 線上請假申請<br>
-                            • 假別時數統計<br>
-                            • 請假記錄查詢<br>
-                            • 假期餘額顯示
-                        </div>
-                    </li>
-                    <li class="included">請假、加班簽核
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • 多層級簽核流程<br>
-                            • 主管審核通知<br>
-                            • 簽核狀態追蹤<br>
-                            • 自動簽核提醒
-                        </div>
-                    </li>
-                </ul>
-                <a href="purchase.html" class="pricing-button">立即購買</a>
-            </div>
-
-            <!-- Plan C -->
-            <div class="pricing-card featured reveal">
-                <div class="plan-name">【C】計薪方案</div>
-                <div class="price">$16,300</div>
-                <div class="original-price">（原價 $39,000）</div>
-                <ul class="features-list">
-                    <li class="gift">打卡功能
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • GPS/IP 定位打卡<br>
-                            • 上下班時間記錄<br>
-                            • 異常自動標示<br>
-                            • 即時出勤報表
-                        </div>
-                    </li>
-                    <li class="gift">排班管理
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • 彈性排班設定<br>
-                            • 多班別管理<br>
-                            • 班表自動通知<br>
-                            • 月度排班檢視
-                        </div>
-                    </li>
-                    <li class="gift">請假管理
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • 線上請假申請<br>
-                            • 假別時數統計<br>
-                            • 請假記錄查詢<br>
-                            • 假期餘額顯示
-                        </div>
-                    </li>
-                    <li class="gift">請假、加班簽核
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • 多層級簽核流程<br>
-                            • 主管審核通知<br>
-                            • 簽核狀態追蹤<br>
-                            • 自動簽核提醒
-                        </div>
-                    </li>
-                    <li class="included">自動計薪 限購
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • 自動計算工時薪資<br>
-                            • 加班費自動計算<br>
-                            • 請假扣薪處理<br>
-                            • 月薪資報表匯出<br>
-                            • 勞健保自動計算
-                        </div>
-                    </li>
-                </ul>
-                <a href="purchase.html" class="pricing-button">立即購買</a>
-                <div class="service-note">專人薪資資料設定</div>
-            </div>
-        </div>
-
-        <div style="text-align: center; margin-top: 40px; color: #aaa; position: relative; z-index: 1;">
-            <p>（以上價格為首購優惠價，購買後 7 天內加購只需補差價。未來加購功能將以原價計算。）</p>
-            <p style="margin-top: 10px;">（B、C 方案限 50 人以下使用，51 人以上請洽客服。）</p>
-        </div>
-    </section>
+    <!-- 第 2 部分結束，請繼續使用第 3 部分檔案（FAQ + Footer + JavaScript）-->
 
     <!-- FAQ Section -->
     <section class="faq-section reveal" id="faq">
@@ -2304,6 +1940,55 @@
                         <p>可以！出勤管家可以讓你設定多組打卡規則，並套用在適合的員工。例如：高階主管的打卡規則、一般員工的打卡規則，或是門店長的打卡規則、可以遠距辦公的打卡規則等。</p>
                     </div>
                 </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">如何使用工作日誌功能？</div>
+                    <div class="faq-answer">
+                        <p>工作日誌功能非常簡單：</p>
+                        <p>
+                            <strong>員工端：</strong><br>
+                            1. 登入系統後進入「工作日誌」分頁<br>
+                            2. 選擇日期並填寫工作時數<br>
+                            3. 詳細記錄當日工作內容（至少 10 個字）<br>
+                            4. 提交後等待主管審核<br><br>
+                            
+                            <strong>主管端：</strong><br>
+                            1. 在管理員介面查看待審核日誌<br>
+                            2. 檢視員工的工作內容與時數<br>
+                            3. 可選擇核准或拒絕，並填寫審核意見<br>
+                            4. 系統會自動通知員工審核結果<br><br>
+                            
+                            提示：被拒絕的日誌可以修改後重新提交
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">AI OCR 發票辨識準確度如何？</div>
+                    <div class="faq-answer">
+                        <p>我們的 AI OCR 發票辨識系統具有以下特點：</p>
+                        <p>
+                            <strong>高準確度：</strong><br>
+                            • 發票號碼辨識率 > 98%<br>
+                            • 金額辨識率 > 99%<br>
+                            • 日期辨識率 > 99%<br><br>
+                            
+                            <strong>支援格式：</strong><br>
+                            • 電子發票（二聯式、三聯式）<br>
+                            • 手機條碼發票<br>
+                            • 傳統紙本發票<br>
+                            • 收據（需清晰可見）<br><br>
+                            
+                            <strong>智慧功能：</strong><br>
+                            • 自動校正傾斜角度<br>
+                            • 模糊影像增強<br>
+                            • 重複發票檢測<br>
+                            • 發票真偽驗證（連線財政部資料庫）<br><br>
+                            
+                            提示：建議拍照時保持光線充足、發票平整，可獲得最佳辨識效果
+                        </p>
+                    </div>
+                </div>
             </div>
 
             <!-- 出勤報表/異常 -->
@@ -2340,6 +2025,57 @@
                     <div class="faq-question">員工請假的時候，可以被審核嗎？</div>
                     <div class="faq-answer">
                         <p>可以！你可以設定是否需要審核、給誰審核。可以設定給部門主管審核或是特定的審核人，也可以設定要審核幾關卡。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">可以匯出工作日誌報表嗎？</div>
+                    <div class="faq-answer">
+                        <p>當然可以！工作日誌報表功能非常完整：</p>
+                        <p>
+                            <strong>個人報表：</strong><br>
+                            • 員工可匯出自己的工作日誌<br>
+                            • 選擇月份即可下載 Excel 檔案<br>
+                            • 包含日期、時數、內容、審核狀態<br><br>
+                            
+                            <strong>管理員報表：</strong><br>
+                            • 可匯出單一員工或全部員工的日誌<br>
+                            • 支援自訂日期區間<br>
+                            • 報表包含員工姓名、部門、工作統計<br>
+                            • 可用於績效評估或專案追蹤<br><br>
+                            
+                            提示：所有報表都以 Excel 格式匯出，方便後續編輯或分析
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">AI OCR 辨識後的發票資料可以做什麼？</div>
+                    <div class="faq-answer">
+                        <p>辨識後的發票資料可進行多種應用：</p>
+                        <p>
+                            <strong>自動建檔：</strong><br>
+                            • 發票資訊自動儲存到系統<br>
+                            • 依日期、金額、類別分類<br>
+                            • 原始影像雲端保存<br><br>
+                            
+                            <strong>費用報銷：</strong><br>
+                            • 一鍵建立報銷申請<br>
+                            • 主管線上審核<br>
+                            • 追蹤報銷進度<br><br>
+                            
+                            <strong>統計分析：</strong><br>
+                            • 月度費用統計報表<br>
+                            • 費用類別分析<br>
+                            • 預算控管警示<br><br>
+                            
+                            <strong>稽核管理：</strong><br>
+                            • 發票真偽驗證記錄<br>
+                            • 重複報銷檢測<br>
+                            • 完整的操作日誌<br><br>
+                            
+                            提示：所有資料都可匯出 Excel，方便會計作業
+                        </p>
                     </div>
                 </div>
             </div>
@@ -2393,18 +2129,13 @@
                     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width: 32px; height: 32px;">
                         <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="3"/>
                         <circle cx="50" cy="50" r="36" fill="none" stroke="white" stroke-width="2"/>
-                        <!-- 時鐘刻度 -->
                         <line x1="50" y1="15" x2="50" y2="20" stroke="white" stroke-width="2" stroke-linecap="round"/>
                         <line x1="50" y1="80" x2="50" y2="85" stroke="white" stroke-width="2" stroke-linecap="round"/>
                         <line x1="15" y1="50" x2="20" y2="50" stroke="white" stroke-width="2" stroke-linecap="round"/>
                         <line x1="80" y1="50" x2="85" y2="50" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                        <!-- 時針 -->
                         <line x1="50" y1="50" x2="50" y2="30" stroke="white" stroke-width="3" stroke-linecap="round"/>
-                        <!-- 分針 -->
                         <line x1="50" y1="50" x2="65" y2="35" stroke="#4ade80" stroke-width="3" stroke-linecap="round"/>
-                        <!-- 中心點 -->
                         <circle cx="50" cy="50" r="3" fill="white"/>
-                        <!-- 星星裝飾 -->
                         <path d="M 80,-5 L 81.5,-1.5 L 85,-1.5 L 82.4,0.7 L 83.8,4.2 L 80,1.9 L 76.2,4.2 L 77.6,0.7 L 75,-1.5 L 78.5,-1.5 Z" 
                               fill="#FFD700" transform="translate(0, 20)"/>
                     </svg>
@@ -2440,6 +2171,8 @@
                     <div class="quick-option" data-question="方案價格">方案價格</div>
                     <div class="quick-option" data-question="如何購買">如何購買</div>
                     <div class="quick-option" data-question="使用人數">使用人數限制</div>
+                    <div class="quick-option" data-question="工作日誌">工作日誌功能</div>
+                    <div class="quick-option" data-question="發票辨識">AI 發票辨識</div>
                 </div>
             </div>
 
@@ -2590,29 +2323,26 @@
             });
         });
 
+        // Chatbot functionality
         const chatbotButton = document.getElementById('chatbotButton');
         const chatbotWindow = document.getElementById('chatbotWindow');
         const chatbotMessages = document.getElementById('chatbotMessages');
         const userInput = document.getElementById('userInput');
         const sendButton = document.getElementById('sendButton');
 
-        // 知識庫
+        // 知識庫（含新增的工作日誌和發票辨識）
         const knowledgeBase = {
-            '產品特色': '出勤管家的主要特色包括：\n\n· LINE Login 快速登入\n· GPS/IP 定位打卡\n· 自動異常檢測\n· 即時出勤報表\n· 請假加班審核\n· 不限使用人數\n· 買斷制永久使用',
+            '產品特色': '出勤管家的主要特色包括：\n\n· LINE Login 快速登入\n· GPS/IP 定位打卡\n· 自動異常檢測\n· 即時出勤報表\n· 請假加班審核\n· 工作日誌管理\n· AI OCR 發票辨識\n· 不限使用人數\n· 買斷制永久使用',
             
             '方案價格': '我們目前提供三種方案：\n\n方案A｜打卡方案 - $3,200\n包含：打卡、請假\n\n方案B｜打卡+簽核 - $8,800\n包含：打卡、請假、簽核\n\n方案C｜計薪方案 - $16,300\n包含：全部功能+自動計薪\n\n全部都是買斷制，不限使用人數',
+            
+            '工作日誌': '工作日誌管理功能：\n\n· 線上填寫工作日誌\n· 主管審核機制\n· 歷史記錄查詢\n· Excel 報表匯出\n· 多語言支援\n\n適合專案追蹤、績效評估、工時統計',
+            
+            '發票辨識': 'AI OCR 發票辨識功能：\n\n· 98%+ 辨識準確率\n· 自動擷取發票資料\n· 發票真偽驗證\n· 費用申請整合\n· 雲端儲存管理\n\n大幅簡化報銷流程',
             
             '如何購買': '購買流程：\n\n步驟1｜選擇適合的方案\n步驟2｜完成線上付款\n步驟3｜1-2個工作天內專人聯繫\n步驟4｜協助設定公司規則\n步驟5｜開通帳號後即可使用\n\n我們提供7天退款保證，讓您安心購買',
             
             '使用人數': '完全不限使用人數。\n\n無論您的公司是5人還是500人，都可以使用。這是我們的限量優惠方案。\n\n註：BC方案適用50人以下，51人以上請洽客服',
-            
-            '打卡方式': '我們提供兩種打卡方式：\n\nGPS定位打卡｜員工需抵達指定地點才能打卡\nIP打卡｜需連接指定網路才能打卡\n\n這些設定都能有效防止代打卡和提前打卡的情況',
-            
-            '防止代打卡': '我們有多重機制防止代打卡：\n\n· 綁定員工個人LINE帳號\n· GPS定位驗證\n· IP位址檢查\n· 系統自動異常偵測\n\n讓您的考勤管理更安全可靠',
-            
-            '請假審核': '支援完整的請假審核流程：\n\n· 線上提交請假申請\n· 可設定多級審核\n· 主管即時收到通知\n· 審核結果LINE通知\n· 自動計算假期時數\n\n讓請假管理數位化、自動化',
-            
-            '出勤報表': '系統提供完整的出勤報表功能：\n\n· 即時出勤數據\n· 自動計算工時\n· 遲到早退統計\n· Excel格式匯出\n· 異常自動標示\n\n人資工作效率大幅提升',
             
             '聯絡方式': '很高興為您服務！您可以透過以下方式聯絡我們：\n\nEmail｜exo881222@gmail.com\nInstagram｜@tw.eric_technology\n\n我們會盡快回覆您的問題',
             
@@ -2678,65 +2408,45 @@
         }
 
         // 添加機器人回應
-        let conversationHistory = [];
-        async function addBotResponse(userMessage) {
-        // 顯示打字動畫
-        const typingDiv = document.createElement('div');
-        typingDiv.className = 'message bot';
-        typingDiv.innerHTML = `
-            <div class="message-avatar">
-                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="3"/>
-                    <circle cx="50" cy="50" r="36" fill="none" stroke="white" stroke-width="2"/>
-                    <line x1="50" y1="15" x2="50" y2="20" stroke="white" stroke-width="2"/>
-                    <line x1="50" y1="80" x2="50" y2="85" stroke="white" stroke-width="2"/>
-                    <line x1="15" y1="50" x2="20" y2="50" stroke="white" stroke-width="2"/>
-                    <line x1="80" y1="50" x2="85" y2="50" stroke="white" stroke-width="2"/>
-                    <line x1="50" y1="50" x2="50" y2="30" stroke="white" stroke-width="3"/>
-                    <line x1="50" y1="50" x2="65" y2="35" stroke="#4ade80" stroke-width="3"/>
-                    <circle cx="50" cy="50" r="3" fill="white"/>
-                </svg>
-            </div>
-            <div class="typing-indicator">
-                <div class="typing-dot"></div>
-                <div class="typing-dot"></div>
-                <div class="typing-dot"></div>
-            </div>
-        `;
-        chatbotMessages.appendChild(typingDiv);
-        scrollToBottom();
+        function addBotResponse(userMessage) {
+            // 顯示打字動畫
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot';
+            typingDiv.innerHTML = `
+                <div class="message-avatar">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="3"/>
+                        <circle cx="50" cy="50" r="36" fill="none" stroke="white" stroke-width="2"/>
+                        <line x1="50" y1="15" x2="50" y2="20" stroke="white" stroke-width="2"/>
+                        <line x1="50" y1="80" x2="50" y2="85" stroke="white" stroke-width="2"/>
+                        <line x1="15" y1="50" x2="20" y2="50" stroke="white" stroke-width="2"/>
+                        <line x1="80" y1="50" x2="85" y2="50" stroke="white" stroke-width="2"/>
+                        <line x1="50" y1="50" x2="50" y2="30" stroke="white" stroke-width="3"/>
+                        <line x1="50" y1="50" x2="65" y2="35" stroke="#4ade80" stroke-width="3"/>
+                        <circle cx="50" cy="50" r="3" fill="white"/>
+                    </svg>
+                </div>
+                <div class="typing-indicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            `;
+            chatbotMessages.appendChild(typingDiv);
+            scrollToBottom();
 
-        try {
-            // 呼叫後端 API
-            const response = await fetch('http://localhost:3000/api/chat', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    message: userMessage,
-                    history: conversationHistory
-                })
-            });
-
-            const data = await response.json();
-            
-            // 移除打字動畫
-            typingDiv.remove();
-
-            if (data.success) {
-                // 更新對話歷史
-                conversationHistory.push(
-                    { role: 'user', content: userMessage },
-                    { role: 'assistant', content: data.reply }
-                );
-
-                // 限制歷史記錄長度（最多保留最近10輪對話）
-                if (conversationHistory.length > 20) {
-                    conversationHistory = conversationHistory.slice(-20);
+            // 模擬回應
+            setTimeout(() => {
+                typingDiv.remove();
+                
+                let response = knowledgeBase['預設'];
+                for (let key in knowledgeBase) {
+                    if (userMessage.includes(key)) {
+                        response = knowledgeBase[key];
+                        break;
+                    }
                 }
 
-                // 顯示 AI 回應
                 const messageDiv = document.createElement('div');
                 messageDiv.className = 'message bot';
                 messageDiv.innerHTML = `
@@ -2753,43 +2463,13 @@
                             <circle cx="50" cy="50" r="3" fill="white"/>
                         </svg>
                     </div>
-                    <div class="message-content">${data.reply.replace(/\n/g, '<br>')}</div>
+                    <div class="message-content">${response.replace(/\n/g, '<br>')}</div>
                 `;
                 chatbotMessages.appendChild(messageDiv);
                 scrollToBottom();
-
-                // 添加快速選項
                 addQuickOptions();
-            } else {
-                throw new Error(data.error);
-            }
-
-        } catch (error) {
-            console.error('Error:', error);
-            typingDiv.remove();
-            
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'message bot';
-            errorDiv.innerHTML = `
-                <div class="message-avatar">
-                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="3"/>
-                        <circle cx="50" cy="50" r="36" fill="none" stroke="white" stroke-width="2"/>
-                        <line x1="50" y1="15" x2="50" y2="20" stroke="white" stroke-width="2"/>
-                        <line x1="50" y1="80" x2="50" y2="85" stroke="white" stroke-width="2"/>
-                        <line x1="15" y1="50" x2="20" y2="50" stroke="white" stroke-width="2"/>
-                        <line x1="80" y1="50" x2="85" y2="50" stroke="white" stroke-width="2"/>
-                        <line x1="50" y1="50" x2="50" y2="30" stroke="white" stroke-width="3"/>
-                        <line x1="50" y1="50" x2="65" y2="35" stroke="#4ade80" stroke-width="3"/>
-                        <circle cx="50" cy="50" r="3" fill="white"/>
-                    </svg>
-                </div>
-                <div class="message-content">抱歉，系統暫時無法回應。請稍後再試或直接聯絡我們：<br>Email: exo881222@gmail.com</div>
-            `;
-            chatbotMessages.appendChild(errorDiv);
-            scrollToBottom();
+            }, 800);
         }
-    }
 
         function addQuickOptions() {
             const existingOptions = chatbotMessages.querySelector('.quick-options');
