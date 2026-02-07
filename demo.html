@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <link rel="icon" href="/New_Attendance-System/0rigin.svg" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>出勤管家｜實際使用畫面 Demo</title>
+    <title>出勤管家｜完整系統展示</title>
 
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -37,16 +37,200 @@
 
     <style>
         body { -webkit-font-smoothing: antialiased; }
-        /* 這裡不再用 @apply，因為純靜態頁面不會跑 Tailwind 編譯 */
+        
+        /* Modal 背景 */
+        .modal-backdrop {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+        }
+
+        /* 按鈕 hover 效果 */
+        .hover-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-2px);
+        }
+
+        /* OCR 掃描動畫 */
+        @keyframes scan {
+            0%, 100% { transform: translateY(-10px); opacity: 0.3; }
+            50% { transform: translateY(100%); opacity: 1; }
+        }
+        .scanning-line {
+            animation: scan 2s ease-in-out infinite;
+        }
+
+        /* 淡入動畫 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        /* 預覽圖片樣式 */
+        .preview-image {
+            max-height: 200px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
     </style>
 
     <script>
-        // Demo 版的主題切換（不寫 localStorage，純展示）
+        // Demo 版的主題切換
         function toggleTheme() {
             const html = document.documentElement;
             html.classList.toggle('dark');
-            document.getElementById('themeIcon').textContent =
-                html.classList.contains('dark') ? '☀️' : '🌙';
+            const isDark = html.classList.contains('dark');
+            document.getElementById('themeIcon').textContent = isDark ? '☀️' : '🌙';
+        }
+
+        // Modal 控制
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            // 如果是工作日誌，設定今天日期
+            if (modalId === 'workLogModal') {
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('workDate').value = today;
+            }
+            
+            // 如果是報銷申請，設定今天日期
+            if (modalId === 'expenseModal') {
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('expenseDate').value = today;
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            
+            // 清除預覽
+            if (modalId === 'receiptModal') {
+                document.getElementById('receiptPreview').innerHTML = '<div class="text-sm text-gray-400 dark:text-gray-500">尚未選擇檔案</div>';
+                document.getElementById('ocrScanning').classList.add('hidden');
+                document.getElementById('ocrResult').classList.add('hidden');
+            }
+            if (modalId === 'expenseModal') {
+                document.getElementById('expensePreview').innerHTML = '<div class="text-sm text-gray-400 dark:text-gray-500">尚未選擇檔案</div>';
+            }
+            if (modalId === 'attachmentModal') {
+                document.getElementById('attachmentPreview').innerHTML = '<div class="text-sm text-gray-400 dark:text-gray-500">尚未選擇檔案</div>';
+            }
+        }
+
+        // 工作日誌提交
+        function submitWorkLog() {
+            const date = document.getElementById('workDate').value;
+            const hours = document.getElementById('workHours').value;
+            const content = document.getElementById('workContent').value;
+
+            if (!date || !hours || !content || content.trim().length < 10) {
+                showMessage('workLogError', '請填寫所有必填欄位，工作內容至少 10 個字');
+                return;
+            }
+
+            showMessage('workLogSuccess', '工作日誌提交成功！已送交主管審核');
+            setTimeout(() => {
+                closeModal('workLogModal');
+                document.getElementById('workLogForm').reset();
+                hideMessage('workLogSuccess');
+            }, 2000);
+        }
+
+        // 檔案上傳預覽
+        function handleFileUpload(input, previewId, triggerOCR = false) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById(previewId);
+                    preview.innerHTML = `
+                        <div class="space-y-2">
+                            <img src="${e.target.result}" class="preview-image mx-auto border border-gray-200 dark:border-gray-600" alt="預覽">
+                            <p class="text-xs text-gray-500 dark:text-gray-400 text-center">${file.name}</p>
+                        </div>
+                    `;
+                    
+                    // 如果需要觸發 OCR
+                    if (triggerOCR) {
+                        simulateOCR();
+                    }
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // 模擬 OCR 辨識
+        function simulateOCR() {
+            const scanningEl = document.getElementById('ocrScanning');
+            const resultEl = document.getElementById('ocrResult');
+            
+            scanningEl.classList.remove('hidden');
+            resultEl.classList.add('hidden');
+            
+            setTimeout(() => {
+                scanningEl.classList.add('hidden');
+                resultEl.classList.remove('hidden');
+                
+                // 填入模擬資料
+                document.getElementById('receiptAmount').value = '1250';
+                document.getElementById('receiptVendor').value = '統一超商股份有限公司';
+                document.getElementById('receiptNumber').value = 'AB-12345678';
+            }, 2500);
+        }
+
+        // 報銷申請提交
+        function submitExpense() {
+            const date = document.getElementById('expenseDate').value;
+            const category = document.getElementById('expenseCategory').value;
+            const amount = document.getElementById('expenseAmount').value;
+
+            if (!date || !category || !amount) {
+                showMessage('expenseError', '請填寫所有必填欄位');
+                return;
+            }
+
+            const receiptNum = 'EXP-' + Date.now().toString().slice(-8);
+            showMessage('expenseSuccess', '報銷申請提交成功！憑證編號：' + receiptNum);
+            setTimeout(() => {
+                closeModal('expenseModal');
+                document.getElementById('expenseForm').reset();
+                hideMessage('expenseSuccess');
+            }, 2000);
+        }
+
+        // 顯示訊息
+        function showMessage(elementId, message) {
+            const el = document.getElementById(elementId);
+            if (el) {
+                el.textContent = message;
+                el.classList.remove('hidden');
+            }
+        }
+
+        // 隱藏訊息
+        function hideMessage(elementId) {
+            const el = document.getElementById(elementId);
+            if (el) {
+                el.classList.add('hidden');
+            }
+        }
+
+        // 拍照功能提示
+        function takePhoto(targetModal) {
+            alert('此為 Demo 版本\n實際使用時將啟動裝置相機進行拍照');
+        }
+
+        // 批次上傳提示
+        function batchUpload(type) {
+            alert('此為 Demo 版本\n實際使用時可一次選擇多個' + type + '進行批次上傳');
         }
     </script>
 </head>
@@ -71,10 +255,6 @@
             </div>
 
             <div class="flex items-center flex-wrap gap-3">
-                <a href="index.html"
-                   class="px-3 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-100 text-xs font-medium leading-none hover:opacity-80">
-                    回主系統頁
-                </a>
                 <button onclick="toggleTheme()"
                         class="px-3 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-100 text-xs font-medium leading-none">
                     <span id="themeIcon">☀️</span> 主題切換
@@ -406,6 +586,60 @@
             </div>
         </section>
 
+        <!-- 新功能區：工作日誌 / 發票辨識 / 報銷申請 -->
+        <section class="bg-white dark:bg-gray-800 rounded-xl shadow-card border border-gray-200/70 dark:border-gray-700/60 p-6">
+            <div class="mb-6">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">快速功能</h2>
+                <p class="text-sm text-gray-500 dark:text-gray-400">常用的申請與記錄功能</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- 工作日誌 -->
+                <button onclick="openModal('workLogModal')" 
+                        class="hover-lift text-left bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="text-2xl">📝</div>
+                        <span class="text-xs font-semibold px-2 py-1 rounded bg-blue-500 text-white">記錄</span>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 dark:text-white mb-1">工作日誌</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">記錄每日工作內容與工時</p>
+                </button>
+
+                <!-- 發票辨識 -->
+                <button onclick="openModal('receiptModal')" 
+                        class="hover-lift text-left bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 border border-purple-200 dark:border-purple-800 rounded-lg p-4">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="text-2xl">🔍</div>
+                        <span class="text-xs font-semibold px-2 py-1 rounded bg-purple-500 text-white">AI</span>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 dark:text-white mb-1">發票辨識</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">AI 快速辨識發票資訊</p>
+                </button>
+
+                <!-- 報銷申請 -->
+                <button onclick="openModal('expenseModal')" 
+                        class="hover-lift text-left bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-800/20 border border-emerald-200 dark:border-emerald-800 rounded-lg p-4">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="text-2xl">💰</div>
+                        <span class="text-xs font-semibold px-2 py-1 rounded bg-emerald-500 text-white">申請</span>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 dark:text-white mb-1">報銷申請</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">上傳發票並填寫憑證</p>
+                </button>
+
+                <!-- 附圖辨識助手 -->
+                <button onclick="openModal('attachmentModal')" 
+                        class="hover-lift text-left bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-900/20 dark:to-pink-800/20 border border-pink-200 dark:border-pink-800 rounded-lg p-4">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="text-2xl">📎</div>
+                        <span class="text-xs font-semibold px-2 py-1 rounded bg-pink-500 text-white">辨識</span>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 dark:text-white mb-1">附圖辨識</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">辨識收據、名片、合約</p>
+                </button>
+            </div>
+        </section>
+
         <!-- Footer -->
         <footer class="text-center text-[11px] text-gray-400 dark:text-gray-600 pt-8 pb-4">
             <div class="opacity-80">
@@ -418,5 +652,358 @@
         </footer>
 
     </div>
+
+    <!-- ===== Modal 1: 工作日誌 ===== -->
+    <div id="workLogModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-gray-700">
+            <div class="sticky top-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">工作日誌</h2>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">記錄每日工作內容與工時，提交後由主管審核</p>
+                </div>
+                <button onclick="closeModal('workLogModal')" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-2xl leading-none">
+                    ✕
+                </button>
+            </div>
+
+            <div class="p-6">
+                <!-- 成功訊息 -->
+                <div id="workLogSuccess" class="hidden mb-4 p-3 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 rounded-lg border border-green-200 dark:border-green-800 text-sm fade-in">
+                </div>
+
+                <!-- 錯誤訊息 -->
+                <div id="workLogError" class="hidden mb-4 p-3 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 rounded-lg border border-red-200 dark:border-red-800 text-sm fade-in">
+                </div>
+
+                <form id="workLogForm" class="space-y-5">
+                    <!-- 工作日期 -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            工作日期 <span class="text-red-500">*</span>
+                        </label>
+                        <input type="date" id="workDate" 
+                               class="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
+                    </div>
+
+                    <!-- 工作時數 -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            工作時數 <span class="text-red-500">*</span>
+                        </label>
+                        <input type="number" id="workHours" step="0.5" min="0" max="24"
+                               class="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                               placeholder="8.0">
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">可輸入小數，例如：8.5 小時</p>
+                    </div>
+
+                    <!-- 工作內容 -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            工作內容 <span class="text-red-500">*</span>
+                        </label>
+                        <textarea id="workContent" rows="8"
+                                  class="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-sm"
+                                  placeholder="請詳細描述今日工作內容...&#10;例如：&#10;1. 完成客戶 A 專案需求分析&#10;2. 與團隊討論下週開發計畫&#10;3. 撰寫技術文件..."></textarea>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">請至少填寫 10 個字</p>
+                    </div>
+
+                    <!-- 按鈕 -->
+                    <div class="flex gap-3 pt-2">
+                        <button type="button" onclick="closeModal('workLogModal')"
+                                class="flex-1 py-2.5 px-6 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition text-sm">
+                            取消
+                        </button>
+                        <button type="button" onclick="submitWorkLog()"
+                                class="flex-1 py-2.5 px-6 rounded-lg bg-blue-500 hover:bg-blue-600 text-white font-medium transition text-sm">
+                            提交工作日誌
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Modal 2: 發票辨識助手 ===== -->
+    <div id="receiptModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-gray-700">
+            <div class="sticky top-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">發票辨識助手</h2>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">使用 AI 快速辨識發票資訊</p>
+                </div>
+                <button onclick="closeModal('receiptModal')" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-2xl leading-none">
+                    ✕
+                </button>
+            </div>
+
+            <div class="p-6">
+                <!-- 上傳區域 -->
+                <div class="mb-6">
+                    <div class="grid grid-cols-2 gap-3 mb-4">
+                        <label class="cursor-pointer">
+                            <input type="file" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'receiptPreview', true)">
+                            <div class="py-3 px-4 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-center font-medium transition text-sm">
+                                拍照辨識
+                            </div>
+                        </label>
+                        <button onclick="batchUpload('發票')"
+                                class="py-3 px-4 bg-purple-500 hover:bg-purple-600 text-white rounded-lg font-medium transition text-sm">
+                            批次上傳
+                        </button>
+                    </div>
+
+                    <!-- 預覽區 -->
+                    <div id="receiptPreview" class="min-h-[200px] border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 flex items-center justify-center bg-gray-50 dark:bg-gray-900/40">
+                        <div class="text-sm text-gray-400 dark:text-gray-500">尚未選擇檔案</div>
+                    </div>
+                </div>
+
+                <!-- OCR 辨識中 -->
+                <div id="ocrScanning" class="hidden mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800 fade-in">
+                    <div class="relative h-24 bg-gray-200 dark:bg-gray-700 rounded overflow-hidden mb-3">
+                        <div class="scanning-line absolute inset-x-0 h-0.5 bg-blue-500"></div>
+                    </div>
+                    <p class="text-center text-sm text-blue-600 dark:text-blue-400 font-medium">AI 辨識中，請稍候...</p>
+                </div>
+
+                <!-- OCR 結果 -->
+                <div id="ocrResult" class="hidden mb-6 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800 fade-in">
+                    <p class="text-sm text-green-700 dark:text-green-300 font-semibold mb-2">
+                        辨識完成！已自動填入以下資訊
+                    </p>
+                    <ul class="text-xs text-green-600 dark:text-green-400 space-y-1">
+                        <li>• 發票金額：NT$ 1,250</li>
+                        <li>• 店家名稱：統一超商股份有限公司</li>
+                        <li>• 發票號碼：AB-12345678</li>
+                    </ul>
+                </div>
+
+                <!-- 辨識資訊表單 -->
+                <form class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            發票金額
+                        </label>
+                        <input type="number" id="receiptAmount"
+                               class="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm"
+                               placeholder="自動辨識">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            店家名稱
+                        </label>
+                        <input type="text" id="receiptVendor"
+                               class="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm"
+                               placeholder="自動辨識">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            發票號碼
+                        </label>
+                        <input type="text" id="receiptNumber"
+                               class="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm"
+                               placeholder="例如：AA-12345678">
+                    </div>
+
+                    <div class="flex gap-3 pt-2">
+                        <button type="button" onclick="closeModal('receiptModal')"
+                                class="flex-1 py-2.5 px-6 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition text-sm">
+                            關閉
+                        </button>
+                        <button type="button"
+                                class="flex-1 py-2.5 px-6 rounded-lg bg-purple-500 hover:bg-purple-600 text-white font-medium transition text-sm">
+                            儲存辨識結果
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Modal 3: 報銷申請 ===== -->
+    <div id="expenseModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-gray-700">
+            <div class="sticky top-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">報銷申請</h2>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">上傳發票並填寫會計憑證資訊</p>
+                </div>
+                <button onclick="closeModal('expenseModal')" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-2xl leading-none">
+                    ✕
+                </button>
+            </div>
+
+            <div class="p-6">
+                <!-- 成功訊息 -->
+                <div id="expenseSuccess" class="hidden mb-4 p-3 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 rounded-lg border border-green-200 dark:border-green-800 text-sm fade-in">
+                </div>
+
+                <!-- 錯誤訊息 -->
+                <div id="expenseError" class="hidden mb-4 p-3 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 rounded-lg border border-red-200 dark:border-red-800 text-sm fade-in">
+                </div>
+
+                <!-- 上傳發票 -->
+                <div class="mb-6">
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                        上傳發票照片（選填 - 僅供本地預覽）
+                    </label>
+                    <div class="flex gap-3 mb-3">
+                        <label class="flex-1 cursor-pointer">
+                            <input type="file" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'expensePreview')">
+                            <div class="py-2.5 px-4 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-center font-medium transition text-sm">
+                                拍照預覽
+                            </div>
+                        </label>
+                        <button onclick="batchUpload('發票')"
+                                class="flex-1 py-2.5 px-4 bg-pink-500 hover:bg-pink-600 text-white rounded-lg font-medium transition text-sm">
+                            批次上傳
+                        </button>
+                    </div>
+
+                    <div id="expensePreview" class="min-h-[150px] border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 flex items-center justify-center text-sm text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-gray-900/40">
+                        尚未選擇檔案
+                    </div>
+                </div>
+
+                <form id="expenseForm" class="space-y-4">
+                    <!-- 費用日期 -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            費用日期 <span class="text-red-500">*</span>
+                        </label>
+                        <input type="date" id="expenseDate"
+                               class="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm">
+                    </div>
+
+                    <!-- 費用摘要 -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            費用摘要 <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" id="expenseCategory"
+                               class="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm"
+                               placeholder="例如：購買辦公用品、客戶餐費">
+                    </div>
+
+                    <!-- 報銷金額 -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            報銷金額（元）<span class="text-red-500">*</span>
+                        </label>
+                        <input type="number" id="expenseAmount" min="0"
+                               class="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm"
+                               placeholder="0">
+                    </div>
+
+                    <!-- 發票號碼 -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            發票號碼
+                        </label>
+                        <input type="text" id="expenseReceiptNum"
+                               class="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm"
+                               placeholder="例如：AA-12345678">
+                    </div>
+
+                    <!-- 發票詳細資訊 -->
+                    <details class="border border-gray-300 dark:border-gray-600 rounded-lg">
+                        <summary class="px-4 py-3 cursor-pointer font-semibold text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
+                            發票詳細資訊（OCR 自動填入）
+                        </summary>
+                        <div class="px-4 py-3 space-y-3 bg-gray-50 dark:bg-gray-900/40 border-t border-gray-300 dark:border-gray-600">
+                            <input type="text" placeholder="店家統編"
+                                   class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm">
+                            <input type="text" placeholder="店家名稱"
+                                   class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm">
+                            <input type="text" placeholder="商品明細"
+                                   class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm">
+                        </div>
+                    </details>
+
+                    <!-- 備註 -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            備註
+                        </label>
+                        <textarea rows="3"
+                                  class="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 focus:border-transparent resize-none text-sm"
+                                  placeholder="其他補充說明..."></textarea>
+                    </div>
+
+                    <div class="flex gap-3 pt-2">
+                        <button type="button" onclick="closeModal('expenseModal')"
+                                class="flex-1 py-2.5 px-6 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition text-sm">
+                            取消
+                        </button>
+                        <button type="button" onclick="submitExpense()"
+                                class="flex-1 py-2.5 px-6 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-medium transition text-sm">
+                            生成憑證並送出
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Modal 4: 附圖辨識助手 ===== -->
+    <div id="attachmentModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-gray-700">
+            <div class="sticky top-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">附圖辨識助手</h2>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">辨識收據、名片、合約等文件</p>
+                </div>
+                <button onclick="closeModal('attachmentModal')" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-2xl leading-none">
+                    ✕
+                </button>
+            </div>
+
+            <div class="p-6">
+                <!-- 上傳區域 -->
+                <div class="mb-6">
+                    <div class="grid grid-cols-2 gap-3 mb-4">
+                        <label class="cursor-pointer">
+                            <input type="file" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'attachmentPreview')">
+                            <div class="py-3 px-4 bg-pink-500 hover:bg-pink-600 text-white rounded-lg text-center font-medium transition text-sm">
+                                拍照辨識
+                            </div>
+                        </label>
+                        <button onclick="batchUpload('文件')"
+                                class="py-3 px-4 bg-purple-500 hover:bg-purple-600 text-white rounded-lg font-medium transition text-sm">
+                            批次上傳
+                        </button>
+                    </div>
+
+                    <!-- 預覽區 -->
+                    <div id="attachmentPreview" class="min-h-[200px] border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 flex items-center justify-center bg-gray-50 dark:bg-gray-900/40">
+                        <div class="text-sm text-gray-400 dark:text-gray-500">尚未選擇檔案</div>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
+                    <h3 class="font-semibold text-blue-900 dark:text-blue-300 text-sm mb-2">支援辨識類型</h3>
+                    <ul class="text-xs text-blue-700 dark:text-blue-400 space-y-1">
+                        <li>• 收據：店家資訊、金額、日期</li>
+                        <li>• 名片：聯絡人、電話、Email</li>
+                        <li>• 合約：合約編號、日期、關鍵條款</li>
+                    </ul>
+                </div>
+
+                <div class="flex gap-3 pt-6">
+                    <button type="button" onclick="closeModal('attachmentModal')"
+                            class="flex-1 py-2.5 px-6 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition text-sm">
+                        關閉
+                    </button>
+                    <button type="button"
+                            class="flex-1 py-2.5 px-6 rounded-lg bg-pink-500 hover:bg-pink-600 text-white font-medium transition text-sm">
+                        開始辨識
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
