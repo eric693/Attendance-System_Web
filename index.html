@@ -2490,6 +2490,7 @@
             <div class="faq-tab active" data-tab="purchase">購買相關</div>
             <div class="faq-tab" data-tab="rules">打卡/出勤規則</div>
             <div class="faq-tab" data-tab="reports">出勤報表/異常</div>
+            <div class="faq-tab" data-tab="scheduling">排班/薪資計算</div>
         </div>
 
         <div class="faq-container">
@@ -2695,6 +2696,265 @@
                             • 完整的操作日誌<br><br>
                             
                             提示：所有資料都可匯出 Excel，方便會計作業
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 排班/薪資計算 -->
+            <div class="faq-content" data-content="scheduling" style="display: none;">
+                <div class="faq-item">
+                    <div class="faq-question">可以彈性設定不同班別的上下班時間嗎？</div>
+                    <div class="faq-answer">
+                        <p>可以！系統支援多種班別設定：</p>
+                        <p>
+                            <strong>廚房班別：</strong>A-I班（共9種）<br>
+                            <strong>外場班別：</strong>A1-A3、B1-B4（共7種）<br>
+                            <strong>假別：</strong>年假、過年假、國定假日、排休<br>
+                            <strong>自訂班別：</strong>可自由設定上下班時間<br><br>
+                            
+                            每個班別都可以自由設定時間，甚至支援跨日班（如晚班到凌晨）。系統會自動識別班別並計算工時。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">我們公司不是休六日，可以自行設定休息日為非六日嗎？</div>
+                    <div class="faq-answer">
+                        <p>可以！系統允許您根據公司實際狀況設定休息日與例假日，不一定要是週六日。您可以在後台設定哪些日期為休息日、例假日或國定假日，系統會自動依照設定計算加班費倍率。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">如何批量上傳排班？</div>
+                    <div class="faq-answer">
+                        <p>系統提供簡單的批量上傳功能：</p>
+                        <p>
+                            <strong>步驟1：</strong>點選「批量上傳」分頁<br>
+                            <strong>步驟2：</strong>下載範本檔案（含所有班別範例）<br>
+                            <strong>步驟3：</strong>依照範本格式填寫：員工ID、姓名、日期、班別、時間、地點<br>
+                            <strong>步驟4：</strong>上傳 CSV 檔案<br>
+                            <strong>步驟5：</strong>預覽確認後送出<br><br>
+                            
+                            <strong>檔案要求：</strong><br>
+                            • 格式：CSV（UTF-8 編碼）<br>
+                            • 必填：員工ID、姓名、日期、班別、上下班時間<br>
+                            • 選填：地點、備註<br>
+                            • 日期格式：YYYY-MM-DD<br>
+                            • 時間格式：HH:MM（24小時制）
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">系統支援哪些薪資類型？</div>
+                    <div class="faq-answer">
+                        <p>系統支援兩種薪資類型：</p>
+                        <p>
+                            <strong>月薪制：</strong><br>
+                            • 固定月薪 + 各項津貼/扣款<br>
+                            • 包含：職務加給、伙食費、交通補助、全勤獎金、業績獎金<br>
+                            • 加班費另外計算<br><br>
+                            
+                            <strong>時薪制：</strong><br>
+                            • 時薪 × 實際工作時數<br>
+                            • 總工作時數從打卡記錄自動計算<br>
+                            • 加班費依類型不同倍率計算<br><br>
+                            
+                            兩種類型都支援完整的勞健保、勞退自提、所得稅等扣款項目。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">加班費如何計算？</div>
+                    <div class="faq-answer">
+                        <p>系統依勞基法規定自動計算四種加班費：</p>
+                        <p>
+                            <strong>1. 平日加班（週一～五）</strong><br>
+                            • 前2小時：×1.34<br>
+                            • 第3小時起：×1.67<br><br>
+                            
+                            <strong>2. 休息日加班（週六）</strong><br>
+                            • 前2小時：×1.34<br>
+                            • 3-8小時：×1.67<br>
+                            • 第9小時起：×2.67<br><br>
+                            
+                            <strong>3. 例假日加班（週日）</strong><br>
+                            • 全部時數：×2.0<br><br>
+                            
+                            <strong>4. 國定假日出勤</strong><br>
+                            • 正常工時：×1.0（額外給付）<br>
+                            • 加班時數：×2.0<br><br>
+                            
+                            系統會自動判斷加班類型並計算正確倍率。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">國定假日出勤薪資如何計算？</div>
+                    <div class="faq-answer">
+                        <p>國定假日出勤分為兩部分計算：</p>
+                        <p>
+                            <strong>出勤薪資：</strong><br>
+                            當日正常工時 × 時薪 × 1.0（額外給付，不扣原薪）<br><br>
+                            
+                            <strong>加班費：</strong><br>
+                            超時部分 × 時薪 × 2.0<br><br>
+                            
+                            <strong>範例：</strong><br>
+                            月薪36,000（時薪150），國定假日工作10小時<br>
+                            • 出勤薪資：8h × 150 × 1.0 = 1,200元<br>
+                            • 加班費：2h × 150 × 2.0 = 600元<br>
+                            • 合計：1,800元
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">請假如何扣薪？</div>
+                    <div class="faq-answer">
+                        <p>系統會自動計算請假扣薪：</p>
+                        <p>
+                            <strong>病假：</strong>扣半薪（時數 × 時薪 × 0.5）<br>
+                            <strong>事假：</strong>扣全薪（時數 × 時薪 × 1.0）<br>
+                            <strong>特休/年假：</strong>不扣薪<br>
+                            <strong>早退：</strong>依早退時數按比例扣款<br><br>
+                            
+                            系統會在薪資明細中分別顯示病假、事假的時數與扣款金額，讓計算更透明。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">員工如何查看自己的薪資？</div>
+                    <div class="faq-answer">
+                        <p>員工登入後可以輕鬆查看薪資：</p>
+                        <p>
+                            <strong>步驟1：</strong>點選「薪資」分頁<br>
+                            <strong>步驟2：</strong>選擇要查詢的月份<br>
+                            <strong>步驟3：</strong>系統顯示完整薪資明細<br><br>
+                            
+                            <strong>顯示內容包括：</strong><br>
+                            • 應發總額、扣款總額、實發金額<br>
+                            • 詳細的應發項目明細<br>
+                            • 詳細的扣款項目明細<br>
+                            • 工作時數統計（時薪制）<br>
+                            • 加班統計（如有加班）<br>
+                            • 請假明細（如有請假）<br><br>
+                            
+                            所有資料都是即時更新，讓員工隨時掌握自己的薪資狀況。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">管理員如何計算員工薪資？</div>
+                    <div class="faq-answer">
+                        <p>管理員操作流程非常簡單：</p>
+                        <p>
+                            <strong>步驟1：薪資設定</strong><br>
+                            在「薪資設定」中設定員工的薪資基本資料（僅需設定一次）<br><br>
+                            
+                            <strong>步驟2：薪資計算</strong><br>
+                            在「薪資計算」輸入員工ID和年月<br>
+                            系統自動從打卡、加班、請假記錄計算<br><br>
+                            
+                            <strong>步驟3：預覽與儲存</strong><br>
+                            預覽計算結果無誤後儲存<br>
+                            員工即可在自己的帳號中查看<br><br>
+                            
+                            <strong>提示：</strong>建議每月固定時間（如月底）由管理員統一計算並確認，確保薪資準確無誤。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">可以匯出薪資報表嗎？</div>
+                    <div class="faq-answer">
+                        <p>可以！管理員可以：</p>
+                        <p>
+                            <strong>匯出選項：</strong><br>
+                            • 單一員工薪資明細（Excel）<br>
+                            • 全公司薪資總表（Excel）<br><br>
+                            
+                            <strong>報表內容包括：</strong><br>
+                            • 所有應發項目明細<br>
+                            • 所有扣款項目明細<br>
+                            • 應發總額與實發金額<br>
+                            • 銀行轉帳資訊<br><br>
+                            
+                            <strong>用途：</strong><br>
+                            • 會計作帳<br>
+                            • 銀行轉帳<br>
+                            • 薪資記錄保存<br>
+                            • 勞檢備查
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">勞健保費用需要手動輸入嗎？</div>
+                    <div class="faq-answer">
+                        <p>目前需要。建議做法：</p>
+                        <p>
+                            <strong>步驟1：</strong>查詢最新的勞健保費率<br>
+                            <strong>步驟2：</strong>計算員工應負擔金額<br>
+                            <strong>步驟3：</strong>在薪資設定中輸入<br>
+                            <strong>步驟4：</strong>系統會在每月薪資中自動扣除<br><br>
+                            
+                            <strong>提示：</strong>勞健保費率會隨政府公告調整，建議定期檢查並更新設定。未來我們會考慮加入自動更新功能。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">月曆功能可以看到什麼資訊？</div>
+                    <div class="faq-answer">
+                        <p>月曆功能提供完整的排班視覺化：</p>
+                        <p>
+                            <strong>每日排班概況：</strong><br>
+                            • 員工名稱<br>
+                            • 班別類型<br>
+                            • 上下班時間<br><br>
+                            
+                            <strong>本月統計：</strong><br>
+                            • 廚房班別數量<br>
+                            • 外場班別數量<br>
+                            • 各類假別統計<br><br>
+                            
+                            <strong>視覺化圖表：</strong><br>
+                            • 員工排班分布圖（前15名）<br>
+                            • 班別分布圓餅圖<br>
+                            • 班別類型統計<br><br>
+                            
+                            讓管理者一目瞭然本月排班狀況，快速掌握人力分配。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">誰可以新增或修改排班？</div>
+                    <div class="faq-answer">
+                        <p>系統採用權限分級管理：</p>
+                        <p>
+                            <strong>管理員：</strong><br>
+                            • 新增、修改、刪除排班<br>
+                            • 批量上傳排班<br>
+                            • 設定排班規則<br>
+                            • 查看所有員工排班<br><br>
+                            
+                            <strong>排班人員：</strong><br>
+                            • 新增、修改、刪除排班<br>
+                            • 批量上傳排班<br>
+                            • 查看所有員工排班<br><br>
+                            
+                            <strong>一般員工：</strong><br>
+                            • 只能查看自己的排班<br>
+                            • 無法修改排班<br><br>
+                            
+                            這樣的設計確保排班資料的安全性與正確性。
                         </p>
                     </div>
                 </div>
@@ -2965,7 +3225,13 @@
             '使用人數': '完全不限使用人數。\n\n無論您的公司是5人還是500人，都可以使用。這是我們的限量優惠方案。\n\n註：BC方案適用50人以下，51人以上請洽客服',
             
             '聯絡方式': '很高興為您服務！您可以透過以下方式聯絡我們：\n\nEmail｜exo881222@gmail.com\nInstagram｜@tw.eric_technology\n\n我們會盡快回覆您的問題',
-            
+
+            '排班管理': '排班管理功能完整：\n\n· 支援多種班別設定\n· 批量上傳排班表\n· 月曆視覺化顯示\n· 班別統計分析\n· 自動通知員工\n\n可設定廚房、外場、假別等17種班別',
+
+            '薪資計算': '自動計薪功能：\n\n· 月薪制/時薪制\n· 自動計算工時\n· 加班費自動計算\n· 請假扣薪處理\n· 勞健保自動扣除\n· 薪資報表匯出\n\n完全符合勞基法規定',
+
+            '加班費': '加班費計算依勞基法：\n\n平日加班｜前2h ×1.34，第3h起 ×1.67\n休息日｜前2h ×1.34，3-8h ×1.67，9h起 ×2.67\n例假日｜全部 ×2.0\n國定假日｜正常工時 ×1.0 + 加班 ×2.0\n\n系統自動判斷並計算',
+                        
             '預設': '感謝您的提問。關於這個問題，建議您：\n\n· 查看我們的常見問題區\n· 直接聯絡客服獲得詳細解答\n\nEmail｜exo881222@gmail.com\nInstagram｜@tw.eric_technology'
         };
 
@@ -3102,6 +3368,8 @@
             optionsDiv.innerHTML = `
                 <div class="quick-option" data-question="產品特色">產品特色</div>
                 <div class="quick-option" data-question="方案價格">方案價格</div>
+                <div class="quick-option" data-question="排班管理">排班管理</div>
+                <div class="quick-option" data-question="薪資計算">薪資計算</div>
                 <div class="quick-option" data-question="聯絡方式">聯絡我們</div>
             `;
             chatbotMessages.appendChild(optionsDiv);
