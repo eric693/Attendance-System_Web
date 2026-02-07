@@ -212,15 +212,39 @@
             color: #333;
         }
 
-        /* Hero Section with Particles */
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            color: #0d1b2a;
             padding: 180px 20px 120px;
             text-align: center;
             position: relative;
             overflow: hidden;
             margin-top: 70px;
+        }
+
+        /* 添加裝飾性背景元素 */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(45, 122, 95, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(78, 222, 128, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
         }
 
         .particles {
@@ -279,8 +303,8 @@
             font-weight: 700;
             opacity: 0;
             animation: fadeInUp 1s ease-out 0.4s forwards;
-            letter-spacing: 5px;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            letter-spacing: 2px;
+            color: #0d1b2a; /* 深色文字 */
         }
 
         .hero-tagline {
@@ -288,6 +312,7 @@
             margin-bottom: 50px;
             opacity: 0;
             animation: fadeInUp 1s ease-out 0.6s forwards;
+            color: #415a77; /* 灰藍色文字 */
         }
 
         @keyframes fadeInUp {
@@ -303,21 +328,18 @@
 
         .cta-button {
             display: inline-block;
-            background: white;
-            color: #667eea;
+            background: linear-gradient(135deg, #2d7a5f 0%, #1e5a45 100%); /* 綠色按鈕 */
+            color: white;
             padding: 20px 60px;
             border-radius: 50px;
             text-decoration: none;
             font-size: 1.3rem;
             font-weight: 600;
             margin-top: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 40px rgba(45, 122, 95, 0.3);
             transition: all 0.3s;
             opacity: 0;
             animation: fadeInUp 1s ease-out 0.8s forwards;
-            position: relative;
-            overflow: hidden;
-            margin-right: 20px;
         }
 
         .cta-button::before {
@@ -419,19 +441,15 @@
         .phone-mockup {
             max-width: 400px;
             height: 650px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2d7a5f 0%, #1e5a45 100%); /* 綠色漸層 */
             border-radius: 40px;
             margin: 0 auto;
-            box-shadow: 
-                0 50px 100px rgba(0,0,0,0.3),
-                0 0 0 1px rgba(255,255,255,0.1);
+            box-shadow: 0 50px 100px rgba(45, 122, 95, 0.2); /* 綠色陰影 */
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 40px;
             position: relative;
-            animation: float3D 6s ease-in-out infinite;
-            transform-style: preserve-3d;
         }
 
         @keyframes float3D {
@@ -450,7 +468,7 @@
             left: -5px;
             right: -5px;
             bottom: -5px;
-            background: linear-gradient(45deg, #667eea, #764ba2, #4ade80);
+            background: linear-gradient(45deg, #2d7a5f, #4ade80); /* 綠色光暈 */
             border-radius: 40px;
             z-index: -1;
             opacity: 0;
@@ -636,12 +654,25 @@
             background: #2563eb;
         }
 
-        /* 新功能展示區 */
         .new-features-spotlight {
             padding: 120px 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffffff; /* 純白背景 */
             position: relative;
             overflow: hidden;
+        }
+
+        /* 添加微妙的裝飾 */
+        .new-features-spotlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(45, 122, 95, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(78, 222, 128, 0.03) 0%, transparent 50%);
+            pointer-events: none;
         }
 
         .new-features-spotlight .feature-card-new {
@@ -684,7 +715,7 @@
             transform: translateX(-50%);
             width: 100px;
             height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            background: linear-gradient(90deg, #2d7a5f, #4ade80);
             border-radius: 2px;
         }
 
@@ -703,7 +734,7 @@
         .table-header {
             display: grid;
             grid-template-columns: 150px 1fr 1fr;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2d7a5f 0%, #1e5a45 100%);
             color: white;
         }
 
@@ -742,7 +773,7 @@
             align-items: center;
             justify-content: center;
             border-right: 2px solid #e5e7eb;
-            color: #667eea;
+            color: #2d7a5f;
         }
 
         .table-cell {
@@ -1087,7 +1118,7 @@
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-top: 60px;">
                 <!-- 工作日誌卡片 -->
                 <div class="feature-card-new">
-                    <h3 style="font-size: 1.8rem; color: #667eea; margin-bottom: 15px; font-weight: 700;">工作日誌管理</h3>
+                    <h3 style="font-size: 1.8rem; color: #2d7a5f;; margin-bottom: 15px; font-weight: 700;">工作日誌管理</h3>
                     <p style="color: #666; font-size: 1.05rem; line-height: 1.8; margin-bottom: 25px;">
                         數位化工作記錄，讓團隊協作更透明、績效評估更客觀
                     </p>
@@ -1593,14 +1624,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2d7a5f 0%, #4ade80 100%);
             opacity: 0;
             transition: opacity 0.4s;
         }
 
         .feature-card:hover {
             transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 20px 50px rgba(45, 122, 95, 0.3); /* 綠色陰影 */
         }
 
         .feature-card:hover::before {
@@ -1642,7 +1673,7 @@
 
         .feature-card li:before {
             content: '•';
-            color: #667eea;
+            color: #2d7a5f;
             font-weight: bold;
             margin-right: 10px;
         }
@@ -1650,7 +1681,7 @@
         /* Pricing Section with Glassmorphism */
         .pricing-section {
             padding: 120px 20px;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            background: linear-gradient(135deg, #0d1b2a 0%, #1a2634 100%); /* 深藍灰 */
             color: white;
             position: relative;
             overflow: hidden;
@@ -1663,8 +1694,8 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.15) 0%, transparent 50%);
+                radial-gradient(circle at 20% 20%, rgba(45, 122, 95, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(78, 222, 128, 0.08) 0%, transparent 50%);
         }
 
         .pricing-subtitle {
@@ -1705,7 +1736,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            background: linear-gradient(45deg, transparent, rgba(45, 122, 95, 0.1), transparent); /* 綠色 */
             transform: rotate(45deg);
             transition: all 0.6s;
         }
@@ -1716,13 +1747,13 @@
 
         .pricing-card:hover {
             transform: translateY(-10px);
-            border-color: #667eea;
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+            border-color: #2d7a5f; /* 綠色邊框 */
+            box-shadow: 0 20px 60px rgba(45, 122, 95, 0.3);
         }
 
         .pricing-card.featured {
-            border: 3px solid #667eea;
-            background: rgba(102, 126, 234, 0.1);
+            border: 3px solid #2d7a5f; /* 綠色 */
+            background: rgba(45, 122, 95, 0.1);
             transform: scale(1.05);
         }
 
@@ -1730,7 +1761,7 @@
             font-size: 1.8rem;
             margin-bottom: 30px;
             text-align: center;
-            background: linear-gradient(135deg, #667eea, #4ade80);
+            background: linear-gradient(135deg, #2d7a5f, #4ade80);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -1890,13 +1921,13 @@
         }
 
         .faq-tab:hover {
-            border-color: #667eea;
-            color: #667eea;
+            border-color: #2d7a5f; /* 綠色 */
+            color: #2d7a5f;
         }
 
         .faq-tab.active {
-            background: linear-gradient(135deg, #4ade80 0%, #2d7a5f 100%);
-            border-color: #4ade80;
+            background: linear-gradient(135deg, #2d7a5f 0%, #1e5a45 100%); /* 綠色 */
+            border-color: #2d7a5f;
             color: white;
         }
 
@@ -1935,13 +1966,13 @@
         }
 
         .faq-question:hover {
-            color: #667eea;
+            color: #2d7a5f; /* 綠色 */
         }
 
         .faq-question::after {
             content: '+';
             font-size: 2rem;
-            color: #667eea;
+            color: #2d7a5f;
             transition: transform 0.3s;
             flex-shrink: 0;
             margin-left: 20px;
@@ -1976,7 +2007,7 @@
         }
 
         .faq-answer strong {
-            color: #667eea;
+            color: #2d7a5f;
             font-weight: 600;
             display: block;
             margin-top: 10px;
@@ -1995,19 +2026,20 @@
         .footer-title {
             font-size: 2rem;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #667eea, #4ade80);
+            background: linear-gradient(135deg, #2d7a5f, #4ade80); /* 綠色 */
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
+
         .footer-contact {
             max-width: 600px;
             margin: 40px auto;
-            background: rgba(102, 126, 234, 0.1);
+            background: rgba(45, 122, 95, 0.1); /* 綠色透明背景 */
             padding: 30px;
             border-radius: 20px;
-            border: 2px solid rgba(102, 126, 234, 0.2);
+            border: 2px solid rgba(45, 122, 95, 0.2);
         }
 
         .contact-item {
@@ -2025,7 +2057,7 @@
         }
 
         .contact-row strong {
-            color: #667eea;
+            color: #2d7a5f;
         }
 
         .contact-row a {
@@ -2044,7 +2076,7 @@
         }
 
         .footer-links a {
-            color: #667eea;
+            color: #2d7a5f;
             text-decoration: none;
             margin: 0 20px;
             font-size: 1.1rem;
