@@ -1558,304 +1558,592 @@
         </div>
     </section>
 
-    <!-- 還需要補充 CSS 樣式 -->
+    <!-- 請將以下 CSS 添加到您的 <style> 標籤中，或替換現有的 FAQ 相關 CSS -->
+    <!-- 請將以下 CSS 添加到您的 <style> 標籤中，或替換現有的 FAQ 相關 CSS -->
     <style>
-        /* Features Section with Card Hover */
-        .features-section {
+        /* FAQ Section */
+        .faq-section {
             padding: 120px 20px;
             background: #f8f9fa;
             position: relative;
         }
 
-        .features-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 80px;
+        .faq-tabs {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
-        .feature-card {
+        .faq-tab {
+            padding: 15px 40px;
             background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.3);
-        }
-
-        .feature-card:hover::before {
-            opacity: 0.05;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #000000;
-            font-weight: 700;
-            position: relative;
-            z-index: 1;
-        }
-
-        .feature-card p {
-            position: relative;
-            z-index: 1;
-            color: #000000;
-            font-weight: 500;
-        }
-
-        .feature-card ul {
-            list-style: none;
-            margin-top: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .feature-card li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
+            border: 2px solid #e5e7eb;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
             transition: all 0.3s;
         }
 
-        .feature-card:hover li {
-            padding-left: 10px;
-        }
-
-        .feature-card li:before {
-            content: '•';
-            color: #667eea;
-            font-weight: bold;
-            margin-right: 10px;
-        }
-
-        /* Pricing Section with Glassmorphism */
-        .pricing-section {
-            padding: 120px 20px;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pricing-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.15) 0%, transparent 50%);
-        }
-
-        .pricing-subtitle {
-            text-align: center;
-            font-size: 1.3rem;
-            color: #ffd700;
-            margin-bottom: 60px;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .pricing-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .pricing-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px 30px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pricing-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.1), transparent);
-            transform: rotate(45deg);
-            transition: all 0.6s;
-        }
-
-        .pricing-card:hover::before {
-            left: 100%;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-10px);
+        .faq-tab:hover {
             border-color: #667eea;
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+            color: #667eea;
         }
 
-        .pricing-card.featured {
-            border: 3px solid #667eea;
-            background: rgba(102, 126, 234, 0.1);
-            transform: scale(1.05);
+        .faq-tab.active {
+            background: linear-gradient(135deg, #4ade80 0%, #2d7a5f 100%);
+            border-color: #4ade80;
+            color: white;
         }
 
-        .plan-name {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-content {
+            display: block;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .faq-question {
+            padding: 25px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #000000;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .faq-question:hover {
+            color: #667eea;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 2rem;
+            color: #667eea;
+            transition: transform 0.3s;
+            flex-shrink: 0;
+            margin-left: 20px;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            padding: 0 30px;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+            padding: 0 30px 25px;
+        }
+
+        .faq-answer p {
+            color: #333333;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+
+        .faq-answer p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-answer strong {
+            color: #667eea;
+            font-weight: 600;
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        /* Footer Section */
+        .footer {
+            background: #0a0a0a;
+            color: white;
+            padding: 60px 20px;
             text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
             background: linear-gradient(135deg, #667eea, #4ade80);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            position: relative;
-            z-index: 1;
         }
 
-        .price {
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 10px;
-            color: #ff6b6b;
-            position: relative;
-            z-index: 1;
+        .footer-contact {
+            max-width: 600px;
+            margin: 40px auto;
+            background: rgba(102, 126, 234, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
         }
 
-        .original-price {
-            text-align: center;
-            color: #888;
-            text-decoration: line-through;
-            margin-bottom: 30px;
-            font-size: 1rem;
-            position: relative;
-            z-index: 1;
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        .features-list {
-            list-style: none;
-            flex-grow: 1;
-            margin-bottom: 30px;
-            position: relative;
-            z-index: 1;
+        .contact-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1.1rem;
         }
 
-        .features-list li {
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 1rem;
-            transition: all 0.3s;
+        .contact-row strong {
+            color: #667eea;
         }
 
-        .pricing-card:hover .features-list li {
-            padding-left: 10px;
-        }
-
-        .features-list li.included:before {
-            content: '✓';
+        .contact-row a {
             color: #4ade80;
-            margin-right: 10px;
-            font-weight: bold;
-        }
-
-        .features-list li.gift {
-            color: #ff6b6b;
-        }
-
-        .features-list li.gift:before {
-            content: '贈';
-            color: #ff6b6b;
-            margin-right: 10px;
-            font-weight: bold;
-        }
-
-        .pricing-button {
-            display: block;
-            text-align: center;
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
             text-decoration: none;
-            font-weight: 600;
             transition: all 0.3s;
-            position: relative;
-            z-index: 1;
+        }
+
+        .contact-row a:hover {
+            color: #22d3ee;
+            transform: translateY(-2px);
+        }
+
+        .footer-links {
+            margin-top: 40px;
+        }
+
+        .footer-links a {
+            color: #667eea;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: #4ade80;
+            transform: translateY(-2px);
+        }
+
+        /* Chatbot 樣式 */
+        .chatbot-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #2d7a5f 0%, #1e5a45 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(45, 122, 95, 0.3);
+            z-index: 10000;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .chatbot-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(45, 122, 95, 0.4);
+        }
+
+        .chatbot-button svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+
+        .chatbot-button .close-icon {
+            display: none;
+        }
+
+        .chatbot-button.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .chatbot-button.active .chat-icon {
+            display: none;
+        }
+
+        .chatbot-button.active .close-icon {
+            display: block;
+        }
+
+        .chatbot-window {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            width: 420px;
+            height: 600px;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            display: none;
+            flex-direction: column;
+            z-index: 9999;
             overflow: hidden;
+            animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .pricing-button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+        .chatbot-window.active {
+            display: flex;
         }
 
-        .pricing-button:hover::before {
-            width: 300px;
-            height: 300px;
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
-        .pricing-button:hover {
+        .chatbot-header {
+            background: linear-gradient(135deg, #2d7a5f 0%, #1e5a45 100%);
+            color: white;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .chatbot-avatar {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .chatbot-avatar svg {
+            width: 36px;
+            height: 36px;
+        }
+
+        .chatbot-info h3 {
+            margin: 0;
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .chatbot-info p {
+            margin: 4px 0 0;
+            font-size: 0.875rem;
+            opacity: 0.85;
+            font-weight: 400;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            background: #fafbfc;
+        }
+
+        .chatbot-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chatbot-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .chatbot-messages::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+
+        .chatbot-messages::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        .message {
+            margin-bottom: 16px;
+            display: flex;
+            gap: 12px;
+            animation: messageSlide 0.3s ease-out;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.bot {
+            flex-direction: row;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #2d7a5f 0%, #1e5a45 100%);
+        }
+
+        .message.bot .message-avatar svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .message.user .message-avatar {
+            background: #667eea;
+            color: white;
+        }
+
+        .message-content {
+            max-width: 75%;
+            padding: 14px 18px;
+            border-radius: 16px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .message.bot .message-content {
+            background: white;
+            color: #1f2937;
+            border: 1px solid #e5e7eb;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.user .message-content {
+            background: #667eea;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .quick-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+            padding: 0;
+        }
+
+        .quick-option {
+            background: white;
+            border: 1.5px solid #2d7a5f;
+            color: #2d7a5f;
+            padding: 10px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .quick-option:hover {
+            background: #2d7a5f;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(45, 122, 95, 0.25);
+        }
+
+        .chatbot-input {
+            padding: 20px 24px;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 12px;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .chatbot-input input:focus {
+            border-color: #2d7a5f;
+            box-shadow: 0 0 0 3px rgba(45, 122, 95, 0.1);
+        }
+
+        .chatbot-input input::placeholder {
+            color: #9ca3af;
+        }
+
+        .send-button {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #2d7a5f 0%, #1e5a45 100%);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .send-button:hover {
             transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 4px 16px rgba(45, 122, 95, 0.3);
         }
 
-        .service-note {
-            text-align: center;
-            margin-top: 20px;
-            color: #ff9500;
-            font-size: 0.9rem;
-            position: relative;
-            z-index: 1;
+        .send-button:active {
+            transform: scale(0.95);
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .pricing-grid {
-                grid-template-columns: repeat(2, 1fr);
+        .send-button svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 6px;
+            padding: 14px 18px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            border-bottom-left-radius: 4px;
+            width: fit-content;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #2d7a5f;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.5;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
             }
         }
 
+        /* 響應式設計 */
         @media (max-width: 768px) {
-            .pricing-grid {
-                grid-template-columns: 1fr;
+            .chatbot-window {
+                width: calc(100vw - 24px);
+                height: calc(100vh - 140px);
+                right: 12px;
+                bottom: 100px;
+                border-radius: 20px;
             }
 
-            .pricing-card.featured {
-                transform: scale(1);
+            .chatbot-button {
+                bottom: 24px;
+                right: 24px;
+                width: 56px;
+                height: 56px;
+            }
+
+            .chatbot-button svg {
+                width: 24px;
+                height: 24px;
+            }
+
+            .chatbot-header {
+                padding: 20px;
+            }
+
+            .chatbot-messages {
+                padding: 20px;
+            }
+
+            .chatbot-input {
+                padding: 16px 20px;
+            }
+
+            .faq-tabs {
+                gap: 10px;
+            }
+
+            .faq-tab {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+
+            .faq-question {
+                padding: 20px 20px;
+                font-size: 1.1rem;
+            }
+
+            .faq-answer {
+                padding: 0 20px;
+            }
+
+            .faq-item.active .faq-answer {
+                padding: 0 20px 20px;
             }
         }
     </style>
