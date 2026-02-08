@@ -32,7 +32,7 @@ const systemPrompt = `你是「出勤管家」的專業客服助理。你需要�
 - 防止代打卡機制
 
 聯絡方式：
-- Email: exo881222@gmail.com
+- Email: erictechoffical@gmail.com
 - Instagram: @tw.eric_technology
 
 請用繁體中文回答，保持專業且友善的語氣。`;
