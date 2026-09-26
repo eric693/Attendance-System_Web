@@ -36,7 +36,7 @@ const systemPrompt = `你是「出勤管家」的專業客服助理。你需要�
 - 系統：7 種語言（繁中、英、日、韓、越、泰、印尼）、可安裝到手機（PWA）、LINE 通知
 
 聯絡方式：
-- Email: erictechoffical@gmail.com
+- Email: exo881222@gmail.com
 - Instagram: @tw.eric_technology
 - LINE: @438tljso（https://line.me/R/ti/p/@438tljso）
 
