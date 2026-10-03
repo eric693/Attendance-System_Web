@@ -114,6 +114,37 @@
             margin-top: 10px;
         }
 
+        .billing-choice {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .billing-choice label {
+            flex: 1 1 200px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 8px;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .billing-choice input {
+            width: auto;
+            margin: 0;
+            flex: none;
+        }
+
+        .billing-choice label:has(input:checked) {
+            border-color: #667eea;
+            background: #f5f7ff;
+        }
+
         .plan-card {
             border: 2px solid #e5e7eb;
             border-radius: 10px;
@@ -299,16 +330,24 @@
 
             <form id="purchaseForm">
                 <div class="form-group">
+                    <label>付費方式 <span class="required">*</span></label>
+                    <div class="billing-choice">
+                        <label><input type="radio" name="billing" value="buyout" checked> 買斷制（一次付清）</label>
+                        <label><input type="radio" name="billing" value="monthly"> 月付訂閱（按月付費）</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label>選擇方案 <span class="required">*</span></label>
                     <div class="plan-cards">
                         <label class="plan-card" for="planA">
-                            <input type="radio" name="plan" id="planA" value="A方案 - 打卡方案 ($5,000)">
+                            <input type="radio" name="plan" id="planA" value="A方案 - 打卡方案">
                             <div class="plan-name">A 方案</div>
-                            <div class="plan-price">$5,000</div>
+                            <div class="plan-price" data-buyout="$5,000" data-monthly="$900／月">$5,000</div>
                             <div class="plan-features">
                                 打卡 + 請假<br>
                                 <small style="font-size: 0.85em; opacity: 0.8; line-height: 1.4; display: block; margin-top: 5px;">
-                                    • GPS／QR Code／LINE 打卡<br>
+                                    • GPS／QR Code／LINE／平板打卡<br>
                                     • 15 種假別線上請假<br>
                                     • 遲到早退、忘記打卡提醒
                                 </small>
@@ -316,9 +355,9 @@
                         </label>
 
                         <label class="plan-card" for="planB">
-                            <input type="radio" name="plan" id="planB" value="B方案 - 打卡+排班+請假 ($12,500)">
+                            <input type="radio" name="plan" id="planB" value="B方案 - 打卡+排班+請假">
                             <div class="plan-name">B 方案</div>
-                            <div class="plan-price">$12,500</div>
+                            <div class="plan-price" data-buyout="$12,500" data-monthly="$1,500／月">$12,500</div>
                             <div class="plan-features">
                                 打卡 + 排班 + 請假<br>
                                 <small style="font-size: 0.85em; opacity: 0.8; line-height: 1.4; display: block; margin-top: 5px;">
@@ -329,16 +368,16 @@
                         </label>
 
                         <label class="plan-card" for="planC">
-                            <input type="radio" name="plan" id="planC" value="C方案 - 計薪方案 ($20,500)">
+                            <input type="radio" name="plan" id="planC" value="C方案 - 計薪方案">
                             <div class="plan-name">C 方案</div>
-                            <div class="plan-price">$20,500</div>
+                            <div class="plan-price" data-buyout="$20,500" data-monthly="$2,500／月">$20,500</div>
                             <div class="plan-features">
                                 完整功能 + 簽核 + 自動計薪<br>
                                 <small style="font-size: 0.85em; opacity: 0.8; line-height: 1.4; display: block; margin-top: 5px;">
                                     • 包含A+B所有功能<br>
-                                    • 請假/加班/補打卡簽核<br>
+                                    • 請假/加班/補打卡/費用申請簽核<br>
                                     • 自動計算工時薪資<br>
-                                    • 勞健保、所得稅自動計算
+                                    • 勞健保、所得稅、獎金規則自動計算
                                 </small>
                             </div>
                         </label>
@@ -427,6 +466,30 @@
             });
         });
 
+        // 付費方式：切換時更新價格；從首頁帶進來的 ?plan=&billing= 預先選好
+        const billingRadios = document.querySelectorAll('input[name="billing"]');
+        function currentBilling() {
+            return document.querySelector('input[name="billing"]:checked').value;
+        }
+        function updatePrices() {
+            const billing = currentBilling();
+            document.querySelectorAll('.plan-price').forEach(el => {
+                el.textContent = el.dataset[billing];
+            });
+        }
+        billingRadios.forEach(radio => radio.addEventListener('change', updatePrices));
+
+        const params = new URLSearchParams(location.search);
+        if (params.get('billing') === 'monthly') {
+            document.querySelector('input[name="billing"][value="monthly"]').checked = true;
+        }
+        const presetPlan = document.getElementById('plan' + (params.get('plan') || '').toUpperCase());
+        if (presetPlan) {
+            presetPlan.checked = true;
+            presetPlan.closest('.plan-card').classList.add('selected');
+        }
+        updatePrices();
+
         // Form submission
         const form = document.getElementById('purchaseForm');
         const submitBtn = document.getElementById('submitBtn');
@@ -478,7 +541,8 @@
 
             // Get form data
             const data = {
-                plan: selectedPlan.value,
+                plan: selectedPlan.value + ' (' + selectedPlan.closest('.plan-card').querySelector('.plan-price').textContent + ')',
+                billing: currentBilling() === 'monthly' ? '月付訂閱' : '買斷制',
                 companyName: companyName,
                 contactName: contactName,
                 email: email,
@@ -511,6 +575,7 @@
             const body = 
 '購買方案申請資訊\n' +
 '================\n\n' +
+'付費方式: ' + data.billing + '\n' +
 '選擇方案: ' + data.plan + '\n' +
 '公司名稱: ' + data.companyName + '\n' +
 '聯絡人: ' + data.contactName + '\n' +
