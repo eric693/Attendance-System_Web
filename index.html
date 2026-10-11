@@ -396,6 +396,317 @@
             }
         }
 
+        /* Hero：左文字、右手機 LINE 畫面 */
+        .hero-split {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 60px;
+            align-items: center;
+            text-align: left;
+        }
+
+        .hero-split .hero-subtitle { color: #2d7a5f; font-weight: 600; }
+        .hero-split h1 { font-size: 3.8rem; margin-bottom: 18px; }
+        .hero-h1-accent { color: #2d7a5f; }
+        .hero-split .hero-tagline { font-size: 2rem; font-weight: 700; color: #1b2b3a; margin-bottom: 22px; }
+
+        .hero-desc {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #415a77;
+            margin-bottom: 10px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.7s forwards;
+        }
+
+        .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+        .hero-ctas .cta-button { padding: 16px 40px; font-size: 1.15rem; }
+        .cta-outline {
+            background: transparent !important;
+            color: #2d7a5f !important;
+            border: 2px solid #2d7a5f;
+            box-shadow: 0 10px 40px rgba(45, 122, 95, 0.15) !important;
+        }
+
+        .hero-badges {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-top: 45px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1s forwards;
+        }
+
+        .hero-badge {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(45, 122, 95, 0.12);
+            border-radius: 16px;
+            padding: 16px 10px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(13, 27, 42, 0.05);
+        }
+
+        .hero-badge strong { display: block; color: #2d7a5f; font-size: 1.05rem; margin-bottom: 4px; }
+        .hero-badge span { font-size: 0.82rem; color: #5b6b7b; line-height: 1.4; display: block; }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        .hero-float { position: absolute; z-index: 2; }
+        .hero-float-check {
+            top: 18%;
+            left: 2%;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4ade80, #2d7a5f);
+            box-shadow: 0 10px 30px rgba(45, 122, 95, 0.35);
+            border: 5px solid #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-float-check svg { width: 30px; height: 30px; }
+        .hero-float-stars {
+            top: 40%;
+            left: -4%;
+            background: #fff;
+            color: #f5b301;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            padding: 8px 16px;
+            border-radius: 30px;
+            box-shadow: 0 8px 24px rgba(13, 27, 42, 0.1);
+        }
+
+        .line-phone {
+            width: 320px;
+            border-radius: 46px;
+            background: #fff;
+            border: 10px solid #1d2733;
+            box-shadow: 0 30px 80px rgba(13, 27, 42, 0.25);
+            overflow: hidden;
+            position: relative;
+            font-family: -apple-system, 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            text-align: left;
+        }
+
+        .lp-notch {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 96px;
+            height: 26px;
+            background: #1d2733;
+            border-radius: 20px;
+        }
+
+        .lp-status {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 24px 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: #7d9bd1;
+            color: #10233d;
+        }
+        .lp-status-icons { font-size: 0.6rem; letter-spacing: 1px; }
+
+        .lp-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px 10px;
+            background: #7d9bd1;
+            color: #10233d;
+            font-size: 0.9rem;
+        }
+        .lp-back { font-size: 1.6rem; line-height: 1; }
+        .lp-title { flex: 1; font-weight: 700; display: flex; align-items: center; gap: 5px; }
+        .lp-verified {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #06c755;
+            color: #fff;
+            font-size: 0.6rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .lp-header-icons { letter-spacing: 8px; }
+
+        .lp-chat { background: #7d9bd1; padding: 10px 14px 18px; }
+
+        .lp-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 16px 16px 12px;
+            box-shadow: 0 4px 12px rgba(16, 35, 61, 0.12);
+        }
+        .lp-card-label { color: #06a14a; font-size: 0.78rem; font-weight: 700; }
+        .lp-card-time { font-size: 1.45rem; font-weight: 800; color: #10233d; margin: 2px 0; }
+        .lp-card-date { font-size: 0.72rem; color: #8a94a3; padding-bottom: 10px; border-bottom: 1px solid #eef0f3; }
+        .lp-card-rows { padding: 8px 0; border-bottom: 1px solid #eef0f3; }
+        .lp-card-rows div { display: flex; justify-content: space-between; font-size: 0.72rem; padding: 3px 0; color: #10233d; }
+        .lp-card-rows div span:first-child { color: #8a94a3; }
+        .lp-card-links { display: flex; flex-direction: column; align-items: center; gap: 6px; padding-top: 10px; }
+        .lp-card-links span { color: #2f6fdd; font-size: 0.78rem; font-weight: 600; }
+
+        .lp-menu { background: #fff; }
+        .lp-tabs { display: grid; grid-template-columns: 1fr 1fr; font-size: 0.85rem; font-weight: 700; text-align: center; }
+        .lp-tabs span { padding: 9px 0; background: #2d7a5f; color: #fff; border-radius: 12px 12px 0 0; }
+        .lp-tabs span.active { background: #fff; color: #2d7a5f; }
+        .lp-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px 4px;
+            padding: 14px 8px 16px;
+            border-top: 2px solid #2d7a5f;
+        }
+        .lm-item { display: flex; flex-direction: column; align-items: center; gap: 5px; font-size: 0.66rem; color: #10233d; font-weight: 600; }
+        .lm-icon { width: 34px; height: 34px; color: #1f3b57; position: relative; }
+        .lm-icon svg { width: 100%; height: 100%; }
+        .lm-item:nth-child(-n+4) .lm-icon::after {
+            content: '';
+            position: absolute;
+            right: -2px;
+            bottom: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #4ade80;
+            border: 2px solid #fff;
+        }
+
+        .lp-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px 18px;
+            border-top: 1px solid #eef0f3;
+            color: #44505e;
+            font-size: 1.1rem;
+        }
+        .lp-input-box { flex: 1; background: #f1f3f6; border-radius: 18px; padding: 5px 14px; font-size: 0.85rem; color: #9aa4b0; }
+
+        @media (max-width: 968px) {
+            .hero-split { grid-template-columns: 1fr; text-align: center; gap: 50px; }
+            .hero-ctas { justify-content: center; }
+            .hero-desc .hero-br { display: none; }
+            .hero-float-stars { left: 4%; }
+        }
+
+        @media (max-width: 768px) {
+            .hero { padding: 120px 16px 70px; }
+            .hero-split h1 { font-size: 2.3rem; }
+            .hero-h1-accent { display: block; }
+            .hero-split .hero-tagline { font-size: 1.35rem; }
+            .hero-desc { font-size: 1rem; }
+            .hero-ctas .cta-button { width: 100%; text-align: center; margin-top: 12px; }
+            .hero-badges { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 30px; }
+            .line-phone { width: 290px; }
+            .hero-float-check { width: 52px; height: 52px; top: 6%; left: 0; }
+            .hero-float-stars { display: none; }
+        }
+
+        /* 方案卡片（淺色版） */
+        .pricing-section {
+            background: linear-gradient(180deg, #e3f1ea 0%, #d3e9de 100%) !important;
+            color: #10233d !important;
+        }
+        .pricing-section .pricing-bg { display: none; }
+        .pricing-section .section-title::after { background: #2d7a5f; }
+        .pricing-section .pricing-subtitle { color: #1e5a45; animation: none; margin-bottom: 50px; font-weight: 600; }
+        .pricing-section .billing-toggle { background: #fff; border-color: rgba(45, 122, 95, 0.2); box-shadow: 0 6px 20px rgba(45, 122, 95, 0.12); }
+        .pricing-section .billing-option { color: #2d7a5f; }
+        .pricing-section .billing-option.active { background: #2d7a5f; color: #fff; }
+        .pricing-section .pricing-grid { align-items: stretch; }
+
+        .pc {
+            background: #fff;
+            border-radius: 20px;
+            padding: 56px 34px 30px;
+            box-shadow: 0 12px 36px rgba(30, 90, 69, 0.12);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .pc:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(30, 90, 69, 0.2); }
+        .pc-featured { border: 3px solid #2d7a5f; }
+
+        .pc-name { font-size: 1.7rem; color: #2b3640; font-weight: 700; letter-spacing: 1px; margin-bottom: 10px; }
+        .pc-price { font-size: 3.1rem; font-weight: 800; color: #3a434b; line-height: 1.2; }
+        .pc-price small { font-size: 1.5rem; font-weight: 700; margin-right: 2px; }
+        .pc-price .pc-unit { font-size: 1.1rem; font-weight: 600; color: #6b7680; margin-left: 4px; }
+        .pc-sub {
+            color: #7b858f;
+            font-size: 1.1rem;
+            padding: 10px 0 22px;
+            margin-bottom: 22px;
+            border-bottom: 2px solid #e2e6e9;
+            min-height: 92px;
+            box-sizing: border-box;
+        }
+        .pc-orig { display: block; font-size: 0.9rem; color: #a3abb3; text-decoration: line-through; margin-top: 4px; }
+
+        .pc-list { list-style: none; padding: 0; margin: 0 0 28px; text-align: left; flex: 1; }
+        .pc-list li {
+            position: relative;
+            padding: 9px 0 9px 36px;
+            font-size: 1.12rem;
+            color: #2b3640;
+            line-height: 1.5;
+        }
+        .pc-list li::before {
+            content: '✔';
+            position: absolute;
+            left: 4px;
+            top: 8px;
+            color: #43a047;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .pc-button {
+            display: block;
+            background: #3f8f4a;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.35rem;
+            letter-spacing: 4px;
+            padding: 16px 0;
+            border-radius: 14px;
+            transition: background 0.3s;
+            margin: 0;
+            opacity: 1;
+            animation: none;
+        }
+        .pc-button:hover { background: #2d7a5f; }
+        .pc-note { margin-top: 16px; color: #1e5a45; font-weight: 600; font-size: 1rem; }
+        .pc-service { margin-top: 6px; color: #e07b00; font-size: 0.9rem; }
+
+        .pc-more { text-align: center; margin-top: 36px; position: relative; z-index: 1; }
+        .pc-more a { color: #1e5a45; font-weight: 600; text-decoration: none; font-size: 1.05rem; }
+        .pc-more a:hover { text-decoration: underline; }
+        .pc-footnote { text-align: center; margin-top: 18px; color: #5b6b66; font-size: 0.95rem; position: relative; z-index: 1; }
+
+        @media (max-width: 768px) {
+            .pc { padding: 50px 22px 26px; }
+            .pc-name { font-size: 1.45rem; }
+            .pc-price { font-size: 2.6rem; }
+            .pc-list li { font-size: 1.02rem; }
+            .pc-sub { min-height: 0; }
+        }
+
         /* Product Intro with 3D Effect */
         .product-intro {
             background: linear-gradient(135deg, #1e5a45 0%, #2d7a5f 100%);
@@ -1026,16 +1337,69 @@
                 <polygon points="60,10 110,90 10,90" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
             </svg>
         </div>
-        <div class="hero-content">
-            <div class="hero-subtitle">立即開始使用</div>
-            <h1>出勤管家</h1>
-            <div class="hero-tagline">智慧考勤管理 - 讓企業人資管理更輕鬆</div>
-            <a href="#pricing" class="cta-button">查看方案</a>
-            <a href="demo.html"
-            class="cta-button"
-            style="background: transparent; color: #2d7a5f; border: 2px solid #2d7a5f; box-shadow: 0 10px 40px rgba(45, 122, 95, 0.2);">
-            查看實際畫面 Demo
-            </a>
+        <div class="hero-content hero-split">
+            <div class="hero-text">
+                <div class="hero-subtitle">LINE 打卡・雲端人資</div>
+                <h1>出勤管家 <span class="hero-h1-accent">人資系統</span></h1>
+                <div class="hero-tagline">打卡、請假、排班、計薪一站搞定</div>
+                <p class="hero-desc">員工打開 LINE 就能打卡、請假、看班表與薪資單，<br class="hero-br">免下載 App，管理員線上審核、自動算薪。</p>
+                <div class="hero-ctas">
+                    <a href="#pricing" class="cta-button">查看方案</a>
+                    <a href="demo.html" class="cta-button cta-outline">查看實際畫面 Demo</a>
+                </div>
+                <div class="hero-badges">
+                    <div class="hero-badge"><strong>不限人數</strong><span>買斷或月付</span></div>
+                    <div class="hero-badge"><strong>免下載 App</strong><span>LINE 就能用</span></div>
+                    <div class="hero-badge"><strong>7 種語言</strong><span>外籍員工也好上手</span></div>
+                    <div class="hero-badge"><strong>100+ 企業</strong><span>餐飲、製造、房仲都在用</span></div>
+                </div>
+            </div>
+
+            <div class="hero-visual" aria-label="出勤管家 LINE 打卡畫面示意">
+                <div class="hero-float hero-float-check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+                </div>
+                <div class="hero-float hero-float-stars" aria-hidden="true">★★★★★</div>
+                <div class="line-phone">
+                    <div class="lp-notch"></div>
+                    <div class="lp-status"><span>9:41</span><span class="lp-status-icons">●●● ▮</span></div>
+                    <div class="lp-header">
+                        <span class="lp-back">‹</span>
+                        <span class="lp-title"><span class="lp-verified">✓</span>出勤管家</span>
+                        <span class="lp-header-icons">⌕ ☰</span>
+                    </div>
+                    <div class="lp-chat">
+                        <div class="lp-card">
+                            <div class="lp-card-label">你已打卡成功</div>
+                            <div class="lp-card-time">上班打卡 09:12</div>
+                            <div class="lp-card-date">日期 2026/10/11</div>
+                            <div class="lp-card-rows">
+                                <div><span>打卡地點</span><span>台北辦公室（GPS）</span></div>
+                                <div><span>今日班別</span><span>早班 09:00–18:00</span></div>
+                            </div>
+                            <div class="lp-card-links">
+                                <span>開啟出勤管家首頁</span>
+                                <span>查看出勤紀錄</span>
+                                <span>我要請假</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lp-menu">
+                        <div class="lp-tabs"><span class="active">我要打卡</span><span>管理員</span></div>
+                        <div class="lp-grid">
+                            <div class="lm-item"><span class="lm-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.6-6-10.5a6 6 0 0 1 12 0C18 15.4 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.2"/></svg></span><span>補打卡</span></div>
+                            <div class="lm-item"><span class="lm-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span>我要打卡</span></div>
+                            <div class="lm-item"><span class="lm-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><path d="M12 12.5v5M9.5 15h5"/></svg></span><span>我要請假</span></div>
+                            <div class="lm-item"><span class="lm-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="7.5"/><path d="M12 9.5V13l2.5 1.5M9 3h6"/><path d="M18.5 4.5l1.5 1.5"/></svg></span><span>我要加班</span></div>
+                            <div class="lm-item"><span class="lm-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4M7.5 13h2M11 13h2M14.5 13h2M7.5 16.5h2M11 16.5h2"/></svg></span><span>出勤紀錄</span></div>
+                            <div class="lm-item"><span class="lm-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3.5" width="16" height="17" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span><span>我的班表</span></div>
+                            <div class="lm-item"><span class="lm-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6l-1.5 3h-3z"/><path d="M10.5 7C6 9 4.5 13 4.5 15.5 4.5 19 7.5 20.5 12 20.5s7.5-1.5 7.5-5C19.5 13 18 9 13.5 7"/><path d="M12 11v6M10.3 12.6c0-.8.8-1.3 1.7-1.3s1.7.5 1.7 1.2c0 1.8-3.4.9-3.4 2.8 0 .7.8 1.2 1.7 1.2s1.7-.5 1.7-1.3"/></svg></span><span>我的薪資單</span></div>
+                            <div class="lm-item"><span class="lm-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.2"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.2"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.2"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.2"/></svg></span><span>更多功能</span></div>
+                        </div>
+                    </div>
+                    <div class="lp-input"><span>＋</span><span class="lp-input-box">Aa</span><span>☺</span></div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1530,7 +1894,7 @@
     <!-- Pricing Section -->
     <section class="pricing-section reveal" id="pricing">
         <div class="pricing-bg"></div>
-        <h2 class="section-title" style="color: #ffffff;">方案介紹</h2>
+        <h2 class="section-title" style="color: #10233d;">方案介紹</h2>
         <div class="billing-toggle" role="group" aria-label="付費方式">
             <button type="button" class="billing-option active" data-billing="buyout">買斷制</button>
             <button type="button" class="billing-option" data-billing="monthly">月付訂閱</button>
@@ -1540,130 +1904,76 @@
         
         <div class="pricing-grid">
             <!-- Plan A -->
-            <div class="pricing-card reveal">
-                <div class="plan-name">【A】打卡方案</div>
-                <div class="price"><span data-billing-show="buyout">$5,000</span><span data-billing-show="monthly" hidden>$900<small class="price-unit">／月</small></span></div>
-                <div class="original-price plain" data-billing-show="buyout">不限使用人數</div>
-                <div class="original-price plain" data-billing-show="monthly" hidden>按月付費・隨時可取消</div>
-                <ul class="features-list">
-                    <li class="included">打卡功能
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • GPS 定位打卡（地點範圍檢查）<br>
-                            • QR Code／LINE Bot／平板打卡<br>
-                            • 兩頭班，一天最多三組上下班卡<br>
-                            • 指紋／臉部辨識確認<br>
-                            • 遲到早退、忘記打卡提醒
-                        </div>
-                    </li>
-                    <li class="included">請假管理
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • 15 種假別<br>
-                            • 假別額度管理<br>
-                            • 時數自動計算（跳過假日與午休）<br>
-                            • 請假記錄查詢
-                        </div>
-                    </li>
+            <div class="pc reveal">
+                <h3 class="pc-name">A 打卡方案</h3>
+                <div class="pc-price">
+                    <span data-billing-show="buyout"><small>NT</small>$5,000</span>
+                    <span data-billing-show="monthly" hidden><small>NT</small>$900<small class="pc-unit">／月</small></span>
+                </div>
+                <div class="pc-sub" data-billing-show="buyout">一次買斷，不限人數</div>
+                <div class="pc-sub" data-billing-show="monthly" hidden>按月付費，不限人數，可隨時取消</div>
+                <ul class="pc-list">
+                    <li>LINE 打卡、平板打卡站</li>
+                    <li>GPS／QR Code 打卡</li>
+                    <li>兩頭班，一天最多三組上下班卡</li>
+                    <li>15 種假別、請假時數自動計算</li>
+                    <li>遲到早退、忘記打卡提醒</li>
                 </ul>
-                <a href="purchase.html?plan=A" class="pricing-button" data-plan="A">立即購買</a>
+                <a href="purchase.html?plan=A" class="pc-button" data-plan="A">了解詳情</a>
+                <div class="pc-note" data-billing-show="buyout">7 天退款保證、專人協助開通</div>
+                <div class="pc-note" data-billing-show="monthly" hidden>免綁約、專人協助開通</div>
             </div>
 
             <!-- Plan B -->
-            <div class="pricing-card reveal">
-                <div class="plan-name">【B】打卡＋排班＋請假</div>
-                <div class="price"><span data-billing-show="buyout">$12,500</span><span data-billing-show="monthly" hidden>$1,500<small class="price-unit">／月</small></span></div>
-                <div class="original-price" data-billing-show="buyout">（原價 $19,600）</div>
-                <div class="original-price plain" data-billing-show="monthly" hidden>按月付費・隨時可取消</div>
-                <ul class="features-list">
-                    <li class="gift">打卡功能
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • GPS 定位打卡（地點範圍檢查）<br>
-                            • QR Code／LINE Bot／平板打卡<br>
-                            • 兩頭班，一天最多三組上下班卡<br>
-                            • 指紋／臉部辨識確認<br>
-                            • 遲到早退、忘記打卡提醒
-                        </div>
-                    </li>
-                    <li class="gift">請假管理
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • 15 種假別<br>
-                            • 假別額度管理<br>
-                            • 時數自動計算（跳過假日與午休）<br>
-                            • 請假記錄查詢
-                        </div>
-                    </li>
-                    <li class="included">排班管理
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • 班別設定（含休息分鐘、跨日班）<br>
-                            • 單筆新增、批次匯入<br>
-                            • 月曆檢視班表<br>
-                            • 排班時數統計<br>
-                            • 連動早退判定
-                        </div>
-                    </li>
+            <div class="pc reveal">
+                <h3 class="pc-name">B 打卡＋排班＋請假</h3>
+                <div class="pc-price">
+                    <span data-billing-show="buyout"><small>NT</small>$12,500</span>
+                    <span data-billing-show="monthly" hidden><small>NT</small>$1,500<small class="pc-unit">／月</small></span>
+                </div>
+                <div class="pc-sub" data-billing-show="buyout">一次買斷，50 人以下<span class="pc-orig">原價 $19,600</span></div>
+                <div class="pc-sub" data-billing-show="monthly" hidden>按月付費，50 人以下，可隨時取消</div>
+                <ul class="pc-list">
+                    <li>包含 A 打卡方案全功能</li>
+                    <li>班別設定、輪班、跨日班</li>
+                    <li>批次匯入班表（CSV／Excel）</li>
+                    <li>月曆檢視、排班時數統計</li>
+                    <li>排班連動遲到早退判定</li>
                 </ul>
-                <a href="purchase.html?plan=B" class="pricing-button" data-plan="B">立即購買</a>
+                <a href="purchase.html?plan=B" class="pc-button" data-plan="B">了解詳情</a>
+                <div class="pc-note" data-billing-show="buyout">7 天退款保證、專人協助開通</div>
+                <div class="pc-note" data-billing-show="monthly" hidden>免綁約、專人協助開通</div>
             </div>
 
             <!-- Plan C -->
-            <div class="pricing-card featured reveal">
-                <div class="plan-name">【C】計薪方案</div>
-                <div class="price"><span data-billing-show="buyout">$25,500</span><span data-billing-show="monthly" hidden>$2,500<small class="price-unit">／月</small></span></div>
-                <div class="original-price" data-billing-show="buyout">（原價 $39,000）</div>
-                <div class="original-price plain" data-billing-show="monthly" hidden>按月付費・隨時可取消</div>
-                <ul class="features-list">
-                    <li class="gift">打卡功能
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • GPS 定位打卡（地點範圍檢查）<br>
-                            • QR Code／LINE Bot／平板打卡<br>
-                            • 兩頭班，一天最多三組上下班卡<br>
-                            • 指紋／臉部辨識確認<br>
-                            • 遲到早退、忘記打卡提醒
-                        </div>
-                    </li>
-                    <li class="gift">請假管理
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • 15 種假別<br>
-                            • 假別額度管理<br>
-                            • 時數自動計算（跳過假日與午休）<br>
-                            • 請假記錄查詢
-                        </div>
-                    </li>
-                    <li class="gift">排班管理
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • 班別設定（含休息分鐘、跨日班）<br>
-                            • 單筆新增、批次匯入<br>
-                            • 月曆檢視班表<br>
-                            • 排班時數統計<br>
-                            • 連動早退判定
-                        </div>
-                    </li>
-                    <li class="included">申請與簽核
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • 加班申請（平日／休息日／例假日／國定假日分別計費）<br>
-                            • 請假、補打卡、工作日誌審核<br>
-                            • 診斷證明等附件上傳<br>                            • 費用申請（預支／報銷）<br>
-                            • 核准／拒絕 LINE 推播通知
-                        </div>
-                    </li>
-                    <li class="included">自動計薪 限購
-                        <div style="font-size: 0.85em; color: #ffffff; margin-top: 5px; line-height: 1.4; font-weight: 500;">
-                            • 月薪／時薪自動計算<br>
-                            • 加班費、請假扣薪、早退扣款<br>
-                            • 勞健保級距、所得稅自動計算<br>
-                            • 全勤、伙食、生日、業績獎金規則<br>
-                            • 預支款自動扣回<br>
-                            • 自訂津貼與扣款項目<br>
-                            • 薪資單線上簽收<br>
-                            • 薪資異動記錄、Excel 報表
-                        </div>
-                    </li>
+            <div class="pc pc-featured reveal">
+                <div class="plan-ribbon">最多企業選用</div>
+                <h3 class="pc-name">C 計薪方案</h3>
+                <div class="pc-price">
+                    <span data-billing-show="buyout"><small>NT</small>$25,500</span>
+                    <span data-billing-show="monthly" hidden><small>NT</small>$2,500<small class="pc-unit">／月</small></span>
+                </div>
+                <div class="pc-sub" data-billing-show="buyout">一次買斷，50 人以下<span class="pc-orig">原價 $39,000</span></div>
+                <div class="pc-sub" data-billing-show="monthly" hidden>按月付費，50 人以下，可隨時取消</div>
+                <ul class="pc-list">
+                    <li>包含 B 方案全功能</li>
+                    <li>請假、加班、補打卡、費用申請簽核</li>
+                    <li>月薪／時薪自動計算薪資</li>
+                    <li>勞健保、所得稅自動計算</li>
+                    <li>全勤、伙食、業績等獎金規則</li>
+                    <li>薪資單線上檢視與簽收</li>
                 </ul>
-                <a href="purchase.html?plan=C" class="pricing-button" data-plan="C">立即購買</a>
-                <div class="service-note">專人薪資資料設定</div>
+                <a href="purchase.html?plan=C" class="pc-button" data-plan="C">了解詳情</a>
+                <div class="pc-note" data-billing-show="buyout">7 天退款保證、專人協助開通</div>
+                <div class="pc-note" data-billing-show="monthly" hidden>免綁約、專人協助開通</div>
+                <div class="pc-service">含專人薪資資料設定</div>
             </div>
+
         </div>
 
-        <div style="text-align: center; margin-top: 40px; color: #aaa; position: relative; z-index: 1;">
+        <p class="pc-more"><a href="#resources">查看完整功能比較 ›</a></p>
+
+        <div class="pc-footnote">
             <p data-billing-show="buyout">（以上價格為首購優惠價，購買後 7 天內加購只需補差價。未來加購功能將以原價計算。）</p>
             <p data-billing-show="monthly" hidden>（月付訂閱按月收費，可隨時升級方案；取消後下個月起停止計費。）</p>
             <p style="margin-top: 10px;">（B、C 方案限 50 人以下使用，51 人以上請洽客服。）</p>
@@ -1934,6 +2244,27 @@
             border: 3px solid #2d7a5f; /* 綠色 */
             background: rgba(45, 122, 95, 0.1);
             transform: scale(1.05);
+        }
+
+        .pricing-card.featured {
+            padding-top: 70px;
+        }
+
+        .plan-ribbon {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e5a45;
+            color: #fff;
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            padding: 8px 32px;
+            border-radius: 0 0 12px 12px;
+            white-space: nowrap;
+            z-index: 2;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
         }
 
         .plan-name {
@@ -3554,7 +3885,7 @@
             document.querySelectorAll('[data-billing-show]').forEach(el => {
                 el.hidden = el.dataset.billingShow !== billing;
             });
-            document.querySelectorAll('.pricing-button[data-plan]').forEach(link => {
+            document.querySelectorAll('.pc-button[data-plan]').forEach(link => {
                 link.href = 'purchase.html?plan=' + link.dataset.plan + (billing === 'monthly' ? '&billing=monthly' : '');
             });
         }
