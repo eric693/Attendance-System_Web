@@ -735,6 +735,60 @@
             transform: translateY(-50px);  /* 👈 加這一行！ */
         }
 
+        /* 產品介紹：系統實際的登入畫面 */
+        .phone-mockup.login-mockup {
+            background: #f9fafb;
+            border: 10px solid #1d2733;
+            padding: 24px;
+            box-shadow: 0 40px 90px rgba(13, 27, 42, 0.25);
+        }
+
+        .phone-mockup.login-mockup::before {
+            display: none;
+        }
+
+        .login-card {
+            width: 100%;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            padding: 34px 24px 30px;
+            text-align: center;
+            font-family: -apple-system, 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+        }
+
+        .login-logo {
+            width: 78%;
+            max-width: 240px;
+            height: auto;
+            display: block;
+            margin: 0 auto 28px;
+        }
+
+        .login-title { font-size: 1.6rem; font-weight: 800; color: #1f2937; margin-bottom: 8px; }
+        .login-sub { font-size: 1.05rem; color: #4b5563; margin-bottom: 24px; }
+
+        .login-btn {
+            background: #4f46e5;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 13px 0;
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+
+        .login-hint { font-size: 0.85rem; color: #6b7280; line-height: 1.6; margin: 0; }
+
+        @media (max-width: 768px) {
+            .phone-mockup.login-mockup { height: auto !important; padding: 16px; border-width: 8px; }
+            .login-card { padding: 26px 16px 22px; }
+            .login-title { font-size: 1.3rem; }
+            .login-sub { font-size: 0.95rem; margin-bottom: 18px; }
+            .login-btn { font-size: 1rem; padding: 11px 0; }
+            .login-hint { font-size: 0.78rem; }
+        }
+
         @keyframes float3D {
             0%, 100% {
                 transform: translateY(0) rotateY(-5deg);
@@ -1375,45 +1429,13 @@
         <div class="intro-bg"></div>
         <div class="intro-container">
             <div class="intro-image">
-                <div class="phone-mockup">
-                    <div style="text-align: center; color: white;">
-                        <svg width="140" height="140" viewBox="0 0 140 140" style="margin-bottom: 30px;">
-                            <defs>
-                                <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#4169E1;stop-opacity:1" />
-                                    <stop offset="50%" style="stop-color:#1E90FF;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#0047AB;stop-opacity:1" />
-                                </linearGradient>
-                            </defs>
-                            <g class="main-clock-circle">
-                                <circle cx="70" cy="70" r="63" fill="url(#blueGradient)" />
-                                <circle cx="70" cy="70" r="51" fill="white" />
-                            </g>
-                            <line x1="70" y1="24.5" x2="70" y2="31.5" stroke="#6B7280" stroke-width="2.1" stroke-linecap="round"/>
-                            <line x1="70" y1="108.5" x2="70" y2="115.5" stroke="#6B7280" stroke-width="2.1" stroke-linecap="round"/>
-                            <line x1="24.5" y1="70" x2="31.5" y2="70" stroke="#6B7280" stroke-width="2.1" stroke-linecap="round"/>
-                            <line x1="108.5" y1="70" x2="115.5" y2="70" stroke="#6B7280" stroke-width="2.1" stroke-linecap="round"/>
-                            <g class="main-clock-hour">
-                                <line x1="70" y1="70" x2="70" y2="45.5" stroke="#4169E1" stroke-width="3.5" stroke-linecap="round"/>
-                            </g>
-                            <g class="main-clock-minute">
-                                <line x1="70" y1="70" x2="94.5" y2="49" stroke="#5ECC8C" stroke-width="3.5" stroke-linecap="round"/>
-                            </g>
-                            <circle cx="70" cy="70" r="2.8" fill="#2C3E50"/>
-                            <g class="main-star" transform="translate(112, 21)">
-                                <path d="M 0,-7 L 2.06,-2.16 L 7.22,-2.16 L 3.33,1.03 L 5.39,5.87 L 0,2.67 L -5.39,5.87 L -3.33,1.03 L -7.22,-2.16 L -2.06,-2.16 Z" fill="#FFD700" stroke="#FFA500" stroke-width="0.5"/>
-                            </g>
-                            <g class="main-star" transform="translate(28, 119)">
-                                <path d="M 0,-7 L 2.06,-2.16 L 7.22,-2.16 L 3.33,1.03 L 5.39,5.87 L 0,2.67 L -5.39,5.87 L -3.33,1.03 L -7.22,-2.16 L -2.06,-2.16 Z" fill="#FFD700" stroke="#FFA500" stroke-width="0.5"/>
-                            </g>
-                            <circle class="main-dot" cx="122.5" cy="28" r="2.8" fill="#FFD700"/>
-                            <circle class="main-dot" cx="84" cy="126" r="2.8" fill="#FFD700"/>
-                        </svg>
-                        <div style="font-size: 2rem; margin-bottom: 15px; font-weight: 700;">歡迎使用出勤管家</div>
-                        <div style="font-size: 1rem; opacity: 0.9; margin-bottom: 40px;">Welcome to Check-In Hero</div>
-                        <div style="background: rgba(59,130,246,0.9); padding: 18px 40px; border-radius: 50px; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                            使用LINE登入
-                        </div>
+                <div class="phone-mockup login-mockup">
+                    <div class="login-card">
+                        <img src="images/0rigin.svg" alt="出勤管家" class="login-logo">
+                        <div class="login-title">歡迎使用出勤管家</div>
+                        <div class="login-sub">歡迎使用出勤管家</div>
+                        <div class="login-btn">使用LINE登入</div>
+                        <p class="login-hint">LINE 無法使用？請向管理員索取「登入連結」，用手機打開就能登入。</p>
                     </div>
                 </div>
             </div>
